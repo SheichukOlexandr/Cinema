@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\admin\\Desktop\\Practice\\Cinema\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{C6A466CE-6CC2-484C-B613-567CA293EC60}|Cinema.csproj|c:\\users\\admin\\desktop\\practice\\cinema\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C6A466CE-6CC2-484C-B613-567CA293EC60}|Cinema.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C6A466CE-6CC2-484C-B613-567CA293EC60}|Cinema.csproj|c:\\users\\admin\\desktop\\practice\\cinema\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
       "RelativeMoniker": "D:0:0:{C6A466CE-6CC2-484C-B613-567CA293EC60}|Cinema.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
@@ -18,11 +22,36 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\Practice\\Cinema\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\Practice\\Cinema\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-01-16T13:03:43.351Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "site.css",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\Practice\\Cinema\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
@@ -35,19 +64,14 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Cinema",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\Practice\\Cinema\\Cinema.csproj",
               "RelativeDocumentMoniker": "Cinema.csproj",
               "ToolTip": "C:\\Users\\admin\\Desktop\\Practice\\Cinema\\Cinema.csproj",
               "RelativeToolTip": "Cinema.csproj",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-01-15T11:36:10.641Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "WhenOpened": "2025-01-15T11:36:10.641Z"
             }
           ]
         }
