@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Cinema_app.Models;
+using System.Diagnostics;
 
 namespace MVC_Cinema_app.Controllers
 {
