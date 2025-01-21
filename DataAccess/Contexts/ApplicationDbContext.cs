@@ -3,8 +3,13 @@ using DataAccess.Models;
 
 namespace DataAccess.Contexts
 {
-    public class ApplicationDbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
         // Таблиці бази даних
         public DbSet<User> Users { get; set; }
         public DbSet<Movie> Movies { get; set; }
@@ -21,6 +26,27 @@ namespace DataAccess.Contexts
             base.OnModelCreating(modelBuilder);
 
             // Конфігурація зв'язків між моделями
+
+            // Movie -> Genre
+            modelBuilder.Entity<Movie>()
+                .HasOne(m => m.Genre)
+                .WithMany()
+                .HasForeignKey(m => m.GenreId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Movie -> MovieStatus
+            modelBuilder.Entity<Movie>()
+                .HasOne(m => m.Status)
+                .WithMany()
+                .HasForeignKey(m => m.StatusId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // MoviePrice -> Movie
+            modelBuilder.Entity<MoviePrice>()
+                .HasOne(mp => mp.Movie)
+                .WithMany()
+                .HasForeignKey(mp => mp.MovieId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Seat -> Room
             modelBuilder.Entity<Seat>()
@@ -71,6 +97,15 @@ namespace DataAccess.Contexts
                 .WithMany()
                 .HasForeignKey(r => r.StatusId);
 
+            // Указание типа данных для свойств Price и ExtraPrice
+            modelBuilder.Entity<MoviePrice>()
+                .Property(mp => mp.Price)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Seat>()
+                .Property(s => s.ExtraPrice)
+                .HasColumnType("decimal(18,2)");
         }
     }
 }
+

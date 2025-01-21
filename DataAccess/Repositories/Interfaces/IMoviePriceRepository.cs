@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccess.Models;
 
 namespace DataAccess.Repositories.Interfaces
 {
-    internal interface IMoviePriceRepository
+    public interface IMoviePriceRepository
     {
+        Task<MoviePrice> GetByIdAsync(int id);
+        Task<IEnumerable<MoviePrice>> GetAllAsync();
+        Task AddAsync(MoviePrice moviePrice);
+        Task UpdateAsync(MoviePrice moviePrice);
+        Task DeleteAsync(int id);
     }
 }

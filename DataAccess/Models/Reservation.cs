@@ -13,5 +13,7 @@
         public Seat Seat { get; set; }
         public ReservationStatus Status { get; set; }
 
+        public Movie Movie => Session?.Movie; // Навігаційна властивість через Session
+
     }
 }
