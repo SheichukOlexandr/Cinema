@@ -25,6 +25,11 @@ namespace DataAccess.Contexts
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Genre>()
+                .Property(g => g.Name)
+                .HasMaxLength(100)
+                .IsRequired();
+
             // Конфігурація зв'язків між моделями
 
             // Movie -> Genre
@@ -59,7 +64,8 @@ namespace DataAccess.Contexts
             modelBuilder.Entity<Session>()
                 .HasOne(s => s.Movie)
                 .WithMany()
-                .HasForeignKey(s => s.MovieId);
+                .HasForeignKey(s => s.MovieId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             // Session -> Room
             modelBuilder.Entity<Session>()
@@ -83,7 +89,8 @@ namespace DataAccess.Contexts
             modelBuilder.Entity<Reservation>()
                 .HasOne(r => r.Session)
                 .WithMany()
-                .HasForeignKey(r => r.SessionId);
+                .HasForeignKey(r => r.SessionId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             // Reservation -> Seat
             modelBuilder.Entity<Reservation>()
@@ -97,7 +104,7 @@ namespace DataAccess.Contexts
                 .WithMany()
                 .HasForeignKey(r => r.StatusId);
 
-            // Указание типа данных для свойств Price и ExtraPrice
+           
             modelBuilder.Entity<MoviePrice>()
                 .Property(mp => mp.Price)
                 .HasColumnType("decimal(18,2)");
@@ -108,4 +115,5 @@ namespace DataAccess.Contexts
         }
     }
 }
+
 
