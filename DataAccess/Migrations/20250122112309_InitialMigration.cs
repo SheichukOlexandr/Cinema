@@ -25,7 +25,7 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MovieStatus",
+                name: "MovieStatuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -34,7 +34,7 @@ namespace DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MovieStatus", x => x.Id);
+                    table.PrimaryKey("PK_MovieStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -65,7 +65,7 @@ namespace DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserStatus",
+                name: "UserStatuses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -74,7 +74,7 @@ namespace DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserStatus", x => x.Id);
+                    table.PrimaryKey("PK_UserStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,9 +104,9 @@ namespace DataAccess.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Movies_MovieStatus_StatusId",
+                        name: "FK_Movies_MovieStatuses_StatusId",
                         column: x => x.StatusId,
-                        principalTable: "MovieStatus",
+                        principalTable: "MovieStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -149,9 +149,9 @@ namespace DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_UserStatus_StatusId",
+                        name: "FK_Users_UserStatuses_StatusId",
                         column: x => x.StatusId,
-                        principalTable: "UserStatus",
+                        principalTable: "UserStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -206,8 +206,7 @@ namespace DataAccess.Migrations
                         name: "FK_Sessions_Rooms_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Rooms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -234,8 +233,7 @@ namespace DataAccess.Migrations
                         name: "FK_Reservations_Seats_SeatId",
                         column: x => x.SeatId,
                         principalTable: "Seats",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Reservations_Sessions_SessionId",
                         column: x => x.SessionId,
@@ -335,7 +333,7 @@ namespace DataAccess.Migrations
                 name: "Rooms");
 
             migrationBuilder.DropTable(
-                name: "UserStatus");
+                name: "UserStatuses");
 
             migrationBuilder.DropTable(
                 name: "Movies");
@@ -344,7 +342,7 @@ namespace DataAccess.Migrations
                 name: "Genres");
 
             migrationBuilder.DropTable(
-                name: "MovieStatus");
+                name: "MovieStatuses");
         }
     }
 }

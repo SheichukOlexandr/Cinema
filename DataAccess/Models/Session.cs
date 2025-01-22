@@ -9,8 +9,12 @@
         public DateTime Date { get; set; }
         public TimeSpan Time { get; set; }
 
-        public Movie Movie { get; set; }
-        public Room Room { get; set; }
-        public MoviePrice MoviePrice { get; set; }
+        // Зв'язки
+        public virtual Movie Movie { get; set; }
+        public virtual Room Room { get; set; }
+        public virtual MoviePrice MoviePrice { get; set; }
+
+        // Зв'язок one-to-many
+        public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
     }
 }

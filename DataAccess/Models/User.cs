@@ -15,6 +15,12 @@
 
         public int StatusId { get; set; }
 
-        public UserStatus Status { get; set; }
+        // Зв'язки
+        public virtual UserStatus Status { get; set; }
+
+        // one-to-many: User -> Reservation
+        public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+
+
     }
 }

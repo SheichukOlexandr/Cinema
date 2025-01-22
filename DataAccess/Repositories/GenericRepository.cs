@@ -8,35 +8,65 @@ namespace DataAccess.Repositories
     {
         private readonly DbContext _context;
         private readonly DbSet<T> _dbSet;
+
         public GenericRepository(DbContext context)
         {
             _context = context;
-            _dbSet = context.Set<T>();
+            _dbSet = _context.Set<T>();
         }
-        public async Task<T> GetByIdAsync(int id)
+
+        public async Task<T> GetByIdAsync(int id, params Expression<Func<T, object>>[] includeProperties)
         {
-            return await _dbSet.FindAsync(id);
+            IQueryable<T> query = _dbSet;
+
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return await query.SingleOrDefaultAsync(e => EF.Property<int>(e, "Id") == id);
         }
-        public async Task<IEnumerable<T>> GetAllAsync()
+
+        public async Task<IEnumerable<T>> GetAllAsync(
+            Expression<Func<T, bool>>? filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+            params Expression<Func<T, object>>[] includeProperties)
         {
-            return await _dbSet.ToListAsync();
+            IQueryable<T> query = _dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                query = orderBy(query);
+            }
+
+            return await query.ToListAsync();
         }
-        public async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
-        {
-            return await _dbSet.Where(predicate).ToListAsync();
-        }
+
         public async Task AddAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
         }
-        public async Task UpDateAsync(T entity)
+
+        public async Task UpdateAsync(T entity)
         {
             _dbSet.Update(entity);
         }
+
         public async Task DeleteAsync(T entity)
         {
             _dbSet.Remove(entity);
         }
+
         public async Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
         {
             return await _dbSet.AnyAsync(predicate);

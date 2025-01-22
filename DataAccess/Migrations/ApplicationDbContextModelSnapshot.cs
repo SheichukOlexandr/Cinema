@@ -126,7 +126,7 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MovieStatus");
+                    b.ToTable("MovieStatuses");
                 });
 
             modelBuilder.Entity("DataAccess.Models.Reservation", b =>
@@ -309,19 +309,19 @@ namespace DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserStatus");
+                    b.ToTable("UserStatuses");
                 });
 
             modelBuilder.Entity("DataAccess.Models.Movie", b =>
                 {
                     b.HasOne("DataAccess.Models.Genre", "Genre")
-                        .WithMany()
+                        .WithMany("Movies")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DataAccess.Models.MovieStatus", "Status")
-                        .WithMany()
+                        .WithMany("Movies")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -334,7 +334,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.MoviePrice", b =>
                 {
                     b.HasOne("DataAccess.Models.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("MoviePrices")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -345,25 +345,25 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.Reservation", b =>
                 {
                     b.HasOne("DataAccess.Models.Seat", "Seat")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("SeatId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("DataAccess.Models.Session", "Session")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("SessionId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("DataAccess.Models.ReservationStatus", "Status")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DataAccess.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -380,7 +380,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.Seat", b =>
                 {
                     b.HasOne("DataAccess.Models.Room", "Room")
-                        .WithMany()
+                        .WithMany("Seats")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -391,7 +391,7 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.Session", b =>
                 {
                     b.HasOne("DataAccess.Models.Movie", "Movie")
-                        .WithMany()
+                        .WithMany("Sessions")
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
@@ -403,9 +403,9 @@ namespace DataAccess.Migrations
                         .IsRequired();
 
                     b.HasOne("DataAccess.Models.Room", "Room")
-                        .WithMany()
+                        .WithMany("Sessions")
                         .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Movie");
@@ -418,12 +418,61 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.User", b =>
                 {
                     b.HasOne("DataAccess.Models.UserStatus", "Status")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Status");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.Genre", b =>
+                {
+                    b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.Movie", b =>
+                {
+                    b.Navigation("MoviePrices");
+
+                    b.Navigation("Sessions");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.MovieStatus", b =>
+                {
+                    b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.ReservationStatus", b =>
+                {
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.Room", b =>
+                {
+                    b.Navigation("Seats");
+
+                    b.Navigation("Sessions");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.Seat", b =>
+                {
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.Session", b =>
+                {
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.User", b =>
+                {
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("DataAccess.Models.UserStatus", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

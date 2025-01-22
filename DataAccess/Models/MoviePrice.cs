@@ -6,7 +6,8 @@
         public int MovieId { get; set; }
         public decimal Price { get; set; }
 
-        public Movie Movie { get; set; }
+        public virtual Movie Movie { get; set; }
+
 
     }
 }

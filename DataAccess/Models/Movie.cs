@@ -14,9 +14,14 @@
         public double Rating { get; set; }
         public int StatusId { get; set; }
 
+        // зв'язки
+        public virtual Genre Genre { get; set; }
+        public virtual MovieStatus Status { get; set; }
 
-        public Genre Genre { get; set; }
-        public MovieStatus Status { get; set; }
+        // звязок one-to-many 
+        public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();
 
+        // One-to-Many: Movie -> MoviePrice
+        public virtual ICollection<MoviePrice> MoviePrices { get; set; } = new List<MoviePrice>();
     }
 }
