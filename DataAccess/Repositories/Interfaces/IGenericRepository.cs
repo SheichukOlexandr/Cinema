@@ -12,7 +12,7 @@ namespace DataAccess.Repositories.Interfaces
             );
         Task AddAsync(T entity);
         Task UpdateAsync(T entity);
-        Task DeleteAsync(T entity);
+        Task DeleteAsync(int id);
         Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate);
     }
 }
