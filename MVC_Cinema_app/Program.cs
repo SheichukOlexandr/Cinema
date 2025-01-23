@@ -3,7 +3,7 @@ using DataAccess.Repositories;
 using DataAccess.Repositories.Interfaces;
 using DataAccess.Repositories.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
-
+using BusinessLogic.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,9 +16,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Додавання репозиторіїв
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-builder.Services.AddControllersWithViews();
-
+// Додавання сервісів
+builder.Services.AddSingleton<PasswordService>();
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 
