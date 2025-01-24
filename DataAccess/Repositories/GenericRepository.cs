@@ -82,7 +82,8 @@ namespace DataAccess.Repositories
 
         public async Task<T> GetByUsernameAsync(string username)
         {
-            return await _dbSet.SingleOrDefaultAsync(e => EF.Property<string>(e, "Username") == username);
+            var result = await GetAllAsync(e => EF.Property<string>(e, "Username") == username);
+            return result.SingleOrDefault();
         }
     }
 }
