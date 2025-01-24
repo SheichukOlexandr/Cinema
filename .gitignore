@@ -364,4 +364,4 @@ FodyWeavers.xsd
 *.sql
 
 # Игнорування папки Migration
-Migration/
+Migrations/
