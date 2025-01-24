@@ -18,10 +18,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-// Додавання сервісів
-builder.Services.AddSingleton<PasswordService>();
-builder.Services.AddScoped<UserService>();
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
