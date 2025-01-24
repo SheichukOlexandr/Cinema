@@ -365,3 +365,4 @@ FodyWeavers.xsd
 
 # Игнорування папки Migration
 Migrations/
+/DataAccess/Migrations
