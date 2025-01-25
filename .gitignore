@@ -363,6 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 *.sql
 
-# Игнорування папки Migration
-Migrations/
-/DataAccess/Migrations
+
