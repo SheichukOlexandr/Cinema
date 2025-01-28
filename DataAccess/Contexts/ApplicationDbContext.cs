@@ -15,8 +15,6 @@ namespace DataAccess.Contexts
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning));
-
             optionsBuilder.UseLazyLoadingProxies();
         }
 

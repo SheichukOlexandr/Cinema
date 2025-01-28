@@ -13,6 +13,7 @@
         public int MinAge { get; set; }
         public double Rating { get; set; }
         public int StatusId { get; set; }
+        public string TrailerURL { get; set; }
 
         // зв'язки
         public virtual Genre Genre { get; set; }
