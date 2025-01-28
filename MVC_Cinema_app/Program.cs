@@ -12,7 +12,9 @@ builder.Services.AddControllersWithViews();
 
 // Додавання DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSqlConnection"))
+);
 
 // Додавання репозиторіїв
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using DataAccess.Models;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace DataAccess.Contexts
 {
@@ -90,6 +91,13 @@ namespace DataAccess.Contexts
                 .HasMany(s => s.Reservations)
                 .WithOne(r => r.Session)
                 .HasForeignKey(r => r.SessionId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            // MoviePrice -> Session
+            modelBuilder.Entity<MoviePrice>()
+                .HasMany(s => s.Sessions)
+                .WithOne(r => r.MoviePrice)
+                .HasForeignKey(r => r.MoviePriceId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             // User -> Reservation
