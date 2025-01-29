@@ -72,11 +72,15 @@ namespace DataAccess.Migrations
                     b.Property<int>("MinAge")
                         .HasColumnType("integer");
 
+                    b.Property<string>("PosterURL")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<double>("Rating")
                         .HasColumnType("double precision");
 
-                    b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly>("ReleaseDate")
+                        .HasColumnType("date");
 
                     b.Property<int>("StatusId")
                         .HasColumnType("integer");
@@ -238,11 +242,8 @@ namespace DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("MovieId")
-                        .HasColumnType("integer");
+                    b.Property<DateOnly>("Date")
+                        .HasColumnType("date");
 
                     b.Property<int>("MoviePriceId")
                         .HasColumnType("integer");
@@ -250,12 +251,10 @@ namespace DataAccess.Migrations
                     b.Property<int>("RoomId")
                         .HasColumnType("integer");
 
-                    b.Property<TimeSpan>("Time")
-                        .HasColumnType("interval");
+                    b.Property<TimeOnly>("Time")
+                        .HasColumnType("time without time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("MovieId");
 
                     b.HasIndex("MoviePriceId");
 
@@ -397,12 +396,6 @@ namespace DataAccess.Migrations
 
             modelBuilder.Entity("DataAccess.Models.Session", b =>
                 {
-                    b.HasOne("DataAccess.Models.Movie", "Movie")
-                        .WithMany("Sessions")
-                        .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("DataAccess.Models.MoviePrice", "MoviePrice")
                         .WithMany("Sessions")
                         .HasForeignKey("MoviePriceId")
@@ -414,8 +407,6 @@ namespace DataAccess.Migrations
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Movie");
 
                     b.Navigation("MoviePrice");
 
@@ -441,8 +432,6 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.Movie", b =>
                 {
                     b.Navigation("MoviePrices");
-
-                    b.Navigation("Sessions");
                 });
 
             modelBuilder.Entity("DataAccess.Models.MoviePrice", b =>

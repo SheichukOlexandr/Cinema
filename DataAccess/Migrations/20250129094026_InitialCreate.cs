@@ -89,11 +89,12 @@ namespace DataAccess.Migrations
                     Duration = table.Column<int>(type: "integer", nullable: false),
                     Cast = table.Column<string>(type: "text", nullable: false),
                     GenreId = table.Column<int>(type: "integer", nullable: false),
-                    ReleaseDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ReleaseDate = table.Column<DateOnly>(type: "date", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
                     MinAge = table.Column<int>(type: "integer", nullable: false),
                     Rating = table.Column<double>(type: "double precision", nullable: false),
                     StatusId = table.Column<int>(type: "integer", nullable: false),
+                    PosterURL = table.Column<string>(type: "text", nullable: false),
                     TrailerURL = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -184,11 +185,10 @@ namespace DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    MovieId = table.Column<int>(type: "integer", nullable: false),
                     MoviePriceId = table.Column<int>(type: "integer", nullable: false),
                     RoomId = table.Column<int>(type: "integer", nullable: false),
-                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Time = table.Column<TimeSpan>(type: "interval", nullable: false)
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    Time = table.Column<TimeOnly>(type: "time without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -197,11 +197,6 @@ namespace DataAccess.Migrations
                         name: "FK_Sessions_MoviePrices_MoviePriceId",
                         column: x => x.MoviePriceId,
                         principalTable: "MoviePrices",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Sessions_Movies_MovieId",
-                        column: x => x.MovieId,
-                        principalTable: "Movies",
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Sessions_Rooms_RoomId",
@@ -287,11 +282,6 @@ namespace DataAccess.Migrations
                 name: "IX_Seats_RoomId",
                 table: "Seats",
                 column: "RoomId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sessions_MovieId",
-                table: "Sessions",
-                column: "MovieId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Sessions_MoviePriceId",
