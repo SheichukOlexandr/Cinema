@@ -4,6 +4,7 @@ using DataAccess.Repositories.Interfaces;
 using DataAccess.Repositories.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Додавання репозиторіїв
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<UserService>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Auth/Index";
+        options.LogoutPath = "/Auth/Logout";
+    });
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -36,6 +45,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
+app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",

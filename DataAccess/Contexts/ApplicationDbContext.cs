@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using DataAccess.Models;
-using Microsoft.EntityFrameworkCore.Diagnostics;
+
 
 namespace DataAccess.Contexts
 {
@@ -57,13 +57,6 @@ namespace DataAccess.Contexts
                 .WithOne(mp => mp.Movie)
                 .HasForeignKey(mp => mp.MovieId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            // Movie -> Session
-            modelBuilder.Entity<Movie>()
-                .HasMany(m => m.Sessions)
-                .WithOne(s => s.Movie)
-                .HasForeignKey(s => s.MovieId)
-                .OnDelete(DeleteBehavior.NoAction);
 
             // Room -> Session
             modelBuilder.Entity<Room>()
