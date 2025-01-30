@@ -1,13 +1,16 @@
 ﻿@model BusinessLogic.DTOs.AuthDto
 
 @{
+
     ViewData["Title"] = "Login/Register";
+    ViewData["HideHeader"] = true;
 }
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/css/AuthPage.css" asp-append-version="true" />
+    
 </head>
 
 <div class="container">
@@ -38,7 +41,9 @@
         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         <input class="register-button" type="submit" value="Реєстрація">
     </form>
+    
 </div>
+
 
 @section Scripts {
     <script>
