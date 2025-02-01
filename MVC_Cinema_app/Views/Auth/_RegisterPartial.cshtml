@@ -11,7 +11,7 @@
         <div class="input-box">
             <input asp-for="LastName" placeholder="Фамілія" required>
             <span asp-validation-for="LastName" class="text-danger"></span>
-            <i class='bx bxs-lock-alt'></i>
+            <i class='bx bxs-user'></i>
         </div>
         <div class="input-box">
             <input asp-for="RegisterEmail" placeholder="Email" required>
@@ -21,17 +21,17 @@
         <div class="input-box">
             <input asp-for="PhoneNumber" placeholder="Номер телефону" required>
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            <i class='bx bxs-lock-alt'></i>
+            <i class='bx bxs-phone'></i>
         </div>
         <div class="input-box">
-            <input asp-for="RegisterPassword" placeholder="Пароль" required>
+            <input asp-for="RegisterPassword" placeholder="Пароль" required id="registerPassword" type="password">
             <span asp-validation-for="RegisterPassword" class="text-danger"></span>
-            <i class='bx bxs-lock-alt'></i>
+            <i class='bx bxs-hide' id="toggleRegisterPassword" style="cursor: pointer; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);"></i>
         </div>
         <div class="input-box">
-            <input asp-for="ConfirmPassword" placeholder="Підтвердження паролю" required>
+            <input asp-for="ConfirmPassword" placeholder="Підтвердження паролю" required id="confirmPassword" type="password">
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            <i class='bx bxs-lock-alt'></i>
+            <i class='bx bxs-hide' id="toggleConfirmPassword" style="cursor: pointer; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);"></i>
         </div>
         <button type="submit" class="btn">Зареєструватись</button>
         <div class="forgot-link">
