@@ -79,5 +79,10 @@ namespace DataAccess.Repositories
         {
             return await _dbSet.AnyAsync(predicate);
         }
+
+        public async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.FirstOrDefaultAsync(predicate);
+        }
     }
 }

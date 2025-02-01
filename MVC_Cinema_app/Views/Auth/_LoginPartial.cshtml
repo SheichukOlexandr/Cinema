@@ -1,0 +1,21 @@
+﻿@model BusinessLogic.DTOs.LoginDto
+
+<div class="form-box login">
+    <form asp-action="Login" method="post">
+        <h1>Вхід</h1>
+        <div class="input-box">
+            <input asp-for="LoginEmail" placeholder="Пошта" required>
+            <span asp-validation-for="LoginEmail" class="text-danger"></span>
+            <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+            <input asp-for="LoginPassword" placeholder="Пароль" required>
+            <span asp-validation-for="LoginPassword" class="text-danger"></span>
+            <i class='bx bxs-lock-alt'></i>
+        </div>
+        <button type="submit" class="btn">Вхід</button>
+        <div class="forgot-link">
+            <a asp-controller="Home" asp-action="Index">Повернутися на головну</a>
+        </div>
+    </form>
+</div>

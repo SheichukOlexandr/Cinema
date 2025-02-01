@@ -21,24 +21,33 @@ namespace MVC_Cinema_app.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(new AuthDto());
+            ViewData["LoginModel"] = new LoginDto();
+            ViewData["RegisterModel"] = new RegisterDto();
+            return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(AuthDto model)
+        public async Task<IActionResult> Login(LoginDto model)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewData["RegisterModel"] = new RegisterDto();
+                return View("Index", model);
+            }
+
             var user = await _userService.AuthenticateUserAsync(model.LoginEmail, model.LoginPassword);
             if (user == null)
             {
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                ModelState.AddModelError("LoginPassword", "Невірний логін або пароль.");
+                ViewData["RegisterModel"] = new RegisterDto();
                 return View("Index", model);
             }
 
             var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
-                    new Claim(ClaimTypes.Email, user.Email),
-                };
+            {
+                new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
+                new Claim(ClaimTypes.Email, user.Email),
+            };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
@@ -51,18 +60,17 @@ namespace MVC_Cinema_app.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> Register(RegisterDto model)
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Register(AuthDto model)
-        {
+            if (!ModelState.IsValid)
+            {
+                ViewData["LoginModel"] = new LoginDto();
+                return View("Index", model);
+            }
             if (model.RegisterPassword != model.ConfirmPassword)
             {
                 ModelState.AddModelError(string.Empty, "Passwords do not match.");
+                ViewData["LoginModel"] = new LoginDto();
                 return View("Index", model);
             }
 
@@ -80,10 +88,10 @@ namespace MVC_Cinema_app.Controllers
 
             // Автоматически входим в систему после успешной регистрации
             var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
-                    new Claim(ClaimTypes.Email, user.Email),
-                };
+                    {
+                        new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
+                        new Claim(ClaimTypes.Email, user.Email),
+                    };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
@@ -92,6 +100,13 @@ namespace MVC_Cinema_app.Controllers
             };
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
         }
     }

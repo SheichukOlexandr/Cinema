@@ -1,8 +1,5 @@
-﻿@model BusinessLogic.DTOs.AuthDto
-
-@{
-
-    ViewData["Title"] = "Login/Register";
+﻿@{
+    ViewData["Title"] = "Авторизація";
     ViewData["HideHeader"] = true;
 }
 
@@ -10,62 +7,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="~/css/AuthPage.css" asp-append-version="true" />
-    
+    <link rel="stylesheet" href="~/lib/boxicons/css/boxicons.min.css" asp-append-version="true">
 </head>
+<body>
+    <div class="container">
+        @Html.Partial("_LoginPartial", ViewData["LoginModel"])
+        @Html.Partial("_RegisterPartial", ViewData["RegisterModel"])
 
-<div class="container">
-    <div class="toggle-container">
-        <button class="toggle-button active" id="login-toggle">Вхід</button>
-        <button class="toggle-button" id="register-toggle">Реєстрація</button>
+        <div class="toggle-box">
+            <div class="toggle-panel toggle-left">
+                <h1>Ласкаво просимо!</h1>
+                <p>Не маєте облікового запису?</p>
+                <button class="btn register-btn">Зареєструватися</button>
+            </div>
+
+            <div class="toggle-panel toggle-right">
+                <h1>З поверненням!</h1>
+                <p>Вже маєте обліковий запис?</p>
+                <button class="btn login-btn">Вхід</button>
+            </div>
+        </div>
     </div>
-    <div class="heading" id="form-heading">Вхід</div>
-    <form id="login-form" class="form" asp-action="Login" method="post">
-        <input asp-for="LoginEmail" class="input" placeholder="Пошта" />
-        <span asp-validation-for="LoginEmail" class="text-danger"></span>
-        <input asp-for="LoginPassword" class="input" placeholder="Пароль" />
-        <span asp-validation-for="LoginPassword" class="text-danger"></span>
-        <input class="login-button" type="submit" value="Вхід">
-    </form>
-    <form id="register-form" class="form" asp-action="Register" method="post" style="display: none;">
-        <input asp-for="FirstName" class="input" placeholder="Ім`я" />
-        <span asp-validation-for="FirstName" class="text-danger"></span>
-        <input asp-for="LastName" class="input" placeholder="Фамілія" />
-        <span asp-validation-for="LastName" class="text-danger"></span>
-        <input asp-for="RegisterEmail" class="input" placeholder="Пошта" />
-        <span asp-validation-for="RegisterEmail" class="text-danger"></span>
-        <input asp-for="PhoneNumber" class="input" placeholder="Номер телефону" />
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-        <input asp-for="RegisterPassword" class="input" placeholder="Пароль" />
-        <span asp-validation-for="RegisterPassword" class="text-danger"></span>
-        <input asp-for="ConfirmPassword" class="input" placeholder="Повторіть пароль" />
-        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-        <input class="register-button" type="submit" value="Реєстрація">
-    </form>
-    
-</div>
 
-
-@section Scripts {
-    <script>
-        const loginToggle = document.getElementById('login-toggle');
-        const registerToggle = document.getElementById('register-toggle');
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-        const formHeading = document.getElementById('form-heading');
-
-        loginToggle.addEventListener('click', () => {
-            loginToggle.classList.add('active');
-            registerToggle.classList.remove('active');
-            loginForm.style.display = 'block';
-            registerForm.style.display = 'none';
-            formHeading.textContent = 'Вхід';
-        });
-
-        registerToggle.addEventListener('click', () => {
-            registerToggle.classList.add('active');
-            loginToggle.classList.remove('active');
-            registerForm.style.display = 'block';
-            loginForm.style.display = 'none';
-            formHeading.textContent = 'Реєстрація';
-        });</script>
-}
+    <script src="~/js/authpage.js"></script>
+</body>
+</html>

@@ -7,22 +7,29 @@ namespace BusinessLogic.Services
     public class UserService
     {
         private readonly IUnitOfWork _unitOfWork;
+
         public UserService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
+
         public async Task RegisterUserAsync(User user)
         {
             user.Password = HashPassword(user.Password);
             await _unitOfWork.Users.AddAsync(user);
             await _unitOfWork.SaveChangesAsync();
         }
+
         public async Task<User?> AuthenticateUserAsync(string email, string password)
         {
-            var hashedPassword = HashPassword(password);
-            var user = await _unitOfWork.Users.GetAllAsync(u => u.Email == email && u.Password == hashedPassword);
-            return user.FirstOrDefault();
+            var user = await _unitOfWork.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null || !VerifyPassword(user.Password, password))
+            {
+                return null;
+            }
+            return user;
         }
+
         private string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
@@ -35,6 +42,12 @@ namespace BusinessLogic.Services
                 }
                 return builder.ToString();
             }
+        }
+
+        private bool VerifyPassword(string hashedPassword, string password)
+        {
+            var hashedInputPassword = HashPassword(password);
+            return hashedPassword == hashedInputPassword;
         }
     }
 }

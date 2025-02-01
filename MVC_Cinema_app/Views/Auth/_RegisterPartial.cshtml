@@ -1,0 +1,41 @@
+﻿@model BusinessLogic.DTOs.RegisterDto
+
+<div class="form-box register">
+    <form asp-action="Register" method="post">
+        <h1>Зареєструватись</h1>
+        <div class="input-box">
+            <input asp-for="FirstName" placeholder="Ім'я" required>
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+            <i class='bx bxs-user'></i>
+        </div>
+        <div class="input-box">
+            <input asp-for="LastName" placeholder="Фамілія" required>
+            <span asp-validation-for="LastName" class="text-danger"></span>
+            <i class='bx bxs-lock-alt'></i>
+        </div>
+        <div class="input-box">
+            <input asp-for="RegisterEmail" placeholder="Email" required>
+            <span asp-validation-for="RegisterEmail" class="text-danger"></span>
+            <i class='bx bxs-envelope'></i>
+        </div>
+        <div class="input-box">
+            <input asp-for="PhoneNumber" placeholder="Номер телефону" required>
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            <i class='bx bxs-lock-alt'></i>
+        </div>
+        <div class="input-box">
+            <input asp-for="RegisterPassword" placeholder="Пароль" required>
+            <span asp-validation-for="RegisterPassword" class="text-danger"></span>
+            <i class='bx bxs-lock-alt'></i>
+        </div>
+        <div class="input-box">
+            <input asp-for="ConfirmPassword" placeholder="Підтвердження паролю" required>
+            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            <i class='bx bxs-lock-alt'></i>
+        </div>
+        <button type="submit" class="btn">Зареєструватись</button>
+        <div class="forgot-link">
+            <a asp-controller="Home" asp-action="Index">Повернутися на головну</a>
+        </div>
+    </form>
+</div>
