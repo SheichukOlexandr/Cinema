@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Models;
 using BusinessLogic.Services;
+using BusinessLogic.DTOs;
 
 namespace MVC_Cinema_app.Controllers
 {

@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Models
+﻿using DataAccess.Models;
+
+namespace BusinessLogic.DTOs
 {
     public class ReservationDTO
     {

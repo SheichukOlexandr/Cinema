@@ -1,4 +1,4 @@
-﻿namespace DataAccess.Models
+﻿namespace BusinessLogic.DTOs
 {
     public class SeatDTO
     {

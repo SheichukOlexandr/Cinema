@@ -1,4 +1,5 @@
-﻿using DataAccess.Models;
+﻿using BusinessLogic.DTOs;
+using DataAccess.Models;
 
 namespace BusinessLogic.Helpers
 {
