@@ -1,23 +1,37 @@
-﻿namespace BusinessLogic.DTOs
-{
-    public class MovieDTO
-    {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Director { get; set; }
-        public int Duration { get; set; }
-        public string Cast { get; set; }
-        public int GenreId { get; set; }
-        public DateOnly ReleaseDate { get; set; }
-        public string Description { get; set; }
-        public int MinAge { get; set; }
-        public double Rating { get; set; }
-        public int StatusId { get; set; }
-        public string PosterURL { get; set; }
-        public string TrailerURL { get; set; }
+﻿using System.ComponentModel.DataAnnotations;
 
-        // data to map:
-        public string? GenreName { get; set; }
-        public string? StatusName { get; set; }
-    }
+public class MovieDTO
+{
+    [Required(ErrorMessage = "Назва фільму є обов'язковою.")]
+    public string Title { get; set; }
+
+    [Required(ErrorMessage = "Режисер є обов'язковим.")]
+    public string Director { get; set; }
+
+    [Range(1, int.MaxValue, ErrorMessage = "Тривалість фільму повинна бути більшою за 0.")]
+    public int Duration { get; set; }
+
+    [Required(ErrorMessage = "Акторський склад є обов'язковим.")]
+    public string Cast { get; set; }
+
+    [Range(1, int.MaxValue, ErrorMessage = "Жанр є обов'язковим.")]
+    public int GenreId { get; set; }
+
+    [Required(ErrorMessage = "Дата релізу є обов'язковою.")]
+    public DateOnly ReleaseDate { get; set; }
+
+    [Required(ErrorMessage = "Опис є обов'язковим.")]
+    public string Description { get; set; }
+
+    [Range(0, int.MaxValue, ErrorMessage = "Мінімальний вік не може бути від'ємним.")]
+    public int MinAge { get; set; }
+
+    [Range(1, int.MaxValue, ErrorMessage = "Статус фільму є обов'язковим.")]
+    public int StatusId { get; set; }
+
+    [Url(ErrorMessage = "Посилання на постер має бути дійсним URL.")]
+    public string PosterURL { get; set; }
+
+    [Url(ErrorMessage = "Посилання на трейлер має бути дійсним URL.")]
+    public string TrailerURL { get; set; }
 }

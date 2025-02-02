@@ -1,16 +1,28 @@
-﻿namespace BusinessLogic.DTOs
+﻿using System.ComponentModel.DataAnnotations;
+using DataAccess.Models;
+
+namespace BusinessLogic.DTOs
 {
     public class SessionDTO
     {
-        public int Id { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Ціна на фільм є обов'язковою.")]
         public int MoviePriceId { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Зал є обов'язковим.")]
         public int RoomId { get; set; }
+
+        [Required(ErrorMessage = "Дата сеансу є обов'язковою.")]
         public DateOnly Date { get; set; }
+
+        [Required(ErrorMessage = "Час сеансу є обов'язковим.")]
         public TimeOnly Time { get; set; }
 
-        // data to map:
-        public string? RoomName { get; set; }
-        public decimal Price { get; set; }
-        public string? MovieName { get; set; }
+        public void Validate(Movie movie)
+        {
+            if (Date < movie.ReleaseDate)
+            {
+                throw new ValidationException("Сеанс не може відбутися до релізу фільму.");
+            }
+        }
     }
 }
