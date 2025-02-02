@@ -48,7 +48,10 @@ namespace BusinessLogic.Services
 
         public async Task<MovieDTO> GetAsync(int id)
         {
-            var movie = await _unitOfWork.Movies.GetByIdAsync(id);
+            var movie = await _unitOfWork.Movies.GetByIdAsync(id, includeProperties: [
+                movie => movie.Genre,
+                movies => movies.Status
+            ]);
 
             if (movie == null)
                 throw new Exception("" + HttpStatusCode.NotFound);

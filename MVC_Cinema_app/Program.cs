@@ -4,6 +4,7 @@ using DataAccess.Repositories.Interfaces;
 using DataAccess.Repositories.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic.Services;
+using BusinessLogic.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+// Don't use AppDomain.CurrentDomain.GetAssemblies(); It will break scaffolding. (e.g. autogeneration of controllers)
+builder.Services.AddAutoMapper(typeof(ApplicationProfile).Assembly);
 
 builder.Services.AddScoped<MovieService>();
 
