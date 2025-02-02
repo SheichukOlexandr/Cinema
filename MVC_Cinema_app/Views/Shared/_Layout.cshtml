@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var hideHeader = ViewData["HideHeader"] as bool?;
+    var hideFooter = ViewData["HideFooter"] as bool?;
+}
+
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="utf-8" />
@@ -8,7 +13,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
-    @if (ViewData["HideHeader"] == null || !(bool)ViewData["HideHeader"])
+    @if (hideHeader == null || !hideHeader.Value)
     {
         <div class="container">
             <header class="">
@@ -49,7 +54,7 @@
                             <ion-icon name="search"></ion-icon>
                         </button>
                         <ul class="navbar-nav">
-                            @if (User.Identity.IsAuthenticated)
+                            @if (User.Identity?.IsAuthenticated == true)
                             {
                                 <li class="nav-item">
                                     <form asp-area="" asp-controller="Auth" asp-action="Logout" method="post" class="navbar-signin">
@@ -80,7 +85,7 @@
             @RenderBody()
         </main>
     </div>
-    @if (ViewData["HideFooter"] == null || !(bool)ViewData["HideFooter"])
+    @if (hideFooter == null || !hideFooter.Value)
     {
         <footer>
 
