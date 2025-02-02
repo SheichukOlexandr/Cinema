@@ -12,18 +12,19 @@
 </head>
 <body>
     <div class="container">
+        
         @Html.Partial("_LoginPartial", ViewData["LoginModel"])
         @Html.Partial("_RegisterPartial", ViewData["RegisterModel"])
 
         <div class="toggle-box">
             <div class="toggle-panel toggle-left">
-                <h1>Ласкаво просимо!</h1>
+                <h1>З поверненням!</h1>
                 <p>Не маєте облікового запису?</p>
                 <button class="btn register-btn">Зареєструватися</button>
             </div>
 
             <div class="toggle-panel toggle-right">
-                <h1>З поверненням!</h1>
+                <h1>Ласкаво просимо!</h1>
                 <p>Вже маєте обліковий запис?</p>
                 <button class="btn login-btn">Вхід</button>
             </div>

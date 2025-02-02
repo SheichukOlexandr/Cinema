@@ -2,19 +2,19 @@
 
 <div class="form-box register">
     <form asp-action="Register" method="post">
-        <h1>Зареєструватись</h1>
+        <img class="logo-register" src="~/image/homepage/logo_upscale.png" alt="logo">
         <div class="input-box">
             <input asp-for="FirstName" placeholder="Ім'я" required>
             <span asp-validation-for="FirstName" class="text-danger"></span>
             <i class='bx bxs-user'></i>
         </div>
         <div class="input-box">
-            <input asp-for="LastName" placeholder="Фамілія" required>
+            <input asp-for="LastName" placeholder="Прізвище" required>
             <span asp-validation-for="LastName" class="text-danger"></span>
             <i class='bx bxs-user'></i>
         </div>
         <div class="input-box">
-            <input asp-for="RegisterEmail" placeholder="Email" required>
+            <input asp-for="RegisterEmail" placeholder="Ел. пошта" required>
             <span asp-validation-for="RegisterEmail" class="text-danger"></span>
             <i class='bx bxs-envelope'></i>
         </div>

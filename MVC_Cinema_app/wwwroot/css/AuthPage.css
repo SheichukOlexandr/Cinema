@@ -1,5 +1,9 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&display=swap');
 
+:root {
+    --rich-blank-fogra-30: hsl(219, 32%, 10%);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -19,19 +23,18 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-image: url("../image/login_background.PNG");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-color: #f5f5f5;
+    background: var(--rich-blank-fogra-29);
 }
 
 .container {
     position: relative;
     width: 900px;
     height: 700px;
-    background: #fff;
+    background: #c8c8c8;
     border-radius: 30px;
     box-shadow: 0 0 30px rgba(0, 0, 0, .2);
     overflow: hidden;
@@ -56,7 +59,7 @@ form {
     right: 0;
     width: 50%;
     height: 100%;
-    background: #fff;
+    background: #c8c8c8;
     display: flex;
     align-items: center;
     color: #333;
@@ -120,7 +123,7 @@ form {
 .btn {
     width: 100%;
     height: 48px;
-    background: #7494ec;
+    background: #405284;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, .1);
     border: none;
@@ -157,7 +160,7 @@ form {
     left: -250%;
     width: 300%;
     height: 100%;
-    background: #7494ec;
+    background: #405284;
     border-radius: 150px;
     z-index: 2;
     transition: 1.8s ease-in-out;
@@ -315,3 +318,14 @@ form {
     transition: opacity 0.5s ease-in;
 }
 
+.logo-login {
+    width: 60%;
+    height: auto;
+    margin: 0 73px;
+}
+
+.logo-register {
+    width: 50%;
+    height: auto;
+    margin: 0 92px;
+}
