@@ -1,3 +1,4 @@
+using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Cinema_app.Models;
 using System.Diagnostics;
@@ -19,6 +20,11 @@ namespace MVC_Cinema_app.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Movies()
         {
             return View();
         }
