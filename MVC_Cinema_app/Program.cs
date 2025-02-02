@@ -22,6 +22,8 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddScoped<MovieService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
