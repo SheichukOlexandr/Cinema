@@ -68,5 +68,15 @@ namespace BusinessLogic.Services
 
             return _mapper.Map<IEnumerable<MovieDTO>>(movies);
         }
+
+        public async Task<IEnumerable<GenreDTO>> GetAllGenresAsync()
+        {
+            return _mapper.Map<IEnumerable<GenreDTO>>(await _unitOfWork.Genres.GetAllAsync());
+        }
+
+        public async Task<IEnumerable<MovieStatusDTO>> GetAllMovieStatusesAsync()
+        {
+            return _mapper.Map<IEnumerable<MovieStatusDTO>>(await _unitOfWork.MovieStatues.GetAllAsync());
+        }
     }
 }

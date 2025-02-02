@@ -5,21 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DataAccess.Contexts;
 using DataAccess.Models;
 using BusinessLogic.Services;
-using DataAccess.Repositories.UnitOfWork;
 
 namespace MVC_Cinema_app.Controllers
 {
     public class MoviesController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly MovieService _movieService;
 
-        public MoviesController(IUnitOfWork unitOfWork, MovieService movieService)
+        public MoviesController(MovieService movieService)
         {
-            _unitOfWork = unitOfWork;
             _movieService = movieService;
         }
 
@@ -50,8 +46,8 @@ namespace MVC_Cinema_app.Controllers
         // GET: Movies/Create
         public async Task<IActionResult> Create()
         {
-            ViewData["GenreId"] = new SelectList(await _unitOfWork.Genres.GetAllAsync(), "Id", "Name");
-            ViewData["StatusId"] = new SelectList(await _unitOfWork.MovieStatues.GetAllAsync(), "Id", "Name");
+            ViewData["GenreId"] = new SelectList(await _movieService.GetAllGenresAsync(), "Id", "Name");
+            ViewData["StatusId"] = new SelectList(await _movieService.GetAllMovieStatusesAsync(), "Id", "Name");
             return View();
         }
 
@@ -65,11 +61,10 @@ namespace MVC_Cinema_app.Controllers
             if (ModelState.IsValid)
             {
                 await _movieService.CreateAsync(movie);
-                await _unitOfWork.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GenreId"] = new SelectList(await _unitOfWork.Genres.GetAllAsync(), "Id", "Name", movie.GenreId);
-            ViewData["StatusId"] = new SelectList(await _unitOfWork.MovieStatues.GetAllAsync(), "Id", "Name", movie.StatusId);
+            ViewData["GenreId"] = new SelectList(await _movieService.GetAllGenresAsync(), "Id", "Name", movie.GenreId);
+            ViewData["StatusId"] = new SelectList(await _movieService.GetAllMovieStatusesAsync(), "Id", "Name", movie.StatusId);
             return View(movie);
         }
 
@@ -86,8 +81,8 @@ namespace MVC_Cinema_app.Controllers
             {
                 return NotFound();
             }
-            ViewData["GenreId"] = new SelectList(await _unitOfWork.Genres.GetAllAsync(), "Id", "Name", movie.GenreId);
-            ViewData["StatusId"] = new SelectList(await _unitOfWork.MovieStatues.GetAllAsync(), "Id", "Name", movie.StatusId);
+            ViewData["GenreId"] = new SelectList(await _movieService.GetAllGenresAsync(), "Id", "Name", movie.GenreId);
+            ViewData["StatusId"] = new SelectList(await _movieService.GetAllMovieStatusesAsync(), "Id", "Name", movie.StatusId);
             return View(movie);
         }
 
@@ -108,7 +103,6 @@ namespace MVC_Cinema_app.Controllers
                 try
                 {
                     await _movieService.EditAsync(movie);
-                    await _unitOfWork.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -123,8 +117,8 @@ namespace MVC_Cinema_app.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GenreId"] = new SelectList(await _unitOfWork.Genres.GetAllAsync(), "Id", "Name", movie.GenreId);
-            ViewData["StatusId"] = new SelectList(await _unitOfWork.MovieStatues.GetAllAsync(), "Id", "Name", movie.StatusId);
+            ViewData["GenreId"] = new SelectList(await _movieService.GetAllGenresAsync(), "Id", "Name", movie.GenreId);
+            ViewData["StatusId"] = new SelectList(await _movieService.GetAllMovieStatusesAsync(), "Id", "Name", movie.StatusId);
             return View(movie);
         }
 
@@ -156,7 +150,6 @@ namespace MVC_Cinema_app.Controllers
                 await _movieService.DeleteAsync(id);
             }
 
-            await _unitOfWork.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
