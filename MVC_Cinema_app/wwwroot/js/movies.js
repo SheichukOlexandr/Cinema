@@ -1,27 +1,28 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
-    // Завантаження фільмів
+    const moviesGrid = document.getElementById('moviesGrid');
+    const genreDropdown = document.getElementById('genreDropdown');
+
     fetch('/api/Movies')
         .then(response => {
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+                throw new Error(`HTTP помилка! Статус: ${response.status}`);
             }
             return response.json();
         })
         .then(data => {
             console.log('Movies:', data);
-            const moviesGrid = document.getElementById('moviesGrid');
 
             if (!Array.isArray(data)) {
-                console.error('Expected an array of movies');
+                console.error('Очікувався масив фільмів');
                 return;
             }
 
-            // Створення карток фільмів
+            // Додавання фільмів у сітку
             data.forEach(movie => {
                 const movieCard = document.createElement('div');
-                movieCard.className = 'movie-card';
+                movieCard.className = 'movie-card visible';
                 movieCard.setAttribute('data-genre', movie.genreName);
-                movieCard.style.display = "block"; // Переконатися, що всі картки мають display
+
                 movieCard.innerHTML = `
                     <div class="card-head">
                         <img src="${movie.posterURL || movie.PosterURL}" alt="movie" class="card-img">
@@ -42,41 +43,46 @@
                         <h3 class="card-title">${movie.title || movie.Title}</h3>
                         <div class="card-info">
                             <span class="genre">${movie.genreName}</span> 
-                            <span class="separator">|</span>
+                        </div>
+                        <div class="card-info">
                             <span class="year">${movie.releaseDate || movie.ReleaseDate}</span>
                         </div>
                     </div>
                 `;
+
                 moviesGrid.appendChild(movieCard);
-                setTimeout(() => movieCard.classList.add('visible'), 100); // Додаємо клас 'visible' для плавної появи
             });
 
-            // ✅ Додаємо анімовану фільтрацію фільмів
-            document.getElementById('genreDropdown').addEventListener('change', function () {
+            // Фільтрація фільмів за жанром
+            genreDropdown.addEventListener('change', function () {
                 const selectedGenre = this.value;
                 const movies = document.querySelectorAll('.movie-card');
 
-                if (selectedGenre === "all genres") {
-                    // Відновлюємо всі фільми
-                    movies.forEach(movie => {
-                        movie.classList.remove('hidden'); // Видаляємо клас 'hidden'
-                        setTimeout(() => movie.classList.add('visible'), 50); // Додаємо клас 'visible' для анімації
-                    });
-                } else {
-                    // Якщо вибрано конкретний жанр
-                    movies.forEach(movie => {
-                        const movieGenre = movie.getAttribute('data-genre');
-                        if (movieGenre === selectedGenre) {
-                            movie.classList.remove('hidden'); // Видаляємо клас 'hidden'
-                            setTimeout(() => movie.classList.add('visible'), 50); // Додаємо клас 'visible'
-                        } else {
-                            movie.classList.add('hidden'); // Додаємо клас 'hidden'
-                            setTimeout(() => movie.classList.remove('visible'), 200); // Видаляємо клас 'visible'
-                        }
-                    });
-                }
+                let visibleCount = 0;
+
+                movies.forEach(movie => {
+                    const movieGenre = movie.getAttribute('data-genre');
+
+                    if (selectedGenre === "all genres" || movieGenre === selectedGenre) {
+                        movie.classList.remove('hidden', 'hide');
+                        movie.classList.add('visible');
+                        visibleCount++;
+                    } else {
+                        movie.classList.add('hidden');
+                        movie.classList.remove('visible');
+
+                        // Через 300 мс після анімації видаляємо з DOM
+                        setTimeout(() => {
+                            movie.classList.add('hide');
+                            moviesGrid.style.display = "grid"; // Примусове оновлення
+                        }, 300);
+                    }
+                });
+
+                // Автоматичне оновлення висоти гріду, щоб уникнути скачків
+                moviesGrid.style.minHeight = visibleCount > 0 ? `${Math.ceil(visibleCount / 4) * 250}px` : "400px";
             });
 
         })
-        .catch(error => console.error('Error fetching movies:', error));
+        .catch(error => console.error('Помилка завантаження фільмів:', error));
 });

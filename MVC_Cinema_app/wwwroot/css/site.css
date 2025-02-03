@@ -19,7 +19,7 @@
     --font-size-small: 16px;
     --font-size-extra-small: 12px;
     --fw7: 700;
-    --fw6: 650;
+    --fw6: 600;
     --fw5: 500;
     --padding-x: 120px;
 }
@@ -359,29 +359,50 @@ input ~ .checked-radio-bg {
 
 .movies-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: 30px;
-    margin-bottom: 60px;
+    margin-bottom: 100px;
+    justify-content: flex-start;
+    min-height: 400px;
+    position: relative;
+    overflow: hidden;
+    transition: min-height 0.9s ease-in-out;
+    grid-auto-flow: dense; /*  Дозволяє фільмам переміщуватися вліво */
 }
 
+/* Плавне зміщення фільмів */
 .movie-card {
-    --scale: .8;
     cursor: pointer;
     display: block;
-    transition: opacity 0.2s ease-in-out; /* Плавне зникнення і поява */
+    opacity: 0;
+    transform: scale(0.8) translateX(-100%); /* Початкове зміщення за межі зліва */
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
-    .movie-card.visible {
-        opacity: 1; /* Картка з'являється */
-    }
-    /* Для прихованих карток (після вибору жанру) */
-    .movie-card.hidden {
-        opacity: 0; /* Плавно зникає */
-        display: none; /* Прибираємо з DOM */
-    }
+
+/* Коли картка стає видимою, вона плавно з'являється і зміщується вправо */
+.movie-card.visible {
+    opacity: 1;
+    transform: scale(1) translateX(0); /* Зміщення картки на своє місце */
+}
+
+/* Для прихованих карток */
+.movie-card.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+}
+
+/* Після анімації додаємо `display: none` */
+.movie-card.hidden.hide {
+    display: none;
+}
+
+
+
+
 
     .movie-card .card-head {
         position: relative;
-        height: 250px;
         border-radius: 15px;
         margin-bottom: 15px;
         overflow: hidden;
@@ -389,6 +410,8 @@ input ~ .checked-radio-bg {
 
     .movie-card:hover .card-img {
         transform: scale(1.1);
+        height: auto;
+        display: block;
     }
 
     .movie-card .card-overlay {
@@ -470,10 +493,10 @@ input ~ .checked-radio-bg {
     .movie-card .card-info {
         display: flex;
         justify-content: space-evenly;
-        font-size: var(--font-size-extra-small);
+        font-size: var(--font-size-small);
         font-weight: var(--fw5);
     }
-
+    
 .load-more {
     background: var(--oxford-blue);
     display: block;
@@ -958,6 +981,7 @@ login-user {
 }
 
 .separator {
-    margin: 0 5px; /* Отступы слева и справа */
-    color: #ccc; /* Цвет полоски */
+    margin: 0 5px;
+    color: #ccc;
 }
+
