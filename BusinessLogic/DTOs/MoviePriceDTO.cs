@@ -8,6 +8,7 @@
 
         // data to map:
         public string? MovieName { get; set; }
+        public string? MoviePriceName { get; set; }
     }
 }
 

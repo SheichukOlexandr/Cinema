@@ -31,7 +31,10 @@ builder.Services.AddScoped<MoviePriceService>();
 
 builder.Services.AddScoped<RoomService>();
 builder.Services.AddScoped<SeatService>();
+builder.Services.AddScoped<SessionService>();
+
 builder.Services.AddScoped<ReservationStatusService>();
+builder.Services.AddScoped<ReservationService>();
 
 var app = builder.Build();
 

@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BusinessLogic.DTOs;
+using BusinessLogic.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DataAccess.Contexts;
-using DataAccess.Models;
 
 namespace MVC_Cinema_app.Controllers
 {
     public class SessionsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly SessionService _sessionService;
 
-        public SessionsController(ApplicationDbContext context)
+        public SessionsController(SessionService sessionService)
         {
-            _context = context;
+            _sessionService = sessionService;
         }
 
         // GET: Sessions
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Sessions.Include(s => s.MoviePrice).Include(s => s.Room);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _sessionService.GetAllAsync());
         }
 
         // GET: Sessions/Details/5
@@ -34,10 +29,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var session = await _context.Sessions
-                .Include(s => s.MoviePrice)
-                .Include(s => s.Room)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var session = await _sessionService.GetAsync(id.Value);
             if (session == null)
             {
                 return NotFound();
@@ -47,10 +39,10 @@ namespace MVC_Cinema_app.Controllers
         }
 
         // GET: Sessions/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["MoviePriceId"] = new SelectList(_context.MoviePrices, "Id", "Id");
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
+            ViewData["MoviePriceId"] = new SelectList(await _sessionService.GetAllMoviePricesAsync(), "Id", "MoviePriceName");
+            ViewData["RoomId"] = new SelectList(await _sessionService.GetAllRoomsAsync(), "Id", "Name");
             return View();
         }
 
@@ -59,16 +51,15 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MoviePriceId,RoomId,Date,Time")] Session session)
+        public async Task<IActionResult> Create([Bind("Id,MoviePriceId,RoomId,Date,Time")] SessionDTO session)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(session);
-                await _context.SaveChangesAsync();
+                await _sessionService.AddAsync(session);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MoviePriceId"] = new SelectList(_context.MoviePrices, "Id", "Id", session.MoviePriceId);
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", session.RoomId);
+            ViewData["MoviePriceId"] = new SelectList(await _sessionService.GetAllMoviePricesAsync(), "Id", "MoviePriceName", session.MoviePriceId);
+            ViewData["RoomId"] = new SelectList(await _sessionService.GetAllRoomsAsync(), "Id", "Name", session.RoomId);
             return View(session);
         }
 
@@ -80,13 +71,13 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var session = await _context.Sessions.FindAsync(id);
+            var session = await _sessionService.GetAsync(id.Value);
             if (session == null)
             {
                 return NotFound();
             }
-            ViewData["MoviePriceId"] = new SelectList(_context.MoviePrices, "Id", "Id", session.MoviePriceId);
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", session.RoomId);
+            ViewData["MoviePriceId"] = new SelectList(await _sessionService.GetAllMoviePricesAsync(), "Id", "MoviePriceName", session.MoviePriceId);
+            ViewData["RoomId"] = new SelectList(await _sessionService.GetAllRoomsAsync(), "Id", "Name", session.RoomId);
             return View(session);
         }
 
@@ -95,7 +86,7 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MoviePriceId,RoomId,Date,Time")] Session session)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MoviePriceId,RoomId,Date,Time")] SessionDTO session)
         {
             if (id != session.Id)
             {
@@ -106,12 +97,11 @@ namespace MVC_Cinema_app.Controllers
             {
                 try
                 {
-                    _context.Update(session);
-                    await _context.SaveChangesAsync();
+                    await _sessionService.UpdateAsync(session);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SessionExists(session.Id))
+                    if (!await SessionExists(session.Id))
                     {
                         return NotFound();
                     }
@@ -122,8 +112,8 @@ namespace MVC_Cinema_app.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MoviePriceId"] = new SelectList(_context.MoviePrices, "Id", "Id", session.MoviePriceId);
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", session.RoomId);
+            ViewData["MoviePriceId"] = new SelectList(await _sessionService.GetAllMoviePricesAsync(), "Id", "MoviePriceName", session.MoviePriceId);
+            ViewData["RoomId"] = new SelectList(await _sessionService.GetAllRoomsAsync(), "Id", "Name", session.RoomId);
             return View(session);
         }
 
@@ -135,10 +125,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var session = await _context.Sessions
-                .Include(s => s.MoviePrice)
-                .Include(s => s.Room)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var session = await _sessionService.GetAsync(id.Value);
             if (session == null)
             {
                 return NotFound();
@@ -152,19 +139,13 @@ namespace MVC_Cinema_app.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var session = await _context.Sessions.FindAsync(id);
-            if (session != null)
-            {
-                _context.Sessions.Remove(session);
-            }
-
-            await _context.SaveChangesAsync();
+            await _sessionService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SessionExists(int id)
+        private async Task<bool> SessionExists(int id)
         {
-            return _context.Sessions.Any(e => e.Id == id);
+            return await _sessionService.GetAsync(id) != null;
         }
     }
 }

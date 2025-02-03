@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DataAccess.Models.Reservation>
+﻿@model IEnumerable<BusinessLogic.DTOs.ReservationDTO>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,16 +13,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                @Html.DisplayNameFor(model => model.UserFullName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Session)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Seat)
+                @Html.DisplayNameFor(model => model.SeatNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                @Html.DisplayNameFor(model => model.StatusName)
             </th>
             <th></th>
         </tr>
@@ -31,16 +31,16 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Email)
+                @Html.DisplayFor(modelItem => item.UserFullName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Session.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Seat.Id)
+                @Html.DisplayFor(modelItem => item.SeatNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Status.Name)
+                @Html.DisplayFor(modelItem => item.StatusName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
