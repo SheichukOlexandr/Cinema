@@ -367,7 +367,17 @@ input ~ .checked-radio-bg {
 .movie-card {
     --scale: .8;
     cursor: pointer;
+    display: block;
+    transition: opacity 0.2s ease-in-out; /* Плавне зникнення і поява */
 }
+    .movie-card.visible {
+        opacity: 1; /* Картка з'являється */
+    }
+    /* Для прихованих карток (після вибору жанру) */
+    .movie-card.hidden {
+        opacity: 0; /* Плавно зникає */
+        display: none; /* Прибираємо з DOM */
+    }
 
     .movie-card .card-head {
         position: relative;
