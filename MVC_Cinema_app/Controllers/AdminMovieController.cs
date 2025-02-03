@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Contexts;
@@ -22,8 +18,25 @@ namespace MVC_Cinema_app.Controllers
         // GET: AdminMovie
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Movies.Include(m => m.Genre).Include(m => m.Status);
-            return View(await applicationDbContext.ToListAsync());
+            var movies = await _context.Movies.Include(m => m.Genre).Include(m => m.Status).ToListAsync();
+            var movieDtos = movies.Select(m => new MovieDto
+            {
+                Id = m.Id,
+                Title = m.Title,
+                Director = m.Director,
+                Duration = m.Duration,
+                Cast = m.Cast,
+                GenreId = m.GenreId,
+                ReleaseDate = m.ReleaseDate,
+                Description = m.Description,
+                MinAge = m.MinAge,
+                Rating = m.Rating,
+                StatusId = m.StatusId,
+                PosterURL = m.PosterURL,
+                TrailerURL = m.TrailerURL
+            }).ToList();
+
+            return View(movieDtos);
         }
 
         // GET: AdminMovie/Details/5
@@ -43,7 +56,24 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            return View(movie);
+            var movieDto = new MovieDto
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Director = movie.Director,
+                Duration = movie.Duration,
+                Cast = movie.Cast,
+                GenreId = movie.GenreId,
+                ReleaseDate = movie.ReleaseDate,
+                Description = movie.Description,
+                MinAge = movie.MinAge,
+                Rating = movie.Rating,
+                StatusId = movie.StatusId,
+                PosterURL = movie.PosterURL,
+                TrailerURL = movie.TrailerURL
+            };
+
+            return View(movieDto);
         }
 
         // GET: AdminMovie/Create
@@ -55,21 +85,35 @@ namespace MVC_Cinema_app.Controllers
         }
 
         // POST: AdminMovie/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Director,Duration,Cast,GenreId,ReleaseDate,Description,MinAge,Rating,StatusId,PosterURL,TrailerURL")] Movie movie)
+        public async Task<IActionResult> Create([Bind("Id,Title,Director,Duration,Cast,GenreId,ReleaseDate,Description,MinAge,Rating,StatusId,PosterURL,TrailerURL")] MovieDto movieDto)
         {
             if (ModelState.IsValid)
             {
+                var movie = new Movie
+                {
+                    Title = movieDto.Title,
+                    Director = movieDto.Director,
+                    Duration = movieDto.Duration,
+                    Cast = movieDto.Cast,
+                    GenreId = movieDto.GenreId,
+                    ReleaseDate = movieDto.ReleaseDate,
+                    Description = movieDto.Description,
+                    MinAge = movieDto.MinAge,
+                    Rating = movieDto.Rating,
+                    StatusId = movieDto.StatusId,
+                    PosterURL = movieDto.PosterURL,
+                    TrailerURL = movieDto.TrailerURL
+                };
+
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name", movie.GenreId);
-            ViewData["StatusId"] = new SelectList(_context.MovieStatuses, "Id", "Name", movie.StatusId);
-            return View(movie);
+            ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name", movieDto.GenreId);
+            ViewData["StatusId"] = new SelectList(_context.MovieStatuses, "Id", "Name", movieDto.StatusId);
+            return View(movieDto);
         }
 
         // GET: AdminMovie/Edit/5
@@ -85,19 +129,35 @@ namespace MVC_Cinema_app.Controllers
             {
                 return NotFound();
             }
-            ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name", movie.GenreId);
-            ViewData["StatusId"] = new SelectList(_context.MovieStatuses, "Id", "Name", movie.StatusId);
-            return View(movie);
+
+            var movieDto = new MovieDto
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Director = movie.Director,
+                Duration = movie.Duration,
+                Cast = movie.Cast,
+                GenreId = movie.GenreId,
+                ReleaseDate = movie.ReleaseDate,
+                Description = movie.Description,
+                MinAge = movie.MinAge,
+                Rating = movie.Rating,
+                StatusId = movie.StatusId,
+                PosterURL = movie.PosterURL,
+                TrailerURL = movie.TrailerURL
+            };
+
+            ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name", movieDto.GenreId);
+            ViewData["StatusId"] = new SelectList(_context.MovieStatuses, "Id", "Name", movieDto.StatusId);
+            return View(movieDto);
         }
 
         // POST: AdminMovie/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Director,Duration,Cast,GenreId,ReleaseDate,Description,MinAge,Rating,StatusId,PosterURL,TrailerURL")] Movie movie)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Director,Duration,Cast,GenreId,ReleaseDate,Description,MinAge,Rating,StatusId,PosterURL,TrailerURL")] MovieDto movieDto)
         {
-            if (id != movie.Id)
+            if (id != movieDto.Id)
             {
                 return NotFound();
             }
@@ -106,12 +166,31 @@ namespace MVC_Cinema_app.Controllers
             {
                 try
                 {
+                    var movie = await _context.Movies.FindAsync(id);
+                    if (movie == null)
+                    {
+                        return NotFound();
+                    }
+
+                    movie.Title = movieDto.Title;
+                    movie.Director = movieDto.Director;
+                    movie.Duration = movieDto.Duration;
+                    movie.Cast = movieDto.Cast;
+                    movie.GenreId = movieDto.GenreId;
+                    movie.ReleaseDate = movieDto.ReleaseDate;
+                    movie.Description = movieDto.Description;
+                    movie.MinAge = movieDto.MinAge;
+                    movie.Rating = movieDto.Rating;
+                    movie.StatusId = movieDto.StatusId;
+                    movie.PosterURL = movieDto.PosterURL;
+                    movie.TrailerURL = movieDto.TrailerURL;
+
                     _context.Update(movie);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MovieExists(movie.Id))
+                    if (!MovieExists(movieDto.Id))
                     {
                         return NotFound();
                     }
@@ -122,9 +201,9 @@ namespace MVC_Cinema_app.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name", movie.GenreId);
-            ViewData["StatusId"] = new SelectList(_context.MovieStatuses, "Id", "Name", movie.StatusId);
-            return View(movie);
+            ViewData["GenreId"] = new SelectList(_context.Genres, "Id", "Name", movieDto.GenreId);
+            ViewData["StatusId"] = new SelectList(_context.MovieStatuses, "Id", "Name", movieDto.StatusId);
+            return View(movieDto);
         }
 
         // GET: AdminMovie/Delete/5
@@ -144,7 +223,24 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            return View(movie);
+            var movieDto = new MovieDto
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                Director = movie.Director,
+                Duration = movie.Duration,
+                Cast = movie.Cast,
+                GenreId = movie.GenreId,
+                ReleaseDate = movie.ReleaseDate,
+                Description = movie.Description,
+                MinAge = movie.MinAge,
+                Rating = movie.Rating,
+                StatusId = movie.StatusId,
+                PosterURL = movie.PosterURL,
+                TrailerURL = movie.TrailerURL
+            };
+
+            return View(movieDto);
         }
 
         // POST: AdminMovie/Delete/5
@@ -156,9 +252,9 @@ namespace MVC_Cinema_app.Controllers
             if (movie != null)
             {
                 _context.Movies.Remove(movie);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

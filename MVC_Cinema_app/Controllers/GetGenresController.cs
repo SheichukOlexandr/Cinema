@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Contexts;
 using DataAccess.Models;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-// Випадаючий список жанрів на головній сторінці
 namespace MVC_Cinema_app.Controllers
-{ 
+{
     [ApiController]
     [Route("api/[controller]")]
     public class GetGenresController : Controller
@@ -21,7 +22,9 @@ namespace MVC_Cinema_app.Controllers
         [HttpGet]
         public async Task<ActionResult<List<Genre>>> GetGenres()
         {
-            var genres = await _context.Genres.ToListAsync();
+            var genres = await _context.Genres
+                .Select(g => new { g.Id, g.Name })
+                .ToListAsync();
             return Ok(genres);
         }
     }

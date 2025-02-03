@@ -1,5 +1,5 @@
 ﻿@{
-        ViewData["Title"] = "Головна";
+    ViewData["Title"] = "Головна";
 }
 
 <div class="container">
@@ -61,70 +61,9 @@
                 </div>
             </div>
 
-            <div class="movies-grid">
-                <div class="movie-card">
-                    <div class="card-head">
-                        <img src="~/image/posters/sonik3.jpg" alt="movie" class="card-img">
-
-                        <div class="card-overlay">
-                            <div class="bookmark">
-                                <ion-icon name="bookmark"></ion-icon>
-                            </div>
-
-                            <div class="rating">
-                                <ion-icon name="star-outline"></ion-icon>
-                                <span>7.9</span>
-                            </div>
-
-                            <div class="play">
-                                <ion-icon name="play-circle-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <h3 class="card-title">Їжак Сонік 3</h3>
-
-                        <div class="card-info">
-                            <span class="genre">Бойовик/Фантастика/Комедія</span>
-                            <span class="year">2024</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="movie-card">
-                    <div class="card-head">
-                        <img src="~/image/posters/deadpool_rosomaha.jpg" alt="movie" class="card-img">
-
-                        <div class="card-overlay">
-                            <div class="bookmark">
-                                <ion-icon name="bookmark"></ion-icon>
-                            </div>
-
-                            <div class="rating">
-                                <ion-icon name="star-outline"></ion-icon>
-                                <span>7.6</span>
-                            </div>
-
-                            <div class="play">
-                                <ion-icon name="play-circle-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <h3 class="card-title">Дедпул і Росомаха</h3>
-
-                        <div class="card-info">
-                            <span class="genre">Бойовик/Комедія</span>
-                            <span class="year">2024</span>
-                        </div>
-                    </div>
-                </div>
-
-                
-
-            
+            <div class="movies-grid" id="moviesGrid">
+                <!-- Карточки фільмів будуть додані динамічно ось тут-->
+            </div>
         </section>
 
         <section class="category" id="category">
@@ -186,4 +125,6 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="~/js/site.js"></script>
-<script src="~/js/page_animation.js"></script>
+<script src="~/js/genres.js"></script>
+<script src="~/js/movies.js"></script>
+
