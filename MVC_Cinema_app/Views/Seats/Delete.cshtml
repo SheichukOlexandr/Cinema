@@ -1,4 +1,4 @@
-﻿@model DataAccess.Models.Seat
+﻿@model BusinessLogic.DTOs.SeatDTO
 
 @{
     ViewData["Title"] = "Delete";
@@ -11,6 +11,12 @@
     <h4>Seat</h4>
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.RoomName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RoomName)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Number)
         </dt>
@@ -22,12 +28,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ExtraPrice)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Room)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Room.Name)
         </dd>
     </dl>
     

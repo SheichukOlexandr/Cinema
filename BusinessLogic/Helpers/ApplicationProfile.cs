@@ -14,7 +14,10 @@ namespace BusinessLogic.Helpers
                 .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => src.Status.Name));
             CreateMap<MovieDTO, Movie>(); // Reverse
 
-            CreateMap<MoviePrice, MoviePriceDTO>().ReverseMap();
+            CreateMap<MoviePrice, MoviePriceDTO>()
+                .ForMember(dest => dest.MovieName, opt => opt.MapFrom(src => src.Movie.Title));
+            CreateMap<MoviePriceDTO, MoviePrice>(); // Reverse
+
             CreateMap<Seat, SeatDTO>()
                 .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Room.Name));
             CreateMap<SeatDTO, Seat>(); // Reverse
