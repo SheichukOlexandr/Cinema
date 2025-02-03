@@ -6,6 +6,7 @@
     public int Duration { get; set; }
     public required string Cast { get; set; }
     public int GenreId { get; set; }
+    public string GenreName { get; set; } // Додаємо назву жанру
     public DateOnly ReleaseDate { get; set; }
     public required string Description { get; set; }
     public int MinAge { get; set; }
@@ -14,4 +15,3 @@
     public required string PosterURL { get; set; }
     public required string TrailerURL { get; set; }
 }
-

@@ -1,9 +1,8 @@
 ﻿using DataAccess.Contexts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
+namespace MVC_Cinema_app.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -19,7 +18,10 @@ using System.Text.Json.Serialization;
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies()
         {
-            var movies = await _context.Movies.Include(m => m.Genre).ToListAsync();
+            var movies = await _context.Movies
+                .Include(m => m.Genre) // Підключаємо жанр
+                .ToListAsync();
+
             var movieDtos = movies.Select(m => new MovieDto
             {
                 Id = m.Id,
@@ -28,6 +30,7 @@ using System.Text.Json.Serialization;
                 Duration = m.Duration,
                 Cast = m.Cast,
                 GenreId = m.GenreId,
+                GenreName = m.Genre?.Name ?? "Невідомий жанр", // Додаємо назву жанру
                 ReleaseDate = m.ReleaseDate,
                 Description = m.Description,
                 MinAge = m.MinAge,
@@ -37,14 +40,7 @@ using System.Text.Json.Serialization;
                 TrailerURL = m.TrailerURL
             }).ToList();
 
-            var options = new JsonSerializerOptions
-            {
-                ReferenceHandler = ReferenceHandler.Preserve,
-                WriteIndented = true
-            };
-
-            return new JsonResult(movieDtos, options);
+            return Ok(movieDtos);
         }
     }
-
 }
