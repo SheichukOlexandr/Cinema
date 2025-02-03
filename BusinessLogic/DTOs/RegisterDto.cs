@@ -2,7 +2,7 @@
 
 namespace BusinessLogic.DTOs
 {
-    public class RegisterDto
+    public class RegisterDTO
     {
         [Required(ErrorMessage = "Ім'я є обов'язковим.")]
         public string FirstName { get; set; }

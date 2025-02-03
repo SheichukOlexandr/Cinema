@@ -21,17 +21,17 @@ namespace MVC_Cinema_app.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewData["LoginModel"] = new LoginDto();
-            ViewData["RegisterModel"] = new RegisterDto();
+            ViewData["LoginModel"] = new LoginDTO();
+            ViewData["RegisterModel"] = new RegisterDTO();
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginDto model)
+        public async Task<IActionResult> Login(LoginDTO model)
         {
             if (!ModelState.IsValid)
             {
-                ViewData["RegisterModel"] = new RegisterDto();
+                ViewData["RegisterModel"] = new RegisterDTO();
                 return View("Index", model);
             }
 
@@ -39,7 +39,7 @@ namespace MVC_Cinema_app.Controllers
             if (user == null)
             {
                 ModelState.AddModelError("LoginPassword", "Невірний логін або пароль.");
-                ViewData["RegisterModel"] = new RegisterDto();
+                ViewData["RegisterModel"] = new RegisterDTO();
                 return View("Index", model);
             }
 
@@ -60,17 +60,17 @@ namespace MVC_Cinema_app.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterDto model)
+        public async Task<IActionResult> Register(RegisterDTO model)
         {
             if (!ModelState.IsValid)
             {
-                ViewData["LoginModel"] = new LoginDto();
+                ViewData["LoginModel"] = new LoginDTO();
                 return View("Index", model);
             }
             if (model.RegisterPassword != model.ConfirmPassword)
             {
                 ModelState.AddModelError(string.Empty, "Passwords do not match.");
-                ViewData["LoginModel"] = new LoginDto();
+                ViewData["LoginModel"] = new LoginDTO();
                 return View("Index", model);
             }
 

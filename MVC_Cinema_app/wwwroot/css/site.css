@@ -19,7 +19,7 @@
     --font-size-small: 16px;
     --font-size-extra-small: 12px;
     --fw7: 700;
-    --fw6: 600;
+    --fw6: 650;
     --fw5: 500;
     --padding-x: 120px;
 }
@@ -952,17 +952,12 @@ ul .link-item:not(:last-child) {
 }
 
 
-.fade-out {
-    opacity: 0;
-    transition: opacity 0.5s ease-out;
-}
-
-.fade-in {
-    opacity: 1;
-    transition: opacity 0.5s ease-in;
-}
-
 login-user {
     display: flex;
     justify-content: right;
+}
+
+.separator {
+    margin: 0 5px; /* Отступы слева и справа */
+    color: #ccc; /* Цвет полоски */
 }

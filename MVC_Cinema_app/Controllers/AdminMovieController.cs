@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Contexts;
 using DataAccess.Models;
+using BusinessLogic.DTOs;
 
 namespace MVC_Cinema_app.Controllers
 {
@@ -19,7 +20,7 @@ namespace MVC_Cinema_app.Controllers
         public async Task<IActionResult> Index()
         {
             var movies = await _context.Movies.Include(m => m.Genre).Include(m => m.Status).ToListAsync();
-            var movieDtos = movies.Select(m => new MovieDto
+            var movieDtos = movies.Select(m => new MovieDTO
             {
                 Id = m.Id,
                 Title = m.Title,
@@ -56,7 +57,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var movieDto = new MovieDto
+            var movieDto = new MovieDTO
             {
                 Id = movie.Id,
                 Title = movie.Title,
@@ -87,7 +88,7 @@ namespace MVC_Cinema_app.Controllers
         // POST: AdminMovie/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Director,Duration,Cast,GenreId,ReleaseDate,Description,MinAge,Rating,StatusId,PosterURL,TrailerURL")] MovieDto movieDto)
+        public async Task<IActionResult> Create([Bind("Id,Title,Director,Duration,Cast,GenreId,ReleaseDate,Description,MinAge,Rating,StatusId,PosterURL,TrailerURL")] MovieDTO movieDto)
         {
             if (ModelState.IsValid)
             {
@@ -130,7 +131,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var movieDto = new MovieDto
+            var movieDto = new MovieDTO
             {
                 Id = movie.Id,
                 Title = movie.Title,
@@ -155,7 +156,7 @@ namespace MVC_Cinema_app.Controllers
         // POST: AdminMovie/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Director,Duration,Cast,GenreId,ReleaseDate,Description,MinAge,Rating,StatusId,PosterURL,TrailerURL")] MovieDto movieDto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Director,Duration,Cast,GenreId,ReleaseDate,Description,MinAge,Rating,StatusId,PosterURL,TrailerURL")] MovieDTO movieDto)
         {
             if (id != movieDto.Id)
             {
@@ -223,7 +224,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var movieDto = new MovieDto
+            var movieDto = new MovieDTO
             {
                 Id = movie.Id,
                 Title = movie.Title,

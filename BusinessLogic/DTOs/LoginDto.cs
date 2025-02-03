@@ -2,7 +2,7 @@
 
 namespace BusinessLogic.DTOs
 {
-    public class LoginDto
+    public class LoginDTO
     {
         [Required(ErrorMessage = "Пошта є обов'язковою.")]
         [EmailAddress(ErrorMessage = "Некоректний формат пошти.")]

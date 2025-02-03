@@ -21,6 +21,9 @@ namespace DataAccess.Repositories.UnitOfWork
         public IGenericRepository<Session> Sessions { get; }
         public IGenericRepository<MoviePrice> MoviesPrices { get; }
         public IGenericRepository<Genre> Genres { get; }
+        public IGenericRepository<MovieStatus> MovieStatues { get; }
+        public IGenericRepository<ReservationStatus> ReservationStatues { get; }
+        public IGenericRepository<UserStatus> UserStatuses { get; }
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -33,6 +36,9 @@ namespace DataAccess.Repositories.UnitOfWork
             Sessions = new GenericRepository<Session>(_context);
             MoviesPrices = new GenericRepository<MoviePrice>(_context);
             Genres = new GenericRepository<Genre>(_context);
+            MovieStatues = new GenericRepository<MovieStatus>(_context);
+            ReservationStatues = new GenericRepository<ReservationStatus>(_context);
+            UserStatuses = new GenericRepository<UserStatus>(_context);
         }
 
         public async Task<int> SaveChangesAsync()

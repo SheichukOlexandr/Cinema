@@ -42,6 +42,7 @@
                         <h3 class="card-title">${movie.title || movie.Title}</h3>
                         <div class="card-info">
                             <span class="genre">${movie.genreName}</span> 
+                            <span class="separator">|</span>
                             <span class="year">${movie.releaseDate || movie.ReleaseDate}</span>
                         </div>
                     </div>

@@ -1,28 +1,29 @@
-﻿using DataAccess.Contexts;
+﻿using BusinessLogic.DTOs;
+using DataAccess.Contexts;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MVC_Cinema_app.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/Movies")]
     [ApiController]
-    public class MoviesController : ControllerBase
+    public class GetMoviesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public MoviesController(ApplicationDbContext context)
+        public GetMoviesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MovieDto>>> GetMovies()
+        public async Task<ActionResult<IEnumerable<MovieDTO>>> GetMovies()
         {
             var movies = await _context.Movies
                 .Include(m => m.Genre) // Підключаємо жанр
                 .ToListAsync();
 
-            var movieDtos = movies.Select(m => new MovieDto
+            var movieDtos = movies.Select(m => new MovieDTO
             {
                 Id = m.Id,
                 Title = m.Title,

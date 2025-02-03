@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DataAccess.Contexts;
 using DataAccess.Models;
-using BusinessLogic.DTOs;
 
 namespace MVC_Cinema_app.Controllers
 {
@@ -49,21 +50,19 @@ namespace MVC_Cinema_app.Controllers
         }
 
         // POST: Genres/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name")] GenreDto genreDto)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Genre genre)
         {
             if (ModelState.IsValid)
             {
-                var genre = new Genre
-                {
-                    Name = genreDto.Name
-                };
                 _context.Add(genre);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(genreDto);
+            return View(genre);
         }
 
         // GET: Genres/Edit/5
@@ -79,20 +78,17 @@ namespace MVC_Cinema_app.Controllers
             {
                 return NotFound();
             }
-            var genreDto = new GenreDto
-            {
-                Id = genre.Id,
-                Name = genre.Name
-            };
-            return View(genreDto);
+            return View(genre);
         }
 
         // POST: Genres/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] GenreDto genreDto)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Genre genre)
         {
-            if (id != genreDto.Id)
+            if (id != genre.Id)
             {
                 return NotFound();
             }
@@ -101,18 +97,12 @@ namespace MVC_Cinema_app.Controllers
             {
                 try
                 {
-                    var genre = await _context.Genres.FindAsync(id);
-                    if (genre == null)
-                    {
-                        return NotFound();
-                    }
-                    genre.Name = genreDto.Name;
                     _context.Update(genre);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GenreExists(genreDto.Id))
+                    if (!GenreExists(genre.Id))
                     {
                         return NotFound();
                     }
@@ -123,7 +113,7 @@ namespace MVC_Cinema_app.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(genreDto);
+            return View(genre);
         }
 
         // GET: Genres/Delete/5
@@ -165,4 +155,3 @@ namespace MVC_Cinema_app.Controllers
         }
     }
 }
-

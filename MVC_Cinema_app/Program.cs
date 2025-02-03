@@ -5,6 +5,7 @@ using DataAccess.Repositories.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using BusinessLogic.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,11 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LogoutPath = "/Auth/Logout";
     });
 builder.Services.AddControllers();
+
+// Don't use AppDomain.CurrentDomain.GetAssemblies(); It will break scaffolding. (e.g. autogeneration of controllers)
+builder.Services.AddAutoMapper(typeof(ApplicationProfile).Assembly);
+
+builder.Services.AddScoped<MovieService>();
 
 var app = builder.Build();
 
