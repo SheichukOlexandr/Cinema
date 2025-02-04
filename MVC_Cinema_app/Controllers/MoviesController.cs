@@ -10,9 +10,9 @@ namespace MVC_Cinema_app.Controllers
     {
         private readonly MovieService _movieService;
 
-        public MoviesController(MovieService MovieService)
+        public MoviesController(MovieService movieService)
         {
-            _movieService = MovieService;
+            _movieService = movieService;
         }
 
         // GET: Movies
@@ -47,6 +47,8 @@ namespace MVC_Cinema_app.Controllers
         }
 
         // POST: Movies/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Director,Duration,Cast,GenreId,ReleaseDate,Description,MinAge,Rating,StatusId,PosterURL,TrailerURL")] MovieDTO movie)
@@ -80,6 +82,8 @@ namespace MVC_Cinema_app.Controllers
         }
 
         // POST: Movies/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Director,Duration,Cast,GenreId,ReleaseDate,Description,MinAge,Rating,StatusId,PosterURL,TrailerURL")] MovieDTO movie)

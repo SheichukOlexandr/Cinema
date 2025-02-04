@@ -21,19 +21,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Додавання репозиторіїв
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<MovieService>();
-builder.Services.AddScoped<GenreService>();
-builder.Services.AddScoped<MoviePriceService>();
-builder.Services.AddScoped<SessionService>();
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Auth/Index";
-        options.LogoutPath = "/Auth/Logout";
-    });
-builder.Services.AddControllers();
-
 // Don't use AppDomain.CurrentDomain.GetAssemblies(); It will break scaffolding. (e.g. autogeneration of controllers)
 builder.Services.AddAutoMapper(typeof(ApplicationProfile).Assembly);
 
@@ -48,6 +35,13 @@ builder.Services.AddScoped<SessionService>();
 
 builder.Services.AddScoped<ReservationStatusService>();
 builder.Services.AddScoped<ReservationService>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Auth/Index";
+        options.LogoutPath = "/Auth/Logout";
+    });
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
