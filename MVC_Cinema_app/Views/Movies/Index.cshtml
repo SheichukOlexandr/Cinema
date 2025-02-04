@@ -2,10 +2,10 @@
 
 @{
     Layout = "~/Views/Shared/MinimalLayout.cshtml";
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Movies";
 }
 
-<h1>Index</h1>
+<h1>Movies</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -26,6 +26,9 @@
                 @Html.DisplayNameFor(model => model.Cast)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.GenreName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ReleaseDate)
             </th>
             <th>
@@ -38,16 +41,13 @@
                 @Html.DisplayNameFor(model => model.Rating)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.StatusName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.PosterURL)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TrailerURL)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GenreName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StatusName)
             </th>
             <th></th>
         </tr>
@@ -68,6 +68,9 @@
                 @Html.DisplayFor(modelItem => item.Cast)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.GenreName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ReleaseDate)
             </td>
             <td>
@@ -80,16 +83,13 @@
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.StatusName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.PosterURL)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TrailerURL)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GenreName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

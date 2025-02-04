@@ -8,9 +8,9 @@ namespace MVC_Cinema_app.Controllers
 {
     public class SessionsController : Controller
     {
-        private readonly SessionsService _sessionService;
+        private readonly SessionService _sessionService;
 
-        public SessionsController(SessionsService sessionService)
+        public SessionsController(SessionService sessionService)
         {
             _sessionService = sessionService;
         }
@@ -49,15 +49,19 @@ namespace MVC_Cinema_app.Controllers
         // POST: Sessions/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MovieId,MoviePriceId,RoomId,Date,Time")] SessionDTO session)
+        public async Task<IActionResult> Create([Bind("Id,MoviePriceId,RoomId,Date,Time")] SessionDTO session)
         {
+            if (!await _sessionService.ValidateSesionDate(session))
+            {
+                ModelState.AddModelError("Date", "Сеанс не може відбутися до релізу фільму.");
+            }
             if (ModelState.IsValid)
             {
                 await _sessionService.AddAsync(session);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MovieId"] = new SelectList(await _sessionService.GetAllMoviesAsync(), "Id", "Title");
-            ViewData["RoomId"] = new SelectList(await _sessionService.GetAllRoomsAsync(), "Id", "Name");
+            ViewData["MovieId"] = new SelectList(await _sessionService.GetAllMoviesAsync(), "Id", "Title", session.MovieId);
+            ViewData["RoomId"] = new SelectList(await _sessionService.GetAllRoomsAsync(), "Id", "Name", session.RoomId);
             return View(session);
         }
 
@@ -74,7 +78,7 @@ namespace MVC_Cinema_app.Controllers
             {
                 return NotFound();
             }
-            ViewData["MoviePriceId"] = new SelectList(await _sessionService.GetAllMoviePricesAsync(), "Id", "MoviePriceName", session.MoviePriceId);
+            ViewData["MovieId"] = new SelectList(await _sessionService.GetAllMoviesAsync(), "Id", "Title", session.MovieId);
             ViewData["RoomId"] = new SelectList(await _sessionService.GetAllRoomsAsync(), "Id", "Name", session.RoomId);
             return View(session);
         }
@@ -82,13 +86,17 @@ namespace MVC_Cinema_app.Controllers
         // POST: Sessions/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MovieId,MoviePriceId,RoomId,Date,Time")] SessionDTO session)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MoviePriceId,RoomId,Date,Time")] SessionDTO session)
         {
             if (id != session.Id)
             {
                 return NotFound();
             }
 
+            if (!await _sessionService.ValidateSesionDate(session))
+            {
+                ModelState.AddModelError("Date", "Сеанс не може відбутися до релізу фільму.");
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -108,7 +116,7 @@ namespace MVC_Cinema_app.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MoviePriceId"] = new SelectList(await _sessionService.GetAllMoviePricesAsync(), "Id", "MoviePriceName", session.MoviePriceId);
+            ViewData["MovieId"] = new SelectList(await _sessionService.GetAllMoviesAsync(), "Id", "Title", session.MovieId);
             ViewData["RoomId"] = new SelectList(await _sessionService.GetAllRoomsAsync(), "Id", "Name", session.RoomId);
             return View(session);
         }
@@ -144,7 +152,6 @@ namespace MVC_Cinema_app.Controllers
             return await _sessionService.GetAsync(id) != null;
         }
 
-        [HttpGet]
         public async Task<IActionResult> GetPrices(int movieId)
         {
             var prices = await _sessionService.GetPricesByMovieIdAsync(movieId);

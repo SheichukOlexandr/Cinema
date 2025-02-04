@@ -3,40 +3,18 @@ using BusinessLogic.DTOs;
 using DataAccess.Models;
 using DataAccess.Repositories.UnitOfWork;
 using System.Net;
-using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
 
 namespace BusinessLogic.Services
 {
-    public class MovieService
+    public class MovieService(IUnitOfWork unitOfWork, IMapper mapper) 
+        : BaseService<MovieDTO, Movie>(unitOfWork.Movies, mapper)
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-
-        public MovieService(IUnitOfWork unitOfWork, IMapper mapper)
+        public override async Task<MovieDTO> GetAsync(int id)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-        }
-
-        public async Task<IEnumerable<MovieDTO>> GetAllAsync()
-        {
-            var movies = await _unitOfWork.Movies.GetAllAsync(includeProperties: new Expression<Func<Movie, object>>[]
-            {
+            var movie = await _repository.GetByIdAsync(id, includeProperties: [
                 movie => movie.Genre,
                 movie => movie.Status
-            });
-
-            return _mapper.Map<IEnumerable<MovieDTO>>(movies);
-        }
-
-        public async Task<MovieDTO> GetAsync(int id)
-        {
-            var movie = await _unitOfWork.Movies.GetByIdAsync(id, includeProperties: new Expression<Func<Movie, object>>[]
-            {
-                movie => movie.Genre,
-                movie => movie.Status
-            });
+            ]);
 
             if (movie == null)
                 throw new Exception("" + HttpStatusCode.NotFound);
@@ -44,37 +22,24 @@ namespace BusinessLogic.Services
             return _mapper.Map<MovieDTO>(movie);
         }
 
-        public async Task CreateAsync(MovieDTO movie)
+        public override async Task<IEnumerable<MovieDTO>> GetAllAsync()
         {
-            await _unitOfWork.Movies.AddAsync(_mapper.Map<Movie>(movie));
-            await _unitOfWork.SaveChangesAsync();
-        }
+            var movies = await _repository.GetAllAsync(includeProperties: [
+                movie => movie.Genre,
+                movie => movie.Status
+            ]);
 
-        public async Task EditAsync(MovieDTO movie)
-        {
-            await _unitOfWork.Movies.UpdateAsync(_mapper.Map<Movie>(movie));
-            await _unitOfWork.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var movie = await _unitOfWork.Movies.GetByIdAsync(id);
-
-            if (movie == null)
-                throw new Exception("" + HttpStatusCode.NotFound);
-
-            await _unitOfWork.Movies.DeleteAsync(id);
-            await _unitOfWork.SaveChangesAsync();
+            return _mapper.Map<IEnumerable<MovieDTO>>(movies);
         }
 
         public async Task<IEnumerable<GenreDTO>> GetAllGenresAsync()
         {
-            return _mapper.Map<IEnumerable<GenreDTO>>(await _unitOfWork.Genres.GetAllAsync());
+            return _mapper.Map<IEnumerable<GenreDTO>>(await unitOfWork.Genres.GetAllAsync());
         }
 
         public async Task<IEnumerable<MovieStatusDTO>> GetAllMovieStatusesAsync()
         {
-            return _mapper.Map<IEnumerable<MovieStatusDTO>>(await _unitOfWork.MovieStatues.GetAllAsync());
+            return _mapper.Map<IEnumerable<MovieStatusDTO>>(await unitOfWork.MovieStatues.GetAllAsync());
         }
     }
 }

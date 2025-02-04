@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using BusinessLogic.Services;
 using BusinessLogic.DTOs;
 using BusinessLogic.Services;
 using Microsoft.EntityFrameworkCore;
@@ -29,8 +31,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var movie = await _movieService.GetAsync((int)id);
-
+            var movie = await _movieService.GetAsync(id.Value);
             if (movie == null)
             {
                 return NotFound();
@@ -54,7 +55,7 @@ namespace MVC_Cinema_app.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _movieService.CreateAsync(movie);
+                await _movieService.AddAsync(movie);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["GenreId"] = new SelectList(await _movieService.GetAllGenresAsync(), "Id", "Name", movie.GenreId);
@@ -70,7 +71,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var movie = await _movieService.GetAsync((int)id);
+            var movie = await _movieService.GetAsync(id.Value);
             if (movie == null)
             {
                 return NotFound();
@@ -94,7 +95,7 @@ namespace MVC_Cinema_app.Controllers
             {
                 try
                 {
-                    await _movieService.EditAsync(movie);
+                    await _movieService.UpdateAsync(movie);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -122,7 +123,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var movie = await _movieService.GetAsync((int)id);
+            var movie = await _movieService.GetAsync(id.Value);
             if (movie == null)
             {
                 return NotFound();
@@ -136,12 +137,7 @@ namespace MVC_Cinema_app.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var movie = await _movieService.GetAsync(id);
-            if (movie != null)
-            {
-                await _movieService.DeleteAsync(id);
-            }
-
+            await _movieService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 

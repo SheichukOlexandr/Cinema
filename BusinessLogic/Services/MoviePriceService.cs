@@ -6,7 +6,7 @@ using System.Net;
 
 namespace BusinessLogic.Services
 {
-    public class MoviePriceService(IUnitOfWork unitOfWork, IMapper mapper)
+    public class MoviePriceService(IUnitOfWork unitOfWork, IMapper mapper) 
         : BaseService<MoviePriceDTO, MoviePrice>(unitOfWork.MoviesPrices, mapper)
     {
         public override async Task<MoviePriceDTO> GetAsync(int id)

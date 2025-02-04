@@ -19,16 +19,15 @@ namespace BusinessLogic.Helpers
                 .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => src.Status.Name));
             CreateMap<MovieDTO, Movie>();
 
-            // Маппинг для MoviePrice и MoviePriceDTO
             CreateMap<MoviePrice, MoviePriceDTO>()
-                .ForMember(dest => dest.Movie, opt => opt.MapFrom(src => src.Movie))
-                .ForMember(dest => dest.Sessions, opt => opt.MapFrom(src => src.Sessions));
-            CreateMap<MoviePriceDTO, MoviePrice>();
+                .ForMember(dest => dest.MovieName, opt => opt.MapFrom(src => src.Movie.Title))
+                .ForMember(dest => dest.MoviePriceName, opt => opt.MapFrom(src => src.Movie.Title + " – " + src.Price));
+            CreateMap<MoviePriceDTO, MoviePrice>(); // Reverse
 
-            // Маппинг для Seat и SeatDTO
             CreateMap<Seat, SeatDTO>()
-                .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Room.Name));
-            CreateMap<SeatDTO, Seat>();
+                .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Room.Name))
+                .ForMember(dest => dest.SeatName, opt => opt.MapFrom(src => src.Room.Name + " – " + src.Number));
+            CreateMap<SeatDTO, Seat>(); // Reverse
 
             // Маппинг для Room и RoomDTO
             CreateMap<Room, RoomDTO>().ReverseMap();
@@ -37,8 +36,8 @@ namespace BusinessLogic.Helpers
             CreateMap<Session, SessionDTO>()
                 .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Room.Name))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.MoviePrice.Price))
-                .ForMember(dest => dest.MovieName, opt => opt.MapFrom(src => src.MoviePrice.Movie.Title));
-            CreateMap<SessionDTO, Session>();
+                .ForMember(dest => dest.MovieId, opt => opt.MapFrom(src => src.MoviePrice.Movie.Id));
+            CreateMap<SessionDTO, Session>(); // Reverse
 
             // Маппинг для ReservationStatus и ReservationStatusDTO
             CreateMap<ReservationStatus, ReservationStatusDTO>().ReverseMap();
@@ -54,11 +53,9 @@ namespace BusinessLogic.Helpers
             // Маппинг для Reservation и ReservationDTO
             CreateMap<Reservation, ReservationDTO>()
                 .ForMember(dest => dest.UserFullName, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName))
-                .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Session.Date))
-                .ForMember(dest => dest.Time, opt => opt.MapFrom(src => src.Session.Time))
-                .ForMember(dest => dest.MovieName, opt => opt.MapFrom(src => src.Session.MoviePrice.Movie.Title))
+                .ForMember(dest => dest.Session, opt => opt.MapFrom(src => src.Session))
                 .ForMember(dest => dest.SeatNumber, opt => opt.MapFrom(src => src.Seat.Number))
-                .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Seat.Room.Name))
+                .ForMember(dest => dest.SeatExtraPrice, opt => opt.MapFrom(src => src.Seat.ExtraPrice))
                 .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => src.Status.Name));
             CreateMap<ReservationDTO, Reservation>();
         }

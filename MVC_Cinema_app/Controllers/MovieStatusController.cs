@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DataAccess.Contexts;
-using DataAccess.Models;
+using BusinessLogic.Services;
+using BusinessLogic.DTOs;
 
 namespace MVC_Cinema_app.Controllers
 {
     public class MovieStatusController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly MovieStatusService _movieStatusService;
 
-        public MovieStatusController(ApplicationDbContext context)
+        public MovieStatusController(MovieStatusService movieStatusService)
         {
-            _context = context;
+            _movieStatusService = movieStatusService;
         }
 
         // GET: MovieStatus
         public async Task<IActionResult> Index()
         {
-            return View(await _context.MovieStatuses.ToListAsync());
+            return View(await _movieStatusService.GetAllAsync());
         }
 
         // GET: MovieStatus/Details/5
@@ -33,8 +28,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var movieStatus = await _context.MovieStatuses
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var movieStatus = await _movieStatusService.GetAsync(id.Value);
             if (movieStatus == null)
             {
                 return NotFound();
@@ -54,12 +48,11 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] MovieStatus movieStatus)
+        public async Task<IActionResult> Create([Bind("Id,Name")] MovieStatusDTO movieStatus)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(movieStatus);
-                await _context.SaveChangesAsync();
+                await _movieStatusService.AddAsync(movieStatus);
                 return RedirectToAction(nameof(Index));
             }
             return View(movieStatus);
@@ -73,7 +66,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var movieStatus = await _context.MovieStatuses.FindAsync(id);
+            var movieStatus = await _movieStatusService.GetAsync(id.Value);
             if (movieStatus == null)
             {
                 return NotFound();
@@ -86,7 +79,7 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] MovieStatus movieStatus)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] MovieStatusDTO movieStatus)
         {
             if (id != movieStatus.Id)
             {
@@ -97,12 +90,11 @@ namespace MVC_Cinema_app.Controllers
             {
                 try
                 {
-                    _context.Update(movieStatus);
-                    await _context.SaveChangesAsync();
+                    await _movieStatusService.UpdateAsync(movieStatus);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MovieStatusExists(movieStatus.Id))
+                    if (!await MovieStatusExistsAsync(movieStatus.Id))
                     {
                         return NotFound();
                     }
@@ -124,8 +116,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var movieStatus = await _context.MovieStatuses
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var movieStatus = await _movieStatusService.GetAsync(id.Value);
             if (movieStatus == null)
             {
                 return NotFound();
@@ -139,19 +130,13 @@ namespace MVC_Cinema_app.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var movieStatus = await _context.MovieStatuses.FindAsync(id);
-            if (movieStatus != null)
-            {
-                _context.MovieStatuses.Remove(movieStatus);
-            }
-
-            await _context.SaveChangesAsync();
+            await _movieStatusService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MovieStatusExists(int id)
+        private async Task<bool> MovieStatusExistsAsync(int id)
         {
-            return _context.MovieStatuses.Any(e => e.Id == id);
+            return await _movieStatusService.GetAsync(id) != null;
         }
     }
 }
