@@ -7,7 +7,7 @@ using System.Net;
 
 namespace BusinessLogic.Services
 {
-    public class SessionService(IUnitOfWork unitOfWork, IMapper mapper) 
+    public class SessionService(IUnitOfWork unitOfWork, IMapper mapper)
         : BaseService<SessionDTO, Session>(unitOfWork.Sessions, mapper)
     {
         private readonly Expression<Func<Session, object>>[] _properties = [
@@ -43,6 +43,23 @@ namespace BusinessLogic.Services
         public async Task<IEnumerable<RoomDTO>> GetAllRoomsAsync()
         {
             return _mapper.Map<IEnumerable<RoomDTO>>(await unitOfWork.Rooms.GetAllAsync());
+        }
+
+        public async Task<bool> ValidateSesionDate(SessionDTO session)
+        {
+            var moviePrice = await unitOfWork.MoviesPrices.GetByIdAsync(session.MoviePriceId);
+            return moviePrice != null && session.Date > moviePrice.Movie.ReleaseDate;
+        }
+
+        public async Task<IEnumerable<MovieDTO>> GetAllMoviesAsync()
+        {
+            return _mapper.Map<IEnumerable<MovieDTO>>(await unitOfWork.Movies.GetAllAsync());
+        }
+
+        public async Task<IEnumerable<MoviePriceDTO>> GetPricesByMovieIdAsync(int movieId)
+        {
+            var moviePrices = await unitOfWork.MoviesPrices.GetAllAsync(mp => mp.MovieId == movieId);
+            return _mapper.Map<IEnumerable<MoviePriceDTO>>(moviePrices);
         }
     }
 }

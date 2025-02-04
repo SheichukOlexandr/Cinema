@@ -29,7 +29,7 @@ namespace BusinessLogic.Helpers
             CreateMap<Session, SessionDTO>()
                 .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Room.Name))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.MoviePrice.Price))
-                .ForMember(dest => dest.Movie, opt => opt.MapFrom(src => src.MoviePrice.Movie));
+                .ForMember(dest => dest.MovieId, opt => opt.MapFrom(src => src.MoviePrice.Movie.Id));
             CreateMap<SessionDTO, Session>(); // Reverse
 
             CreateMap<ReservationStatus, ReservationStatusDTO>().ReverseMap();

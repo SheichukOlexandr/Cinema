@@ -11,6 +11,6 @@
         // data to map:
         public string? RoomName { get; set; }
         public decimal Price { get; set; }
-        public MovieDTO? Movie { get; set; }
+        public int MovieId { get; set; }
     }
 }
