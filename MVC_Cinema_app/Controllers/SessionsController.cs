@@ -144,6 +144,7 @@ namespace MVC_Cinema_app.Controllers
             return await _sessionService.GetAsync(id) != null;
         }
 
+        [HttpGet]
         public async Task<IActionResult> GetPrices(int movieId)
         {
             var prices = await _sessionService.GetPricesByMovieIdAsync(movieId);

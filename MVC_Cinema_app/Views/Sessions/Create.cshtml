@@ -49,22 +49,31 @@
         $(document).ready(function() {
             $('#movieSelect').change(function() {
                 var movieId = $(this).val();
+                console.log("Selected Movie ID: ", movieId); // Debugging output
                 $.ajax({
                     url: '@Url.Action("GetPrices", "Sessions")',
                     type: 'GET',
                     data: { movieId: movieId },
                     success: function(data) {
+                        console.log("Received Data: ", data); // Debugging output
                         var priceSelect = $('#priceSelect');
                         priceSelect.empty();
                         $.each(data, function(index, price) {
                             priceSelect.append($('<option>', {
                                 value: price.id,
-                                text: price.moviePriceName
+                                text: price.moviePriceName || `Ціна: ${price.price}` // Fallback if moviePriceName is null
                             }));
                         });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching prices: ", error);
                     }
                 });
             });
         });
     </script>
 }
+<div>
+    <h4>Debug Info</h4>
+    <pre>@Html.Raw(Json.Serialize(ViewBag.MoviePriceId))</pre>
+</div>
