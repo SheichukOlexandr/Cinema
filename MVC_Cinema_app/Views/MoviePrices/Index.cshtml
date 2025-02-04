@@ -1,10 +1,10 @@
-﻿@model IEnumerable<DataAccess.Models.MoviePrice>
+﻿@model IEnumerable<BusinessLogic.DTOs.MoviePriceDTO>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Movie Prices";
 }
 
-<h1>Index</h1>
+<h1>Movie Prices</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,10 +13,10 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.MovieName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Movie)
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th></th>
         </tr>
@@ -25,10 +25,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.MovieName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Movie.Cast)
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

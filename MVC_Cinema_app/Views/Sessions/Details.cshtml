@@ -1,4 +1,4 @@
-﻿@model DataAccess.Models.Session
+﻿@model BusinessLogic.DTOs.SessionDTO
 
 @{
     ViewData["Title"] = "Details";
@@ -23,16 +23,22 @@
             @Html.DisplayFor(model => model.Time)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Room)
+            @Html.DisplayNameFor(model => model.RoomName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Room.Name)
+            @Html.DisplayFor(model => model.RoomName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MoviePrice)
+            @Html.DisplayNameFor(model => model.MovieId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MoviePrice.Id)
+            @Html.DisplayFor(model => model.MovieId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
         </dd>
     </dl>
 </div>

@@ -1,10 +1,10 @@
-﻿@model IEnumerable<DataAccess.Models.Session>
+﻿@model IEnumerable<BusinessLogic.DTOs.SessionDTO>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Sessions";
 }
 
-<h1>Index</h1>
+<h1>Sessions</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -19,10 +19,13 @@
                 @Html.DisplayNameFor(model => model.Time)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Room)
+                @Html.DisplayNameFor(model => model.RoomName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MoviePrice)
+                @Html.DisplayNameFor(model => model.MovieId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th></th>
         </tr>
@@ -37,10 +40,13 @@
                 @Html.DisplayFor(modelItem => item.Time)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Room.Name)
+                @Html.DisplayFor(modelItem => item.RoomName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MoviePrice.Id)
+                @Html.DisplayFor(modelItem => item.MovieId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

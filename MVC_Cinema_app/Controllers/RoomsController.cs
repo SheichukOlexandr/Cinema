@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DataAccess.Contexts;
-using DataAccess.Models;
+using BusinessLogic.Services;
+using BusinessLogic.DTOs;
 
 namespace MVC_Cinema_app.Controllers
 {
     public class RoomsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly RoomService _roomService;
 
-        public RoomsController(ApplicationDbContext context)
+        public RoomsController(RoomService roomService)
         {
-            _context = context;
+            _roomService = roomService;
         }
 
         // GET: Rooms
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Rooms.ToListAsync());
+            return View(await _roomService.GetAllAsync());
         }
 
         // GET: Rooms/Details/5
@@ -33,8 +28,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var room = await _context.Rooms
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var room = await _roomService.GetAsync(id.Value);
             if (room == null)
             {
                 return NotFound();
@@ -54,12 +48,11 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Capacity")] Room room)
+        public async Task<IActionResult> Create([Bind("Id,Name,Capacity")] RoomDTO room)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(room);
-                await _context.SaveChangesAsync();
+                await _roomService.AddAsync(room);
                 return RedirectToAction(nameof(Index));
             }
             return View(room);
@@ -73,7 +66,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var room = await _context.Rooms.FindAsync(id);
+            var room = await _roomService.GetAsync(id.Value);
             if (room == null)
             {
                 return NotFound();
@@ -86,7 +79,7 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Capacity")] Room room)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Capacity")] RoomDTO room)
         {
             if (id != room.Id)
             {
@@ -97,12 +90,11 @@ namespace MVC_Cinema_app.Controllers
             {
                 try
                 {
-                    _context.Update(room);
-                    await _context.SaveChangesAsync();
+                    await _roomService.UpdateAsync(room);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RoomExists(room.Id))
+                    if (!await RoomExists(room.Id))
                     {
                         return NotFound();
                     }
@@ -124,8 +116,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var room = await _context.Rooms
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var room = await _roomService.GetAsync(id.Value);
             if (room == null)
             {
                 return NotFound();
@@ -139,19 +130,13 @@ namespace MVC_Cinema_app.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var room = await _context.Rooms.FindAsync(id);
-            if (room != null)
-            {
-                _context.Rooms.Remove(room);
-            }
-
-            await _context.SaveChangesAsync();
+            await _roomService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RoomExists(int id)
+        private async Task<bool> RoomExists(int id)
         {
-            return _context.Rooms.Any(e => e.Id == id);
+            return await _roomService.GetAsync(id) != null;
         }
     }
 }

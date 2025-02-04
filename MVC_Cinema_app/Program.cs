@@ -24,7 +24,17 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 // Don't use AppDomain.CurrentDomain.GetAssemblies(); It will break scaffolding. (e.g. autogeneration of controllers)
 builder.Services.AddAutoMapper(typeof(ApplicationProfile).Assembly);
 
+builder.Services.AddScoped<GenreService>();
+builder.Services.AddScoped<MovieStatusService>();
 builder.Services.AddScoped<MovieService>();
+builder.Services.AddScoped<MoviePriceService>();
+
+builder.Services.AddScoped<RoomService>();
+builder.Services.AddScoped<SeatService>();
+builder.Services.AddScoped<SessionService>();
+
+builder.Services.AddScoped<ReservationStatusService>();
+builder.Services.AddScoped<ReservationService>();
 
 var app = builder.Build();
 

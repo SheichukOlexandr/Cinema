@@ -22,9 +22,7 @@ namespace BusinessLogic.DTOs
         // data to map:
         public string? RoomName { get; set; }
 
-        [Range(0, 1000, ErrorMessage = "Ціна повинна бути від 0 до 1000")]
         public decimal Price { get; set; }
-
-        public string? MovieName { get; set; }
+        public int MovieId { get; set; }
     }
 }
