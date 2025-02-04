@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace BusinessLogic.DTOs
 {
@@ -24,6 +23,6 @@ namespace BusinessLogic.DTOs
         public string? RoomName { get; set; }
 
         public decimal Price { get; set; }
-        public int MovieId { get; set; }
+        
     }
 }

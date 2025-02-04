@@ -19,11 +19,6 @@ namespace MVC_Cinema_app.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         public IActionResult Movies()
         {
             return View();

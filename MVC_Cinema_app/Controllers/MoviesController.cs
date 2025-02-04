@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic.Services;
 using BusinessLogic.DTOs;
-using BusinessLogic.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace MVC_Cinema_app.Controllers
 {

@@ -59,7 +59,7 @@ namespace BusinessLogic.Services
                 Id = mp.Id,
                 MovieId = mp.MovieId,
                 Price = mp.Price,
-                MovieName = mp.Movie.Title, // Ensure this is correctly mapped
+                MovieName = mp.Movie.Title, 
                 MoviePriceName = $"Ціна: {mp.Price.ToString("C", new System.Globalization.CultureInfo("uk-UA"))}"
             });
             return moviePriceDTOs;

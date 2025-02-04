@@ -81,12 +81,12 @@ namespace MVC_Cinema_app.Controllers
                 Email = model.RegisterEmail,
                 PhoneNumber = model.PhoneNumber,
                 Password = model.RegisterPassword,
-                StatusId = 1, // Предположим, что 1 - это статус по умолчанию для новых пользователей
+                StatusId = 1, // 1 - це статус користувачів за заумовчуванням
             };
 
             await _userService.RegisterUserAsync(user);
 
-            // Автоматически входим в систему после успешной регистрации
+            // Автоматичний вхід в систему після реєстрації
             var claims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),

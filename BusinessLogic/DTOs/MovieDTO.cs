@@ -40,7 +40,6 @@ namespace BusinessLogic.DTOs
         [Required(ErrorMessage = "Статус обов'язковий")]
         public int StatusId { get; set; }
 
-        [Url(ErrorMessage = "Некоректне посилання на постер")]
         public string PosterURL { get; set; }
 
         [Url(ErrorMessage = "Некоректне посилання на трейлер")]

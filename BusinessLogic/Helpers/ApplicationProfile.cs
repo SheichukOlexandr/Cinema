@@ -7,13 +7,13 @@ namespace BusinessLogic.Helpers
     {
         public ApplicationProfile()
         {
-            // Маппинг для Genre и GenreDTO
+            // Мапінг для Genre и GenreDTO
             CreateMap<Genre, GenreDTO>().ReverseMap();
 
-            // Маппинг для MovieStatus и MovieStatusDTO
+            // Мапінг для MovieStatus и MovieStatusDTO
             CreateMap<MovieStatus, MovieStatusDTO>().ReverseMap();
 
-            // Маппинг для Movie и MovieDTO
+            // Мапінг для Movie и MovieDTO
             CreateMap<Movie, MovieDTO>()
                 .ForMember(dest => dest.GenreName, opt => opt.MapFrom(src => src.Genre.Name))
                 .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => src.Status.Name));
@@ -29,28 +29,28 @@ namespace BusinessLogic.Helpers
                 .ForMember(dest => dest.SeatName, opt => opt.MapFrom(src => src.Room.Name + " – " + src.Number));
             CreateMap<SeatDTO, Seat>(); // Reverse
 
-            // Маппинг для Room и RoomDTO
+            // Мапінг для Room и RoomDTO
             CreateMap<Room, RoomDTO>().ReverseMap();
 
-            // Маппинг для Session и SessionDTO
+            // Мапінг для Session и SessionDTO
             CreateMap<Session, SessionDTO>()
                 .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Room.Name))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.MoviePrice.Price))
                 .ForMember(dest => dest.MovieId, opt => opt.MapFrom(src => src.MoviePrice.Movie.Id));
             CreateMap<SessionDTO, Session>(); // Reverse
 
-            // Маппинг для ReservationStatus и ReservationStatusDTO
+            // Мапінг для ReservationStatus и ReservationStatusDTO
             CreateMap<ReservationStatus, ReservationStatusDTO>().ReverseMap();
 
-            // Маппинг для UserStatus и UserStatusDTO
+            // Мапінг для UserStatus и UserStatusDTO
             CreateMap<UserStatus, UserStatusDTO>().ReverseMap();
 
-            // Маппинг для User и UserDTO
+            // Мапінг для User и UserDTO
             CreateMap<User, UserDTO>()
                 .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => src.Status.Name));
             CreateMap<UserDTO, User>();
 
-            // Маппинг для Reservation и ReservationDTO
+            // Мапінг для Reservation и ReservationDTO
             CreateMap<Reservation, ReservationDTO>()
                 .ForMember(dest => dest.UserFullName, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName))
                 .ForMember(dest => dest.Session, opt => opt.MapFrom(src => src.Session))
