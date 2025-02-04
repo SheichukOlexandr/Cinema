@@ -102,6 +102,10 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
+            if (!await _sessionService.ValidateSesionDate(session))
+            {
+                ModelState.AddModelError("Date", "Сеанс не може відбутися до релізу фільму.");
+            }
             if (ModelState.IsValid)
             {
                 try
