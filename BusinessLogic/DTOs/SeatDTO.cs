@@ -16,7 +16,7 @@ namespace BusinessLogic.DTOs
         [Range(0, double.MaxValue, ErrorMessage = "Додаткова вартість повинна бути невід'ємною.")]
         public decimal ExtraPrice { get; set; }
 
-        // Дані для мапінгу:
+        // data to map:
         public string? RoomName { get; set; }
         public string? SeatName { get; set; }
     }
