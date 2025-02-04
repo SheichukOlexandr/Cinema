@@ -4,10 +4,12 @@ namespace BusinessLogic.DTOs
 {
     public class MoviePriceDTO
     {
-        [Range(0, double.MaxValue, ErrorMessage = "Ціна не може бути від'ємною.")]
-        public decimal Price { get; set; }
+        public int Id { get; set; }
 
-        [Range(1, int.MaxValue, ErrorMessage = "Фільм є обов'язковим.")]
+        [Required(ErrorMessage = "Фільм обов'язковий")]
         public int MovieId { get; set; }
+
+        [Range(0, 1000, ErrorMessage = "Ціна повинна бути від 0 до 1000")]
+        public decimal Price { get; set; }
     }
 }

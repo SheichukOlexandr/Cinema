@@ -6,11 +6,11 @@ namespace BusinessLogic.DTOs
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Назва залу є обов'язковою.")]
+        [Required(ErrorMessage = "Назва залу обов'язкова")]
+        [StringLength(50, ErrorMessage = "Назва залу не може бути довшою за 50 символів")]
         public string Name { get; set; }
 
-        [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "Місткість залу повинна бути більшою за 0.")]
+        [Range(1, 500, ErrorMessage = "Кількість місць повинна бути від 1 до 500")]
         public int Capacity { get; set; }
     }
 }
