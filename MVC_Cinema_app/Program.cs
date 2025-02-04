@@ -25,7 +25,7 @@ builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<MovieService>();
 builder.Services.AddScoped<GenreService>();
 builder.Services.AddScoped<MoviePriceService>();
-builder.Services.AddScoped<SessionsService>();
+builder.Services.AddScoped<SessionService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
