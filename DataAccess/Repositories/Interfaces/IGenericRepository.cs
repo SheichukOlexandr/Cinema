@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using DataAccess.Models;
 
 namespace DataAccess.Repositories.Interfaces
 {

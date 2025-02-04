@@ -1,7 +1,8 @@
-﻿@model DataAccess.Models.Session
+﻿@model BusinessLogic.DTOs.SessionDTO
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
 }
 
 <h1>Create</h1>
@@ -10,25 +11,26 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="Create" method="post">
+            <div class="form-group">
+                <label asp-for="MovieId" class="control-label"></label>
+                <select asp-for="MovieId" class="form-control" asp-items="ViewBag.MovieId" id="movieSelect"></select>
+            </div>
             <div class="form-group">
                 <label asp-for="MoviePriceId" class="control-label"></label>
-                <select asp-for="MoviePriceId" class ="form-control" asp-items="ViewBag.MoviePriceId"></select>
+                <select asp-for="MoviePriceId" class="form-control" asp-items="ViewBag.MoviePriceId" id="priceSelect"></select>
             </div>
             <div class="form-group">
                 <label asp-for="RoomId" class="control-label"></label>
-                <select asp-for="RoomId" class ="form-control" asp-items="ViewBag.RoomId"></select>
+                <select asp-for="RoomId" class="form-control" asp-items="ViewBag.RoomId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Time" class="control-label"></label>
                 <input asp-for="Time" class="form-control" />
-                <span asp-validation-for="Time" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -43,4 +45,26 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function() {
+            $('#movieSelect').change(function() {
+                var movieId = $(this).val();
+                $.ajax({
+                    url: '@Url.Action("GetPrices", "Sessions")',
+                    type: 'GET',
+                    data: { movieId: movieId },
+                    success: function(data) {
+                        var priceSelect = $('#priceSelect');
+                        priceSelect.empty();
+                        $.each(data, function(index, price) {
+                            priceSelect.append($('<option>', {
+                                value: price.id,
+                                text: price.moviePriceName
+                            }));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 }
