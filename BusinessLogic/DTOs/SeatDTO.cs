@@ -6,7 +6,7 @@ namespace BusinessLogic.DTOs
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Ідентифікатор кімнати є обов'язковим.")]
+        [Required(ErrorMessage = "Зала є обов'язковою.")]
         public int RoomId { get; set; }
 
         [Required(ErrorMessage = "Номер місця є обов'язковим.")]
