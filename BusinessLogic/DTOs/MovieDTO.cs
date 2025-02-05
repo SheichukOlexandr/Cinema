@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace BusinessLogic.DTOs
 {
@@ -39,6 +40,7 @@ namespace BusinessLogic.DTOs
         [Required(ErrorMessage = "Статус обов'язковий")]
         public int StatusId { get; set; }
 
+        
         public string PosterURL { get; set; }
 
         [Url(ErrorMessage = "Некоректне посилання на трейлер")]

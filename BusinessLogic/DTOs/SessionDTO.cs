@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace BusinessLogic.DTOs
 {
     public class SessionDTO
     {
         public int Id { get; set; }
-        public int MovieId { get; set; }
 
         [Required(ErrorMessage = "Ціна фільму обов'язкова")]
         public int MoviePriceId { get; set; }
@@ -23,6 +23,8 @@ namespace BusinessLogic.DTOs
         public string? RoomName { get; set; }
 
         public decimal Price { get; set; }
-        
+        public int MovieId { get; set; }
+        public string? MovieName { get; set; }
+
     }
 }
