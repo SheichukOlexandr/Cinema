@@ -9,10 +9,12 @@ namespace MVC_Cinema_app.Controllers
     public class SessionsController : Controller
     {
         private readonly SessionService _sessionService;
+        private readonly MovieService _movieService;
 
-        public SessionsController(SessionService sessionService)
+        public SessionsController(SessionService sessionService, MovieService movieService)
         {
             _sessionService = sessionService;
+            _movieService = movieService;
         }
 
         // GET: Sessions
@@ -160,6 +162,14 @@ namespace MVC_Cinema_app.Controllers
         {
             var prices = await _sessionService.GetPricesByMovieIdAsync(movieId);
             return Json(prices);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMovieName(int movieId)
+        {
+            // Тут ми можемо получити назву фільму по його ідентифікатору в базі даних
+            var movieName = await _movieService.GetMovieNameByIdAsync(movieId);
+            return Json(movieName);
         }
     }
 }
