@@ -91,6 +91,7 @@ a {
 
 header, nav {
     background: var(--rich-blank-fogra-29);
+
 }
 
 
@@ -98,6 +99,7 @@ header, nav {
 .container {
     max-width: 1920px;
     margin: auto;
+
 }
 
 .navbar, .banner, .movies, .category, .live {
@@ -113,10 +115,11 @@ header, nav {
 /*HEADER*/
 
 .navbar {
-    height: 100px;
+    height: 130px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .navbar-menu-btn {
@@ -136,6 +139,7 @@ nav {
     .navbar-nav li:not(:last-child) {
         margin-right: 60px;
     }
+
 
 .navbar-link {
     font-size: var(--font-size-small);
@@ -165,6 +169,7 @@ nav {
 .navbar-actions {
     display: flex;
     align-items: center;
+    
 }
 
 .navbar-form {
@@ -207,6 +212,8 @@ nav {
     display: flex;
     align-items: center;
     font-size: var(--font-size-small);
+    font-weight: var(--fw5);
+    color: var(--off-white);
 }
 
     .navbar-signin ion-icon {
@@ -396,10 +403,6 @@ input ~ .checked-radio-bg {
 .movie-card.hidden.hide {
     display: none;
 }
-
-
-
-
 
     .movie-card .card-head {
         position: relative;
@@ -747,7 +750,8 @@ ul .link-item:not(:last-child) {
     display: flex;
 }
 
-/*MEDIA QUERIES*/
+
+
 
 @media screen and (max-width: 1200px) {
     :root {
@@ -764,7 +768,7 @@ ul .link-item:not(:last-child) {
     }
 
         header.active {
-            top: 250px;
+            top: 70px;
         }
 
     .navbar-menu-btn {
@@ -779,8 +783,8 @@ ul .link-item:not(:last-child) {
             display: block;
             background: var(--off-white);
             width: 25px;
-            height: 2px;
-            margin: 8px;
+            height: 3px;
+            margin: 7px;
         }
 
         .navbar-menu-btn.active span {
@@ -809,6 +813,8 @@ ul .link-item:not(:last-child) {
         }
 
     .navbar-brand {
+        display: flex;
+        position: absolute;
         margin-left: 50px;
     }
 
@@ -824,17 +830,28 @@ ul .link-item:not(:last-child) {
             top: 0;
         }
 
+    ul.navbar-nav {
+        height: 100px;
+    }
+
     .navbar-nav {
-        height: 250px;
-        flex-direction: column;
+        height: 100px;
+        flex-direction: inherit;
         justify-content: center;
         align-items: flex-start;
         padding-left: var(--padding-x);
-        border-bottom: 1px solid var(--oxford-blue);
+        
     }
 
+        .navbar-nav .navbar-link {
+            margin-top: 40px;
+            margin-right: 30px;
+        }
+
+
+
         .navbar-nav li:not(:last-child) {
-            margin-right: 0;
+            margin-right: 20px;
             margin-bottom: 30px;
         }
 
@@ -850,6 +867,7 @@ ul .link-item:not(:last-child) {
         justify-content: space-between;
         align-items: center;
         z-index: 100;
+
     }
 
         .navbar-form.active {
@@ -880,13 +898,15 @@ ul .link-item:not(:last-child) {
         }
 
     .navbar-search-btn {
-        display: block;
-        margin-right: 100px;
-        padding-top: 5px;
+        position: absolute;
+        display: flex;
+        right: 65px; 
+        bottom: 56px;
     }
 
     .banner {
-        margin-top: 100px;
+        margin-top: 160px;
+
     }
 
     .banner-card .card-title {
@@ -921,16 +941,36 @@ ul .link-item:not(:last-child) {
         left: 60px;
         right: 60px;
     }
+
 }
 
 @media screen and (max-width: 768px) {
     :root {
         --padding-x: 40px;
     }
+        .navbar-nav .navbar-link {
+            margin-top: 40px;
+            margin-right: 30px;
+        }
+
+        .navbar-nav li:not(:last-child) {
+            margin-right: 15px;
+            margin-bottom: 30px;
+        }
+    ul.navbar-nav {
+        height: 100px;
+    }
+    nav.active {
+        height: 70px;
+    }
+    header.active {
+        top: 100px;
+    }
 
     .banner {
         display: none;
     }
+
 
     .movies {
         margin-top: 120px;
@@ -944,6 +984,9 @@ ul .link-item:not(:last-child) {
         .filter-bar select {
             margin-bottom: 20px;
         }
+    .movies {
+        margin-top: 150px
+    }
 }
 
 @media screen and (max-width: 575px) {
@@ -952,9 +995,28 @@ ul .link-item:not(:last-child) {
         --section-heading: 32px;
         --font-size-large: 20px;
     }
+    header.active {
+        top: 150px;
+    }
+    
+    }
+    .navbar-nav {
+        height: 170px
+    }
+    .navbar-nav .navbar-link {
+        margin-top: 40px;
+        margin-right: 10px;
+    }
+    ul.navbar-nav {
+        flex-wrap: wrap;
+    }
+
+
+
 
     .navbar-search-btn {
-        margin-right: 20px;
+        position: absolute;
+        right: 25px;
     }
 
     .navbar-form-search {
@@ -972,7 +1034,9 @@ ul .link-item:not(:last-child) {
     .wrapper {
         margin-bottom: 20px;
     }
-}
+
+    
+
 
 
 login-user {
