@@ -379,23 +379,23 @@ input ~ .checked-radio-bg {
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-/* Коли картка стає видимою, вона плавно з'являється і зміщується вправо */
-.movie-card.visible {
-    opacity: 1;
-    transform: scale(1) translateX(0); /* Зміщення картки на своє місце */
-}
+    /* Коли картка стає видимою, вона плавно з'являється і зміщується вправо */
+    .movie-card.visible {
+        opacity: 1;
+        transform: scale(1) translateX(0); /* Зміщення картки на своє місце */
+    }
 
-/* Для прихованих карток */
-.movie-card.hidden {
-    opacity: 0;
-    transform: scale(0.8);
-    pointer-events: none;
-}
+    /* Для прихованих карток */
+    .movie-card.hidden {
+        opacity: 0;
+        transform: scale(0.8);
+        pointer-events: none;
+    }
 
-/* Після анімації додаємо `display: none` */
-.movie-card.hidden.hide {
-    display: none;
-}
+        /* Після анімації додаємо `display: none` */
+        .movie-card.hidden.hide {
+            display: none;
+        }
 
 
 
@@ -496,7 +496,7 @@ input ~ .checked-radio-bg {
         font-size: var(--font-size-small);
         font-weight: var(--fw5);
     }
-    
+
 .load-more {
     background: var(--oxford-blue);
     display: block;
@@ -984,4 +984,3 @@ login-user {
     margin: 0 5px;
     color: #ccc;
 }
-

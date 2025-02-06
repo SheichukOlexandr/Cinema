@@ -73,6 +73,7 @@ namespace MVC_Cinema_app.Controllers
                 ViewData["LoginModel"] = new LoginDTO();
                 return View("Index", model);
             }
+            var status = await _userService.GetOrCreateUserStatusAsync("активний");
 
             var user = new User
             {
@@ -81,7 +82,7 @@ namespace MVC_Cinema_app.Controllers
                 Email = model.RegisterEmail,
                 PhoneNumber = model.PhoneNumber,
                 Password = model.RegisterPassword,
-                StatusId = 1, // 1 - це статус користувачів за заумовчуванням
+                StatusId = status.Id
             };
 
             await _userService.RegisterUserAsync(user);

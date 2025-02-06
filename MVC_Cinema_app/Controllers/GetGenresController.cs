@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DataAccess.Contexts;
-using DataAccess.Models;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using BusinessLogic.DTOs;
+using BusinessLogic.Services;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MVC_Cinema_app.Controllers
 {
@@ -11,20 +10,18 @@ namespace MVC_Cinema_app.Controllers
     [Route("api/[controller]")]
     public class GetGenresController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly GenreService _genreService;
 
-        public GetGenresController(ApplicationDbContext context)
+        public GetGenresController(GenreService genreService)
         {
-            _context = context;
+            _genreService = genreService;
         }
 
         // API: GET: api/Genres
         [HttpGet]
-        public async Task<ActionResult<List<Genre>>> GetGenres()
+        public async Task<ActionResult<List<GenreDTO>>> GetGenres()
         {
-            var genres = await _context.Genres
-                .Select(g => new { g.Id, g.Name })
-                .ToListAsync();
+            var genres = await _genreService.GetAllAsync();
             return Ok(genres);
         }
     }

@@ -30,6 +30,18 @@ namespace BusinessLogic.Services
             return user;
         }
 
+        public async Task<UserStatus> GetOrCreateUserStatusAsync(string statusName)
+        {
+            var status = await _unitOfWork.UserStatuses.FirstOrDefaultAsync(s => s.Name == statusName);
+            if (status == null)
+            {
+                status = new UserStatus { Name = statusName };
+                await _unitOfWork.UserStatuses.AddAsync(status);
+                await _unitOfWork.SaveChangesAsync();
+            }
+            return status;
+        }
+
         private string HashPassword(string password)
         {
             using (var sha256 = SHA256.Create())
