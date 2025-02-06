@@ -5,90 +5,88 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Ви впевнені, що хочете видалити це?</h3>
 <div>
-    <h4>Movie</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
+        <dt class="col-sm-2">
+            Назва фільму
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Director)
+        <dt class="col-sm-2">
+            Директор
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Director)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Duration)
+        <dt class="col-sm-2">
+            Тривалість
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Duration)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cast)
+        <dt class="col-sm-2">
+            Акторський склад
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Cast)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.GenreName)
+            Жанр
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.GenreName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReleaseDate)
+        <dt class="col-sm-2">
+            Дата виходу
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ReleaseDate)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
+        <dt class="col-sm-2">
+            Опис
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MinAge)
+        <dt class="col-sm-2">
+            Мінімальний вік
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.MinAge)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Rating)
+        <dt class="col-sm-2">
+            Рейтинг
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Rating)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PosterURL)
-        </dt>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.StatusName)
+            Статус
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.StatusName)
         </dd>
-        <dd class = "col-sm-10">
+        <dt class="col-sm-2">
+            Посилання на постер
+        </dt>
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PosterURL)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TrailerURL)
+        <dt class="col-sm-2">
+            Посилання на трейлер
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TrailerURL)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Видалити" class="btn btn-danger" /> |
+        <a asp-action="Index">Назад до списку</a>
     </form>
 </div>
