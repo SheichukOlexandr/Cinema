@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Авторизація";
+    ViewData["HideHeader"] = true;
+    ViewData["HideFooter"] = true;
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/AuthPage.css" asp-append-version="true" async/>
+    <link rel="stylesheet" href="~/lib/boxicons/css/boxicons.min.css" asp-append-version="true" async>
+</head>
+<body>
+    <div class="container">
+        @await Html.PartialAsync("_LoginPartial", ViewData["LoginModel"])
+        @await Html.PartialAsync("_RegisterPartial", ViewData["RegisterModel"])
+
+        <div class="toggle-box">
+            <div class="toggle-panel toggle-left">
+                <h1>Ласкаво просимо!</h1>
+                <p>Не маєте облікового запису?</p>
+                <button class="btn register-btn">Зареєструватися</button>
+            </div>
+
+            <div class="toggle-panel toggle-right">
+                <h1>З поверненням!</h1>
+                <p>Вже маєте обліковий запис?</p>
+                <button class="btn login-btn">Вхід</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/authpage.js"></script>
+    <script src="~/js/page_animation.js"></script>
+</body>
+</html>
+

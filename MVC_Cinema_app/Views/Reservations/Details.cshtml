@@ -1,41 +1,41 @@
 ﻿@model BusinessLogic.DTOs.ReservationDTO
 
 @{
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Деталі</h1>
 
 <div>
-    <h4>Reservation</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserFullName)
+        <dt class="col-sm-2">
+            Користувач
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.UserFullName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Session)
+        <dt class="col-sm-2">
+            Сеанс
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Session.Id)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SeatNumber)
+        <dt class="col-sm-2">
+            Номер місця
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SeatNumber)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SeatExtraPrice)
+            Ціна
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SeatExtraPrice)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StatusName)
+            Статус
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.StatusName)
@@ -43,6 +43,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Відредагувати</a> |
+    <a asp-action="Index">Назад до списку</a>
 </div>

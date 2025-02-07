@@ -1,25 +1,26 @@
 ﻿@model IEnumerable<BusinessLogic.DTOs.SeatDTO>
 
 @{
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
     ViewData["Title"] = "Seats";
 }
 
-<h1>Seats</h1>
+<h1>Місця</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Додати нові місця</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RoomName)
+                Назва кінозали
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Number)
+                Місце
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ExtraPrice)
+                Ціна
             </th>
             <th></th>
         </tr>
@@ -37,9 +38,9 @@
                 @Html.DisplayFor(modelItem => item.ExtraPrice)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Видалення</a>
             </td>
         </tr>
 }

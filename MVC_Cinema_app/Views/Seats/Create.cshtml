@@ -1,28 +1,29 @@
 ﻿@model BusinessLogic.DTOs.SeatDTO
 
 @{
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Створити</h1>
 
-<h4>Seat</h4>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="RoomId" class="control-label"></label>
+                <label asp-for="RoomId" class="control-label">Кінозала</label>
                 <select asp-for="RoomId" class ="form-control" asp-items="ViewBag.RoomId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Number" class="control-label"></label>
+                <label asp-for="Number" class="control-label">Номер місця</label>
                 <input asp-for="Number" class="form-control" />
                 <span asp-validation-for="Number" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ExtraPrice" class="control-label"></label>
+                <label asp-for="ExtraPrice" class="control-label">Ціна</label>
                 <input asp-for="ExtraPrice" class="form-control" />
                 <span asp-validation-for="ExtraPrice" class="text-danger"></span>
             </div>
@@ -34,7 +35,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Назад до списку</a>
 </div>
 
 @section Scripts {

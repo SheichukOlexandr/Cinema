@@ -1,59 +1,62 @@
 ﻿@model IEnumerable<BusinessLogic.DTOs.SessionDTO>
 
 @{
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
     ViewData["Title"] = "Sessions";
 }
 
-<h1>Sessions</h1>
+<h1>Сеанси</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
+            <th>Назва фільму</th>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                Дата сеансу
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Time)
+                Час початку
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoomName)
+                Назва залу
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MovieId)
+                Ціна квитка
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Time)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MovieId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MovieName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Видалення</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<div>
+    <a asp-action="Create">Додати новий сеанс</a>
+</div>
+

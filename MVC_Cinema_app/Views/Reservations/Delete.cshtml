@@ -1,42 +1,40 @@
 ﻿@model BusinessLogic.DTOs.ReservationDTO
 
 @{
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Ви впевнені, що хочете видалити це?</h3>
 <div>
-    <h4>Reservation</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserFullName)
+            Користувач
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.UserFullName)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Session)
+        <dt class="col-sm-2">
+            Сеанс
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Session.Id)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SeatNumber)
+        <dt class="col-sm-2">
+            Номер місця
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SeatNumber)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SeatExtraPrice)
+            Ціна
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.SeatExtraPrice)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StatusName)
+           Статус
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.StatusName)
@@ -45,7 +43,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Видалити" class="btn btn-danger" /> |
+        <a asp-action="Index">Назад до списку</a>
     </form>
 </div>

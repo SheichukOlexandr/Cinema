@@ -20,7 +20,6 @@
 
         // one-to-many: User -> Reservation
         public virtual ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
-
-
+        
     }
 }

@@ -1,4 +1,23 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿'use strict';
 
-// Write your JavaScript code.
+const header = document.querySelector('header');
+const nav = document.querySelector('nav');
+const navbarMenuBtn = document.querySelector('.navbar-menu-btn');
+
+const navbarForm = document.querySelector('.navbar-form');
+const navbarFormCloseBtn = document.querySelector('.navbar-form-close');
+const navbarSearchBtn = document.querySelector('.navbar-search-btn');
+
+function navIsActive() {
+    header.classList.toggle('active');
+    nav.classList.toggle('active');
+    navbarMenuBtn.classList.toggle('active');
+}
+
+navbarMenuBtn.addEventListener('click', navIsActive);
+
+const searchBarIsActive = () => navbarForm.classList.toggle('active');
+
+navbarSearchBtn.addEventListener('click', searchBarIsActive);
+navbarFormCloseBtn.addEventListener('click', searchBarIsActive);
+

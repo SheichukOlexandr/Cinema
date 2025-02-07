@@ -1,0 +1,22 @@
+﻿@model BusinessLogic.DTOs.LoginDTO
+
+<div class="form-box login">
+    
+    <form asp-action="Login" method="post">
+        <img class="logo-login" src="~/image/homepage/logo_upscale.png" alt="logo">
+        <div class="input-box">
+            <input asp-for="LoginEmail" placeholder="Ел. пошта" required>
+            <span asp-validation-for="LoginEmail" class="text-danger"></span>
+            <i class='bx bxs-envelope'></i>
+        </div>
+        <div class="input-box">
+            <input asp-for="LoginPassword" placeholder="Пароль" required id="loginPassword" type="password">
+            <span asp-validation-for="LoginPassword" class="text-danger"></span>
+            <i class='bx bxs-hide' id="toggleLoginPassword" style="cursor: pointer; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);"></i>
+        </div>
+        <button type="submit" class="btn">Вхід</button>
+        <div class="forgot-link">
+            <a class="transition-link" asp-controller="Home" asp-action="Index">Повернутися на головну</a>
+        </div>
+    </form>
+</div>

@@ -1,53 +1,49 @@
 ﻿@model BusinessLogic.DTOs.SessionDTO
 
 @{
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Session</h4>
-<hr />
+<h4>Сеанс</h4>
+<hr/>
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="MovieId" class="control-label"></label>
+                <label asp-for="MovieId" class="control-label">Назва фільму</label>
                 <select asp-for="MovieId" class="form-control" asp-items="ViewBag.MovieId" id="movieSelect"></select>
                 <span asp-validation-for="MovieId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MoviePriceId" class="control-label"></label>
+                <label asp-for="MoviePriceId" class="control-label">Ціна квитка</label>
                 <select asp-for="MoviePriceId" class="form-control" asp-items="ViewBag.MoviePriceId" id="priceSelect"></select>
                 <span asp-validation-for="MoviePriceId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RoomId" class="control-label"></label>
+                <label asp-for="RoomId" class="control-label">Назва кімнати</label>
                 <select asp-for="RoomId" class="form-control" asp-items="ViewBag.RoomId"></select>
                 <span asp-validation-for="RoomId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
+                <label asp-for="Date" class="control-label">Дата сеансу</label>
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Time" class="control-label"></label>
+                <label asp-for="Time" class="control-label">Час початку</label>
                 <input asp-for="Time" class="form-control" />
                 <span asp-validation-for="Time" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Зберегти" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -74,3 +70,4 @@
         });
     </script>
 }
+

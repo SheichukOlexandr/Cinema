@@ -1,52 +1,53 @@
 ﻿@model IEnumerable<BusinessLogic.DTOs.MovieDTO>
 
 @{
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
     ViewData["Title"] = "Movies";
 }
 
-<h1>Movies</h1>
+<h1>Фільми</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Додати новий фільм</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Назва фільму
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Director)
+                Режисер
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Duration)
+                Тривалість
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cast)
+                Акторський склад
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GenreName)
+                Жанр
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReleaseDate)
+                Дата виходу
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Опис
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MinAge)
+                Мінімальний вік
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Rating)
+                Рейтинг
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StatusName)
+                Статус
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PosterURL)
+                Постер
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TrailerURL)
+                Трейлер
             </th>
             <th></th>
         </tr>
@@ -91,9 +92,9 @@
                 @Html.DisplayFor(modelItem => item.TrailerURL)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Видалення</a>
             </td>
         </tr>
 }

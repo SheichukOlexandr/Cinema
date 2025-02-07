@@ -4,6 +4,7 @@ using DataAccess.Repositories.Interfaces;
 using DataAccess.Repositories.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using BusinessLogic.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +22,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-// Don't use AppDomain.CurrentDomain.GetAssemblies(); It will break scaffolding. (e.g. autogeneration of controllers)
 builder.Services.AddAutoMapper(typeof(ApplicationProfile).Assembly);
 
 builder.Services.AddScoped<GenreService>();
@@ -35,6 +35,15 @@ builder.Services.AddScoped<SessionService>();
 
 builder.Services.AddScoped<ReservationStatusService>();
 builder.Services.AddScoped<ReservationService>();
+
+builder.Services.AddScoped<UserService>();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Auth/Index";
+        options.LogoutPath = "/Auth/Logout";
+    });
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -52,6 +61,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
+app.MapControllers();
 
 app.MapControllerRoute(
     name: "default",
