@@ -468,6 +468,7 @@ input ~ .checked-radio-bg {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%) scale(var(--scale));
+        /* transform: translate(-200%, -280%) scale(var(--scale)); */
     }
 
         .movie-card .play ion-icon {
