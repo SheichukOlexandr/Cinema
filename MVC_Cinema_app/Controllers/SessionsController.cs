@@ -9,12 +9,10 @@ namespace MVC_Cinema_app.Controllers
     public class SessionsController : Controller
     {
         private readonly SessionService _sessionService;
-        private readonly MovieService _movieService;
 
         public SessionsController(SessionService sessionService, MovieService movieService)
         {
             _sessionService = sessionService;
-            _movieService = movieService;
         }
 
         // GET: Sessions
