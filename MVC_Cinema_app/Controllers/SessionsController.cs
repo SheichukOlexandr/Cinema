@@ -10,7 +10,7 @@ namespace MVC_Cinema_app.Controllers
     {
         private readonly SessionService _sessionService;
 
-        public SessionsController(SessionService sessionService, MovieService movieService)
+        public SessionsController(SessionService sessionService)
         {
             _sessionService = sessionService;
         }
