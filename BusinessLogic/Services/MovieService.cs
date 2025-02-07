@@ -41,11 +41,5 @@ namespace BusinessLogic.Services
         {
             return _mapper.Map<IEnumerable<MovieStatusDTO>>(await unitOfWork.MovieStatues.GetAllAsync());
         }
-
-        public async Task<string?> GetMovieNameByIdAsync(int movieId)
-        {
-            var movie = await _repository.GetByIdAsync(movieId);
-            return movie?.Title;
-        }
     }
 }
