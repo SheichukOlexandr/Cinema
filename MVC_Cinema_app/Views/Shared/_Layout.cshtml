@@ -38,6 +38,11 @@
                             @if (User.Identity?.IsAuthenticated == true)
                             {
                                 <li class="navbar-link">
+                                    <a asp-area="" asp-controller="UserProfile" asp-action="Index" class="btn btn-link text-white navbar-signin transition-link">
+                                        <ion-icon name="person"></ion-icon>
+                                    </a>
+                                </li>
+                                <li class="navbar-link">
                                     <form asp-area="" asp-controller="Auth" asp-action="Logout" method="post" class="navbar-signin">
                                         <button type="submit" class="btn btn-link text-white navbar-signin transition-link">
                                             <span>Вихід</span>

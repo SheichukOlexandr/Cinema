@@ -1,0 +1,127 @@
+﻿@model UserProfileViewModel
+@using BusinessLogic.DTOs
+
+@{
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
+    ViewData["Title"] = "User Profile";
+}
+
+<h1>Мій акаунт</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Ім'я
+            </th>
+            <th>
+                Прізвище
+            </th>
+            <th>
+                Ел. пошта
+            </th>
+            <th>
+                Номер телефону
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.User.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.User.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.User.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.User.PhoneNumber)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="">Редагувати</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h1>Мої бронювання</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Назва фільму
+            </th>
+            <th>
+                Дата
+            </th>
+            <th>
+                Час
+            </th>
+            <th>
+                Назва залу
+            </th>
+            <th>
+                Номер місця
+            </th>
+            <th>
+                Ціна сеансу
+            </th>
+            <th>
+                Ціна місця
+            </th>
+            <th>
+                Статус
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Reservations)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Session.MovieName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Session.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Session.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Session.RoomName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.SeatNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Session.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.SeatExtraPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.StatusName)
+                </td>
+                <td>
+                    @if (item.StatusName != ReservationStatusDTO.Cancelled){
+                        <form asp-action="Cancel" method="post">
+                            <input type="hidden" name="reservationId" value="@item.Id" />
+                            <button type="submit" class="btn btn-danger">Скасувати</button>
+                        </form>
+                    }
+                    @if (item.StatusName == ReservationStatusDTO.Created) {
+                        <form asp-action="Confirm" method="post">
+                            <input type="hidden" name="reservationId" value="@item.Id" />
+                            <button type="submit" class="btn btn-danger">Підтвердити</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
