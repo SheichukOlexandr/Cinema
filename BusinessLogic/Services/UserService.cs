@@ -1,14 +1,17 @@
 ﻿using DataAccess.Repositories.UnitOfWork;
-using DataAccess.Models;
 using System.Security.Cryptography;
 using System.Text;
+using BusinessLogic.DTOs;
+using DataAccess.Models;
+using AutoMapper;
+
 namespace BusinessLogic.Services
 {
-    public class UserService
+    public class UserService : BaseService<UserDTO, User>
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public UserService(IUnitOfWork unitOfWork)
+        public UserService(IMapper mapper, IUnitOfWork unitOfWork) : base(unitOfWork.Users, mapper)
         {
             _unitOfWork = unitOfWork;
         }
@@ -18,6 +21,12 @@ namespace BusinessLogic.Services
             user.Password = HashPassword(user.Password);
             await _unitOfWork.Users.AddAsync(user);
             await _unitOfWork.SaveChangesAsync();
+        }
+
+        public override Task UpdateAsync(UserDTO user)
+        {
+            user.NewPassword = HashPassword(user.NewPassword);
+            return base.UpdateAsync(user);
         }
 
         public async Task<User?> AuthenticateUserAsync(string email, string password)
@@ -40,6 +49,11 @@ namespace BusinessLogic.Services
                 await _unitOfWork.SaveChangesAsync();
             }
             return status;
+        }
+
+        public async Task<UserDTO?> GetUserByEmail(string email)
+        {
+            return _mapper.Map<UserDTO>(await _unitOfWork.Users.FirstOrDefaultAsync(s => s.Email == email));
         }
 
         private string HashPassword(string password)

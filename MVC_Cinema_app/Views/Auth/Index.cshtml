@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="~/css/AuthPage.css" asp-append-version="true" async/>
+    <link rel="stylesheet" href="~/css/AuthPage.css" asp-append-version="true" async />
     <link rel="stylesheet" href="~/lib/boxicons/css/boxicons.min.css" asp-append-version="true" async>
 </head>
 <body>
@@ -32,6 +32,7 @@
 
     <script src="~/js/authpage.js"></script>
     <script src="~/js/page_animation.js"></script>
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
 </body>
-</html>
-

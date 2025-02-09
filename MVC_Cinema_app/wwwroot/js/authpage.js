@@ -1,35 +1,46 @@
-﻿const container = document.querySelector('.container');
-const registerBtn = document.querySelector('.register-btn');
-const loginBtn = document.querySelector('.login-btn');
+﻿document.addEventListener('DOMContentLoaded', function () {
+    const container = document.querySelector('.container');
+    const registerBtn = document.querySelector('.register-btn');
+    const loginBtn = document.querySelector('.login-btn');
 
-registerBtn.addEventListener('click', () => {
-    container.classList.add('active');
-})
+    if (registerBtn) {
+        registerBtn.addEventListener('click', () => {
+            container.classList.add('active');
+        });
+    }
 
-loginBtn.addEventListener('click', () => {
-    container.classList.remove('active');
-})
+    if (loginBtn) {
+        loginBtn.addEventListener('click', () => {
+            container.classList.remove('active');
+        });
+    }
 
-document.getElementById('toggleLoginPassword').addEventListener('click', function (e) {
-    const password = document.getElementById('loginPassword');
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    this.classList.toggle('bxs-hide');
-    this.classList.toggle('bxs-show');
+    const togglePasswordVisibility = (toggleIds, passwordId, confirmPasswordId) => {
+        const toggleElements = toggleIds.map(id => document.getElementById(id));
+        const passwordElement = document.getElementById(passwordId);
+        const confirmPasswordElement = document.getElementById(confirmPasswordId);
+
+        if (toggleElements.every(el => el) && passwordElement && confirmPasswordElement) {
+            toggleElements.forEach(toggleElement => {
+                toggleElement.addEventListener('click', function () {
+                    const type = passwordElement.getAttribute('type') === 'password' ? 'text' : 'password';
+                    passwordElement.setAttribute('type', type);
+                    confirmPasswordElement.setAttribute('type', type);
+
+                    const placeholder = type === 'password' ? 'Пароль' : 'Видимий пароль';
+                    passwordElement.setAttribute('placeholder', placeholder);
+                    confirmPasswordElement.setAttribute('placeholder', placeholder);
+
+                    toggleElements.forEach(el => {
+                        el.classList.toggle('bxs-hide');
+                        el.classList.toggle('bxs-show');
+                    });
+                });
+            });
+        }
+    };
+
+    togglePasswordVisibility(['toggleLoginPassword'], 'loginPassword', 'loginPassword');
+    togglePasswordVisibility(['toggleRegisterPassword', 'toggleConfirmPassword'], 'registerPassword', 'confirmPassword');
 });
 
-document.getElementById('toggleRegisterPassword').addEventListener('click', function (e) {
-    const password = document.getElementById('registerPassword');
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    this.classList.toggle('bxs-hide');
-    this.classList.toggle('bxs-show');
-});
-
-document.getElementById('toggleConfirmPassword').addEventListener('click', function (e) {
-    const password = document.getElementById('confirmPassword');
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    this.classList.toggle('bxs-hide');
-    this.classList.toggle('bxs-show');
-});

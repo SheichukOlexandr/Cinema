@@ -3,6 +3,7 @@
 <div class="form-box register">
     <form asp-action="Register" method="post">
         <img class="logo-register" src="~/image/homepage/logo_upscale.png" alt="logo">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="input-box">
             <input asp-for="FirstName" placeholder="Ім'я" required>
             <span asp-validation-for="FirstName" class="text-danger"></span>
@@ -26,12 +27,12 @@
         <div class="input-box">
             <input asp-for="RegisterPassword" placeholder="Пароль" required id="registerPassword" type="password">
             <span asp-validation-for="RegisterPassword" class="text-danger"></span>
-            <i class='bx bxs-hide' id="toggleRegisterPassword" style="cursor: pointer; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);"></i>
+            <i class='bx bxs-hide' id="toggleRegisterPassword"></i>
         </div>
         <div class="input-box">
             <input asp-for="ConfirmPassword" placeholder="Підтвердження паролю" required id="confirmPassword" type="password">
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            <i class='bx bxs-hide' id="toggleConfirmPassword" style="cursor: pointer; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);"></i>
+            <i class='bx bxs-hide' id="toggleConfirmPassword"></i>
         </div>
         <button type="submit" class="btn">Зареєструватись</button>
         <div class="forgot-link">
@@ -39,3 +40,8 @@
         </div>
     </form>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/authpage.js"></script>
+}

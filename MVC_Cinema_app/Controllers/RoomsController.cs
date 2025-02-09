@@ -2,9 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic.Services;
 using BusinessLogic.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC_Cinema_app.Controllers
 {
+    [Authorize(Policy = Policies.AdminUserPolicy)]
     public class RoomsController : Controller
     {
         private readonly RoomService _roomService;

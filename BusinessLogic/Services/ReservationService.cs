@@ -73,5 +73,48 @@ namespace BusinessLogic.Services
         {
             return _mapper.Map<IEnumerable<ReservationStatusDTO>>(await unitOfWork.ReservationStatues.GetAllAsync());
         }
+
+        public async Task<IEnumerable<ReservationDTO>> GetAllReservationsByUserIdAsync(int userId)
+        {
+            return _mapper.Map<IEnumerable<ReservationDTO>>(await unitOfWork.Reservations.GetAllAsync(filter: it => it.UserId == userId));
+        }
+
+        public async Task<ReservationStatus> GetOrCreateReservationStatusAsync(string statusName)
+        {
+            var status = await unitOfWork.ReservationStatues.FirstOrDefaultAsync(s => s.Name == statusName);
+            if (status == null)
+            {
+                status = new ReservationStatus { Name = statusName };
+                await unitOfWork.ReservationStatues.AddAsync(status);
+            }
+            return status;
+        }
+
+        public async Task CancelReservationAsync(ReservationDTO reservationDTO)
+        {
+            var reservation = await unitOfWork.Reservations.GetByIdAsync(reservationDTO.Id);
+            if (reservation == null)
+            {
+                throw new InvalidOperationException("Reservation not found.");
+            }
+
+            var status = await GetOrCreateReservationStatusAsync(ReservationStatusDTO.Cancelled);
+            reservation.StatusId = status.Id;
+
+            await unitOfWork.Reservations.UpdateAsync(reservation);
+        }
+
+        public async Task ConfirmReservationAsync(ReservationDTO reservationDTO)
+        {
+            var reservation = await unitOfWork.Reservations.GetByIdAsync(reservationDTO.Id);
+            if (reservation == null)
+            {
+                throw new InvalidOperationException("Reservation not found.");
+            }
+
+            var status = await GetOrCreateReservationStatusAsync(ReservationStatusDTO.Confirmed);
+            reservation.StatusId = status.Id;
+            await unitOfWork.Reservations.UpdateAsync(reservation);
+        }
     }
 }
