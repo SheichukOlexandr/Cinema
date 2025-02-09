@@ -86,30 +86,39 @@ form {
     margin: 30px 0;
 }
 
-.input-box input {
-    width: 100%;
-    padding: 13px 50px 13px 20px;
-    background: #eee;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    color: #333;
-    font-weight: 500;
-}
+    .input-box input {
+        width: 100%;
+        padding: 13px 50px 13px 20px;
+        background: #eee;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        color: #333;
+        font-weight: 500;
+    }
 
-.input-box input::placeholder {
-    color: #888;
-    font-weight: 400;
-}
+        .input-box input::placeholder {
+            color: #888;
+            font-weight: 400;
+        }
 
-.input-box i {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 20px;
-}
+    .input-box i {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .input-box .text-danger {
+        position: absolute;
+        bottom: -20px;
+        left: 20px;
+        font-size: 12px;
+        color: red;
+    }
 
 .forgot-link {
     margin-top: 15px;
