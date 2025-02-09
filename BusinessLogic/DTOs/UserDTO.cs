@@ -15,5 +15,6 @@
 
         // data to map:
         public string? StatusName { get; set; }
+        public string NewPassword { get; set; }
     }
 }

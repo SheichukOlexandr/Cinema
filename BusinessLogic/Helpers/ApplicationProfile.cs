@@ -37,7 +37,8 @@ namespace BusinessLogic.Helpers
             CreateMap<UserStatus, UserStatusDTO>().ReverseMap();
             CreateMap<User, UserDTO>()
                 .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => src.Status.Name));
-            CreateMap<UserDTO, User>(); // Reverse
+            CreateMap<UserDTO, User>()
+                .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.NewPassword));
 
             CreateMap<Reservation, ReservationDTO>()
                 .ForMember(dest => dest.UserFullName, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName))

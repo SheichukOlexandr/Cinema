@@ -1,0 +1,60 @@
+﻿@model UserEditViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Edit";
+}
+
+
+<h4>Мій акаунт</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="User.Id" />
+            <input type="hidden" asp-for="User.StatusId" />
+            <div class="form-group">
+                <label asp-for="User.FirstName" class="control-label">Ім'я</label>
+                <input asp-for="User.FirstName" class="form-control"/>
+                <span asp-validation-for="User.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.LastName" class="control-label">Прізвище</label>
+                <input asp-for="User.LastName" class="form-control" />
+                <span asp-validation-for="User.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.Email" class="control-label">Ел. Пошта</label>
+                <input asp-for="User.Email" class="form-control" />
+                <span asp-validation-for="User.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.PhoneNumber" class="control-label">Номер телефону</label>
+                <input asp-for="User.PhoneNumber" class="form-control" />
+                <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="User.NewPassword" class="control-label">Новий пароль</label>
+                <input asp-for="User.NewPassword" class="form-control" type="password" />
+                <span asp-validation-for="User.NewPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewPasswordConfirmed" class="control-label">Підтвердження паролю</label>
+                <input asp-for="NewPasswordConfirmed" class="form-control" type="password" />
+                <span asp-validation-for="NewPasswordConfirmed" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Зберегти" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад до списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

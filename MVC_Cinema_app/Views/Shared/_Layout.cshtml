@@ -1,4 +1,5 @@
-﻿@{
+﻿@using BusinessLogic.DTOs
+@{
     var hideHeader = ViewData["HideHeader"] as bool?;
     var hideFooter = ViewData["HideFooter"] as bool?;
 }
@@ -34,9 +35,16 @@
                             <li><a asp-area="" asp-controller="Home" asp-action="Movies" class="navbar-link">Фільми</a></li>
                             <li><a href="#category" class="navbar-link">Бронювання</a></li>
                             <li><a asp-area="" asp-controller="Home" asp-action="Sessions" class="navbar-link">Сеанси</a></li>
-                            <li><a asp-area="" asp-controller="Dashboard" asp-action="Index" class="navbar-link">АдмінПанель</a></li>
                             @if (User.Identity?.IsAuthenticated == true)
                             {
+                                @if (User.IsInRole(UserStatusDTO.Admin)) {
+                                    <li><a asp-area="" asp-controller="Dashboard" asp-action="Index" class="navbar-link">АдмінПанель</a></li>
+                                }
+                                <li class="navbar-link">
+                                    <a asp-area="" asp-controller="UserProfile" asp-action="Index" class="btn btn-link text-white navbar-signin transition-link">
+                                        <ion-icon name="person"></ion-icon>
+                                    </a>
+                                </li>
                                 <li class="navbar-link">
                                     <form asp-area="" asp-controller="Auth" asp-action="Logout" method="post" class="navbar-signin">
                                         <button type="submit" class="btn btn-link text-white navbar-signin transition-link">
