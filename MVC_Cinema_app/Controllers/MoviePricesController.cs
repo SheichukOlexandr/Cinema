@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic.Services;
 using BusinessLogic.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC_Cinema_app.Controllers
 {
+    [Authorize(Policy = Policies.AdminUserPolicy)]
     public class MoviePricesController : Controller
     {
         private readonly MoviePriceService _moviePriceService;

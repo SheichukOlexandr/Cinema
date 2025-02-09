@@ -985,3 +985,7 @@ login-user {
     margin: 0 5px;
     color: #ccc;
 }
+
+.table-text {
+    color: var(--off-white);
+}

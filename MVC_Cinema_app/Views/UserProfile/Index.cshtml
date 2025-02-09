@@ -2,14 +2,14 @@
 @using BusinessLogic.DTOs
 
 @{
-    Layout = "~/Views/Shared/MinimalLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "User Profile";
 }
 
 <h1>Мій акаунт</h1>
 
 <table class="table">
-    <thead>
+    <thead class="table-text">
         <tr>
             <th>
                 Ім'я
@@ -26,7 +26,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="table-text">
         <tr>
             <td>
                 @Html.DisplayFor(model => model.User.FirstName)
@@ -41,14 +41,14 @@
                 @Html.DisplayFor(model => model.User.PhoneNumber)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="">Редагувати</a>
+                <a asp-action="Edit" asp-route-id="" class="link-info">Редагувати</a>
             </td>
         </tr>
     </tbody>
 </table>
 
 <h1>Мої бронювання</h1>
-<table class="table">
+<table class="table table-text">
     <thead>
         <tr>
             <th>
@@ -107,16 +107,17 @@
                     @Html.DisplayFor(model => item.StatusName)
                 </td>
                 <td>
-                    @if (item.StatusName != ReservationStatusDTO.Cancelled){
-                        <form asp-action="Cancel" method="post">
+                    @if (item.StatusName != ReservationStatusDTO.Cancelled && item.StatusName != ReservationStatusDTO.Completed)
+                    {
+                        <form asp-action="Cancel" method="post" onsubmit="return confirmCancel();">
                             <input type="hidden" name="reservationId" value="@item.Id" />
                             <button type="submit" class="btn btn-danger">Скасувати</button>
                         </form>
                     }
                     @if (item.StatusName == ReservationStatusDTO.Created) {
-                        <form asp-action="Confirm" method="post">
+                        <form asp-action="Confirm" method="post" onsubmit="return confirmReservation(@item.Session.Price + @item.SeatExtraPrice);">
                             <input type="hidden" name="reservationId" value="@item.Id" />
-                            <button type="submit" class="btn btn-danger">Підтвердити</button>
+                            <button type="submit" class="btn btn-success">Підтвердити</button>
                         </form>
                     }
                 </td>
@@ -125,3 +126,12 @@
     </tbody>
 </table>
 
+<script>
+    function confirmCancel() {
+        return confirm("Ви впевнені, що хочете скасувати бронювання?");
+    }
+
+    function confirmReservation(totalPrice) {
+        return confirm("Ви впевнені, що хочете підтвердити бронювання? Загальна вартість: " + totalPrice);
+    }
+</script>

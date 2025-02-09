@@ -1,11 +1,13 @@
 ﻿using BusinessLogic.DTOs;
 using BusinessLogic.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace MVC_Cinema_app.Controllers
 {
+    [Authorize(Policy = Policies.AdminUserPolicy)]
     public class ReservationsController : Controller
     {
         private readonly ReservationService _reservationService;

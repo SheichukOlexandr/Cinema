@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BusinessLogic.Services;
 using BusinessLogic.DTOs;
 using System.Security.Claims;
 using MVC_Cinema_app.Models;
-using DataAccess.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC_Cinema_app.Controllers
 {
+    [Authorize(Policy = Policies.DefaultUserPolicy)]
     public class UserProfileController : Controller
     {
         private readonly UserService _userService;
@@ -22,8 +22,7 @@ namespace MVC_Cinema_app.Controllers
 
         private async Task<UserDTO?> GetCurrentUserAsync()
         {
-            var emailClaim = this.User.Claims.Where(it => it.Type == ClaimTypes.Email).FirstOrDefault();
-
+            var emailClaim = this.User.Claims.FirstOrDefault(it => it.Type == ClaimTypes.Email);
             if (emailClaim == null)
             {
                 return null;
@@ -119,7 +118,7 @@ namespace MVC_Cinema_app.Controllers
             var user = await GetCurrentUserAsync();
             if (user == null)
             {
-                return Unauthorized();
+                return NotFound();
             }
 
             var reservation = await _reservationService.GetAsync(reservationId);
@@ -129,6 +128,30 @@ namespace MVC_Cinema_app.Controllers
             }
 
             await _reservationService.CancelReservationAsync(reservation);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // POST: UserProfile/Confirm/3
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Confirm(int reservationId)
+        {
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var reservation = await _reservationService.GetAsync(reservationId);
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+
+            await _reservationService.ConfirmReservationAsync(reservation);
 
             return RedirectToAction(nameof(Index));
         }

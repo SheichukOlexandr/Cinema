@@ -1,8 +1,6 @@
 ﻿using BusinessLogic.DTOs;
 using BusinessLogic.Services;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MVC_Cinema_app.Controllers
 {

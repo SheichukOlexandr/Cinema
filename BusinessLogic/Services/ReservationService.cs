@@ -90,18 +90,31 @@ namespace BusinessLogic.Services
             return status;
         }
 
-        public async Task CancelReservationAsync(ReservationDTO reservation)
+        public async Task CancelReservationAsync(ReservationDTO reservationDTO)
         {
+            var reservation = await unitOfWork.Reservations.GetByIdAsync(reservationDTO.Id);
+            if (reservation == null)
+            {
+                throw new InvalidOperationException("Reservation not found.");
+            }
+
             var status = await GetOrCreateReservationStatusAsync(ReservationStatusDTO.Cancelled);
             reservation.StatusId = status.Id;
-            await unitOfWork.Reservations.UpdateAsync(_mapper.Map<Reservation>(reservation));
+
+            await unitOfWork.Reservations.UpdateAsync(reservation);
         }
 
-        public async Task ConfirmReservation(ReservationDTO reservation)
+        public async Task ConfirmReservationAsync(ReservationDTO reservationDTO)
         {
+            var reservation = await unitOfWork.Reservations.GetByIdAsync(reservationDTO.Id);
+            if (reservation == null)
+            {
+                throw new InvalidOperationException("Reservation not found.");
+            }
+
             var status = await GetOrCreateReservationStatusAsync(ReservationStatusDTO.Confirmed);
             reservation.StatusId = status.Id;
-            await unitOfWork.Reservations.UpdateAsync(_mapper.Map<Reservation>(reservation));
+            await unitOfWork.Reservations.UpdateAsync(reservation);
         }
     }
 }

@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using BusinessLogic.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using BusinessLogic.Helpers;
+using BusinessLogic.DTOs;
+using System.Security.Claims;
+using MVC_Cinema_app;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +46,13 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Auth/Index";
         options.LogoutPath = "/Auth/Logout";
     });
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy(Policies.DefaultUserPolicy, policy =>
+        policy.RequireClaim(ClaimTypes.Role, UserStatusDTO.Active, UserStatusDTO.Admin))
+    .AddPolicy(Policies.AdminUserPolicy, policy =>
+        policy.RequireClaim(ClaimTypes.Role, UserStatusDTO.Admin));
+
 builder.Services.AddControllers();
 
 var app = builder.Build();
@@ -60,8 +70,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 
 app.MapControllerRoute(
@@ -69,3 +79,11 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+namespace MVC_Cinema_app
+{
+    class Policies {
+        public const string DefaultUserPolicy = "DefaultUser";
+        public const string AdminUserPolicy = "AdminUser";
+    };
+}
