@@ -134,11 +134,16 @@ namespace DataAccess.Contexts
             // Додавання жанрів
             var genres = new Genre[]
             {
-                new Genre { Name = "Бойовик" },
-                new Genre { Name = "Комедія" },
-                new Genre { Name = "Драма" },
-                new Genre { Name = "Жахи" },
-                new Genre { Name = "Наукова фантастика" }
+                new Genre { Id = 1, Name = "Бойовик" },
+                new Genre { Id = 2, Name = "Комедія" },
+                new Genre { Id = 3, Name = "Драма" },
+                new Genre { Id = 4, Name = "Фантастика" },
+                new Genre { Id = 5, Name = "Трилер" },
+                new Genre { Id = 6, Name = "Жахи" },
+                new Genre { Id = 7, Name = "Мелодрама" },
+                new Genre { Id = 8, Name = "Пригоди" },
+                new Genre { Id = 9, Name = "Анімація" },
+                new Genre { Id = 10, Name = "Документальний" }
             };
             context.Genres.AddRange(genres);
             context.SaveChanges();
