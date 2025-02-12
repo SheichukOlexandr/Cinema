@@ -989,3 +989,53 @@ login-user {
 .table-text {
     color: var(--off-white);
 }
+
+/*MODAL SECTION*/
+/* Modal dark theme styles */
+.modal-content {
+    background: var(--rich-blank-fogra-29);
+    color: var(--off-white);
+}
+
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Style the close button */
+.modal-header .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+/* Style the session items to match the theme */
+.session-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.session-price {
+    color: #9ca3af; /* lighter gray that works well in dark mode */
+}
+
+/* Style the buy ticket button to match your theme */
+.session-item .btn-primary {
+    background: var(--primary);
+    border: 1px solid #dee2e6;
+}
+
+.sessions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.session-item {
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+    text-align: center;
+}
