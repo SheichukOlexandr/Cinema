@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250213131703_initialCreate")]
-    partial class initialCreate
+    [Migration("20250213141634_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -180,7 +180,7 @@ namespace DataAccess.Migrations
                             Description = "Подорож крізь простір і час для порятунку людства.",
                             Director = "Крістофер Нолан",
                             Duration = 169,
-                            GenreId = 5,
+                            GenreId = 4,
                             MinAge = 12,
                             PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/9d1sCoMSGJZtghS2X9us1h9u8lW.jpg",
                             Rating = 8.5999999999999996,
@@ -228,7 +228,7 @@ namespace DataAccess.Migrations
                             Description = "Фінальна битва Месників проти Таноса.",
                             Director = "Джо Руссо, Ентоні Руссо",
                             Duration = 181,
-                            GenreId = 1,
+                            GenreId = 4,
                             MinAge = 12,
                             PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/6gWhqrYEOBqqzXPKP7c0m4bIvTX.jpg",
                             Rating = 8.4000000000000004,
@@ -244,7 +244,7 @@ namespace DataAccess.Migrations
                             Description = "Історія походження одного з найвідоміших лиходіїв коміксів.",
                             Director = "Тодд Філліпс",
                             Duration = 122,
-                            GenreId = 3,
+                            GenreId = 2,
                             MinAge = 18,
                             PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/5h77YBF7g9s0ju5yblWskkN3wa7.jpg",
                             Rating = 8.4000000000000004,
@@ -260,7 +260,7 @@ namespace DataAccess.Migrations
                             Description = "Сонік, Наклз і Тейлз повертаються для нової грандіозної пригоди.",
                             Director = "Джефф Фаулер",
                             Duration = 110,
-                            GenreId = 3,
+                            GenreId = 2,
                             MinAge = 0,
                             PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/9U8WEuITXagHQWFQW48egF8oZeb.jpg",
                             Rating = 7.7999999999999998,
@@ -276,7 +276,7 @@ namespace DataAccess.Migrations
                             Description = "Перша частина пригод Гаррі Поттера у світі чарівників.",
                             Director = "Кріс Коламбус",
                             Duration = 152,
-                            GenreId = 5,
+                            GenreId = 8,
                             MinAge = 10,
                             PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/fczjRHiQCSHHFXBwa6peifwbvFz.jpg",
                             Rating = 7.5999999999999996,
@@ -292,7 +292,7 @@ namespace DataAccess.Migrations
                             Description = "Історія маленького робота, який змінив світ.",
                             Director = "Ендрю Стентон",
                             Duration = 98,
-                            GenreId = 5,
+                            GenreId = 4,
                             MinAge = 6,
                             PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/1ZF4joYyVyg4xrapmGzZUCIv7Lj.jpg",
                             Rating = 8.4000000000000004,
@@ -308,7 +308,7 @@ namespace DataAccess.Migrations
                             Description = "Ремейк класичного мультфільму про пригоди Сімби.",
                             Director = "Джон Фавро",
                             Duration = 118,
-                            GenreId = 3,
+                            GenreId = 2,
                             MinAge = 6,
                             PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/azLX5jPAbjWbdAUUrspkRFvx8Z1.jpg",
                             Rating = 6.9000000000000004,
@@ -324,7 +324,7 @@ namespace DataAccess.Migrations
                             Description = "Історія про соціальну нерівність через призму однієї родини.",
                             Director = "Пон Джун Хо",
                             Duration = 132,
-                            GenreId = 3,
+                            GenreId = 5,
                             MinAge = 16,
                             PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/eYQlHTn4kD7CKbudVzxHMxVU3cV.jpg",
                             Rating = 8.5999999999999996,
@@ -340,7 +340,7 @@ namespace DataAccess.Migrations
                             Description = "Епічна науково-фантастична сага про боротьбу за виживання.",
                             Director = "Дені Вільньов",
                             Duration = 155,
-                            GenreId = 5,
+                            GenreId = 4,
                             MinAge = 13,
                             PosterURL = "https://uaserial.com/images/serials/66/662c218bd4504886698257.webp",
                             Rating = 8.0999999999999996,
@@ -356,7 +356,7 @@ namespace DataAccess.Migrations
                             Description = "Перший епізод культової космічної саги.",
                             Director = "Джордж Лукас",
                             Duration = 121,
-                            GenreId = 5,
+                            GenreId = 8,
                             MinAge = 10,
                             PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rEpXNtqdiNul8sJa3sUQRIYdVDU.jpg",
                             Rating = 8.5999999999999996,
@@ -372,7 +372,7 @@ namespace DataAccess.Migrations
                             Description = "Класика наукової фантастики про боротьбу зі штучним інтелектом.",
                             Director = "Лана Вачовскі, Ліллі Вачовскі",
                             Duration = 136,
-                            GenreId = 5,
+                            GenreId = 1,
                             MinAge = 16,
                             PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/58748AndVH1DitlTbcbLpKHuSS2.jpg",
                             Rating = 8.6999999999999993,
@@ -388,7 +388,7 @@ namespace DataAccess.Migrations
                             Description = "Перша частина епічної трилогії за мотивами творів Толкіна.",
                             Director = "Пітер Джексон",
                             Duration = 178,
-                            GenreId = 3,
+                            GenreId = 1,
                             MinAge = 12,
                             PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/yrEZeHgn2Y3F3G4w6qeI22LrZzQ.jpg",
                             Rating = 8.8000000000000007,
