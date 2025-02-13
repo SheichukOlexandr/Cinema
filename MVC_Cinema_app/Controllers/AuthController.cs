@@ -74,7 +74,7 @@ namespace MVC_Cinema_app.Controllers
                 ViewData["LoginModel"] = new LoginDTO();
                 return View("Index", model);
             }
-            var status = await _userService.GetOrCreateUserStatusAsync("активний");
+            var status = await _userService.GetOrCreateUserStatusAsync("Активний");
 
             var user = new User
             {

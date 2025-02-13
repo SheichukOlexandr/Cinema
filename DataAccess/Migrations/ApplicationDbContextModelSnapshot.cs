@@ -163,12 +163,12 @@ namespace DataAccess.Migrations
                             Duration = 148,
                             GenreId = 1,
                             MinAge = 13,
-                            PosterURL = "https://example.com/poster1.jpg",
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/r84x4x93LbZ2gozISTBYVeq0gLZ.jpg",
                             Rating = 8.8000000000000007,
                             ReleaseDate = new DateOnly(2010, 7, 16),
                             StatusId = 1,
                             Title = "Початок",
-                            TrailerURL = "https://example.com/trailer1.mp4"
+                            TrailerURL = "https://youtu.be/cdx31ak4KbQ"
                         },
                         new
                         {
@@ -179,12 +179,12 @@ namespace DataAccess.Migrations
                             Duration = 169,
                             GenreId = 5,
                             MinAge = 12,
-                            PosterURL = "https://example.com/poster2.jpg",
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/9d1sCoMSGJZtghS2X9us1h9u8lW.jpg",
                             Rating = 8.5999999999999996,
                             ReleaseDate = new DateOnly(2014, 11, 7),
                             StatusId = 1,
                             Title = "Інтерстеллар",
-                            TrailerURL = "https://example.com/trailer2.mp4"
+                            TrailerURL = "https://youtu.be/_DQ-lqOhwIM"
                         },
                         new
                         {
@@ -195,12 +195,12 @@ namespace DataAccess.Migrations
                             Duration = 152,
                             GenreId = 1,
                             MinAge = 13,
-                            PosterURL = "https://example.com/poster3.jpg",
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/hAf98uHIXMFzqNN5LX1vnouCShr.jpg",
                             Rating = 9.0,
                             ReleaseDate = new DateOnly(2008, 7, 18),
                             StatusId = 1,
                             Title = "Темний лицар",
-                            TrailerURL = "https://example.com/trailer3.mp4"
+                            TrailerURL = "https://www.youtube.com/watch?v=EXeTwQWrcwY"
                         },
                         new
                         {
@@ -211,12 +211,12 @@ namespace DataAccess.Migrations
                             Duration = 137,
                             GenreId = 1,
                             MinAge = 16,
-                            PosterURL = "https://example.com/poster4.jpg",
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rLxfXS0Dpd4ixD7HOYagWTx83SS.jpg",
                             Rating = 7.0999999999999996,
                             ReleaseDate = new DateOnly(2015, 4, 3),
                             StatusId = 1,
                             Title = "Форсаж 7",
-                            TrailerURL = "https://example.com/trailer4.mp4"
+                            TrailerURL = "https://youtu.be/USvJsCb1hA4"
                         },
                         new
                         {
@@ -227,12 +227,12 @@ namespace DataAccess.Migrations
                             Duration = 181,
                             GenreId = 1,
                             MinAge = 12,
-                            PosterURL = "https://example.com/poster5.jpg",
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/6gWhqrYEOBqqzXPKP7c0m4bIvTX.jpg",
                             Rating = 8.4000000000000004,
                             ReleaseDate = new DateOnly(2019, 4, 26),
                             StatusId = 1,
                             Title = "Месники: Фінал",
-                            TrailerURL = "https://example.com/trailer5.mp4"
+                            TrailerURL = "https://youtu.be/7ZHb4PWOI5M"
                         },
                         new
                         {
@@ -243,28 +243,28 @@ namespace DataAccess.Migrations
                             Duration = 122,
                             GenreId = 3,
                             MinAge = 18,
-                            PosterURL = "https://example.com/poster6.jpg",
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/5h77YBF7g9s0ju5yblWskkN3wa7.jpg",
                             Rating = 8.4000000000000004,
                             ReleaseDate = new DateOnly(2019, 10, 4),
                             StatusId = 1,
                             Title = "Джокер",
-                            TrailerURL = "https://example.com/trailer6.mp4"
+                            TrailerURL = "https://youtu.be/y2NE4dYI5Pg"
                         },
                         new
                         {
                             Id = 7,
-                            Cast = "Леонардо ДіКапріо, Кейт Вінслет",
-                            Description = "Історія кохання на тлі катастрофи Титаніка.",
-                            Director = "Джеймс Кемерон",
-                            Duration = 195,
+                            Cast = "Джим Керрі, Кіану Рівз",
+                            Description = "Сонік, Наклз і Тейлз повертаються для нової грандіозної пригоди.",
+                            Director = "Джефф Фаулер",
+                            Duration = 110,
                             GenreId = 3,
-                            MinAge = 12,
-                            PosterURL = "https://example.com/poster7.jpg",
+                            MinAge = 0,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/9U8WEuITXagHQWFQW48egF8oZeb.jpg",
                             Rating = 7.7999999999999998,
-                            ReleaseDate = new DateOnly(1997, 12, 19),
+                            ReleaseDate = new DateOnly(2024, 12, 26),
                             StatusId = 1,
-                            Title = "Титанік",
-                            TrailerURL = "https://example.com/trailer7.mp4"
+                            Title = "Їжак Сонік 3 ",
+                            TrailerURL = "https://youtu.be/bDIUaKYV_Tg"
                         },
                         new
                         {
@@ -275,12 +275,12 @@ namespace DataAccess.Migrations
                             Duration = 152,
                             GenreId = 5,
                             MinAge = 10,
-                            PosterURL = "https://example.com/poster8.jpg",
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/fczjRHiQCSHHFXBwa6peifwbvFz.jpg",
                             Rating = 7.5999999999999996,
                             ReleaseDate = new DateOnly(2001, 11, 16),
                             StatusId = 1,
                             Title = "Гаррі Поттер і філософський камінь",
-                            TrailerURL = "https://example.com/trailer8.mp4"
+                            TrailerURL = "https://youtu.be/l91Km49W9qI"
                         },
                         new
                         {
@@ -291,12 +291,12 @@ namespace DataAccess.Migrations
                             Duration = 98,
                             GenreId = 5,
                             MinAge = 6,
-                            PosterURL = "https://example.com/poster9.jpg",
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/1ZF4joYyVyg4xrapmGzZUCIv7Lj.jpg",
                             Rating = 8.4000000000000004,
                             ReleaseDate = new DateOnly(2008, 6, 27),
                             StatusId = 1,
                             Title = "Волл-і",
-                            TrailerURL = "https://example.com/trailer9.mp4"
+                            TrailerURL = "https://youtu.be/Tbr_L9Gap_M"
                         },
                         new
                         {
@@ -307,12 +307,12 @@ namespace DataAccess.Migrations
                             Duration = 118,
                             GenreId = 3,
                             MinAge = 6,
-                            PosterURL = "https://example.com/poster10.jpg",
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/azLX5jPAbjWbdAUUrspkRFvx8Z1.jpg",
                             Rating = 6.9000000000000004,
                             ReleaseDate = new DateOnly(2019, 7, 19),
                             StatusId = 1,
                             Title = "Король Лев",
-                            TrailerURL = "https://example.com/trailer10.mp4"
+                            TrailerURL = "https://youtu.be/QUoxYKDtpUk"
                         },
                         new
                         {
@@ -323,12 +323,12 @@ namespace DataAccess.Migrations
                             Duration = 132,
                             GenreId = 3,
                             MinAge = 16,
-                            PosterURL = "https://example.com/poster11.jpg",
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/eYQlHTn4kD7CKbudVzxHMxVU3cV.jpg",
                             Rating = 8.5999999999999996,
                             ReleaseDate = new DateOnly(2019, 5, 30),
                             StatusId = 1,
                             Title = "Паразити",
-                            TrailerURL = "https://example.com/trailer11.mp4"
+                            TrailerURL = "https://youtu.be/KKNXGJIpnKY"
                         },
                         new
                         {
@@ -339,12 +339,12 @@ namespace DataAccess.Migrations
                             Duration = 155,
                             GenreId = 5,
                             MinAge = 13,
-                            PosterURL = "https://example.com/poster12.jpg",
+                            PosterURL = "https://uaserial.com/images/serials/66/662c218bd4504886698257.webp",
                             Rating = 8.0999999999999996,
                             ReleaseDate = new DateOnly(2021, 10, 22),
                             StatusId = 1,
                             Title = "Дюна",
-                            TrailerURL = "https://example.com/trailer12.mp4"
+                            TrailerURL = "https://youtu.be/Ljzu52GMytk"
                         },
                         new
                         {
@@ -355,12 +355,12 @@ namespace DataAccess.Migrations
                             Duration = 121,
                             GenreId = 5,
                             MinAge = 10,
-                            PosterURL = "https://example.com/poster13.jpg",
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rEpXNtqdiNul8sJa3sUQRIYdVDU.jpg",
                             Rating = 8.5999999999999996,
                             ReleaseDate = new DateOnly(1977, 5, 25),
                             StatusId = 1,
                             Title = "Зоряні війни: Епізод IV - Нова надія",
-                            TrailerURL = "https://example.com/trailer13.mp4"
+                            TrailerURL = "https://youtu.be/XsS1yE2f-hE"
                         },
                         new
                         {
@@ -371,12 +371,12 @@ namespace DataAccess.Migrations
                             Duration = 136,
                             GenreId = 5,
                             MinAge = 16,
-                            PosterURL = "https://example.com/poster14.jpg",
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/58748AndVH1DitlTbcbLpKHuSS2.jpg",
                             Rating = 8.6999999999999993,
                             ReleaseDate = new DateOnly(1999, 3, 31),
                             StatusId = 1,
                             Title = "Матриця",
-                            TrailerURL = "https://example.com/trailer14.mp4"
+                            TrailerURL = "https://youtu.be/d0XTFAMmhrE"
                         },
                         new
                         {
@@ -387,12 +387,12 @@ namespace DataAccess.Migrations
                             Duration = 178,
                             GenreId = 3,
                             MinAge = 12,
-                            PosterURL = "https://example.com/poster15.jpg",
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/yrEZeHgn2Y3F3G4w6qeI22LrZzQ.jpg",
                             Rating = 8.8000000000000007,
                             ReleaseDate = new DateOnly(2001, 12, 19),
                             StatusId = 1,
                             Title = "Володар перснів: Хранителі Персня",
-                            TrailerURL = "https://example.com/trailer15.mp4"
+                            TrailerURL = "https://youtu.be/CbYmZOV3G-Q"
                         });
                 });
 
