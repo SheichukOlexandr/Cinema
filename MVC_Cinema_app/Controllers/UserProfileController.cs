@@ -225,14 +225,14 @@ namespace MVC_Cinema_app.Controllers
 
             // Генерація PDF-квитка
             var ticketBytes = GenerateTicketInternal(
-                reservation.MovieTitle,
-                reservation.Date.ToString("dd-MM-yyyy"),
-                reservation.Time.ToString(@"hh\:mm"), // Формат часу
-                reservation.HallName,
-                reservation.SeatNumber,
-                reservation.SessionPrice,
-                reservation.SeatPrice
-            );
+                 reservation.Session.MovieName,
+                 reservation.Session.Date.ToString("dd-MM-yyyy"),
+                 reservation.Session.Time.ToString(@"hh:mm"), // Формат часу
+                 reservation.Session.RoomName,
+                 reservation.SeatNumber,
+                 reservation.Session.Price,
+                 reservation.SeatExtraPrice
+             );
 
             // Повернення PDF-файлу користувачеві
             return File(ticketBytes, "application/pdf", $"Ticket_{reservationId}.pdf");
