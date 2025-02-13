@@ -63,12 +63,17 @@ namespace BusinessLogic.Services
         }
 
         public async Task<List<(MovieDTO Movie, List<SessionDTO> Sessions)>> GetSessionsGroupedByMovies(
-            Expression<Func<Session, bool>>? sessionFilter = null,
+            Func<Session, bool>? sessionFilter = null,
             Func<MovieDTO, bool>? movieFilter = null
             )
         {
+            var sessions = await unitOfWork.Sessions.GetAllAsync();
+
             // applies the session filter
-            var sessions = await unitOfWork.Sessions.GetAllAsync(sessionFilter);
+            if (sessionFilter != null)
+            {
+                sessions = sessions.Where(sessionFilter).ToList();
+            }
 
             // groups the sessions by movie prices first,
             // but a movie can have mutliple movie prices.

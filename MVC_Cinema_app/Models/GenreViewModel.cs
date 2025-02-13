@@ -6,6 +6,6 @@ namespace MVC_Cinema_app.Models
     {
         public int SelectedGenreId { get; set; }
         public List<SelectListItem> GenreOptions { get; set; }
-        public List<MovieViewModel> Movies { get; set; }
+        public List<MovieDetailsViewModel> Movies { get; set; }
     }
 }

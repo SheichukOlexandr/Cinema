@@ -35,7 +35,7 @@ namespace MVC_Cinema_app.Controllers
                     }).ToList(),
 
                 Movies = moviesWithSessions
-                    .Select(it => new MovieViewModel
+                    .Select(it => new MovieDetailsViewModel
                     {
                         Movie = it.Movie,
                         Sessions = it.Sessions
@@ -59,6 +59,20 @@ namespace MVC_Cinema_app.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        // GET: Home/Details/5
+        public async Task<IActionResult> Details(int id)
+        {
+            var moviesWithSessions = await _sessionService.GetSessionsGroupedByMovies(sessionFilter: it => it.Movie.Id == id);
+            var data = moviesWithSessions.First();
+
+            var model = new MovieDetailsViewModel
+            {
+                Movie = data.Movie,
+                Sessions = data.Sessions,
+            };
+            return View(model);
         }
     }
 }
