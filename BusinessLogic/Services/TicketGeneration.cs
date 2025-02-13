@@ -25,7 +25,7 @@ namespace BusinessLogic.Services
                     page.DefaultTextStyle(x => x.FontSize(14));
 
                     page.Header()
-                        .Text("Квиток на фільм")
+                        .Text("🎟️ Квиток на фільм")
                         .SemiBold().FontSize(24).AlignCenter();
 
                     page.Content()
@@ -33,6 +33,7 @@ namespace BusinessLogic.Services
                         .Column(x =>
                         {
                             x.Spacing(10);
+                            x.Item().Text($"👤 Глядач: {reservation.UserFullName}");
                             x.Item().Text($"🎬 Фільм: {reservation.Session.MovieName}");
                             x.Item().Text($"📅 Дата: {reservation.Session.Date:dd-MM-yyyy}");
                             x.Item().Text($"🕒 Час: {reservation.Session.Time:hh\\:mm}");
@@ -58,4 +59,5 @@ namespace BusinessLogic.Services
             return stream.ToArray();
         }
     }
+
 }

@@ -122,7 +122,11 @@
                         </form>
                     }
                     <!-- Кнопка для генерації квитка -->
-                    <a asp-controller="UserProfile" asp-action="GenerateTicket" asp-route-reservationId="@item.Id" class="btn btn-primary">Згенерувати квиток</a>
+                    @if (item.StatusName == ReservationStatusDTO.Confirmed || item.StatusName == ReservationStatusDTO.Completed)
+                    {
+                        <a asp-controller="UserProfile" asp-action="GenerateTicket" asp-route-reservationId="@item.Id" class="btn btn-primary">Згенерувати квиток</a>
+                    }
+                    
                 </td>
             </tr>
         }
