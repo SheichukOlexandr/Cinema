@@ -20,28 +20,10 @@ namespace MVC_Cinema_app.Controllers
             _reservationService = reservationService;
         }
 
-        private async Task<UserDTO?> GetCurrentUserAsync()
-        {
-            var emailClaim = this.User.Claims.FirstOrDefault(it => it.Type == ClaimTypes.Email);
-            if (emailClaim == null)
-            {
-                return null;
-            }
-
-            var email = emailClaim.Value;
-            var user = await _userService.GetUserByEmail(email);
-            if (user == null)
-            {
-                return null;
-            }
-
-            return user;
-        }
-
         // GET: UserProfile
         public async Task<IActionResult> Index()
         {
-            var user = await GetCurrentUserAsync();
+            var user = await _userService.GetCurrentUserAsync(this.User);
             if (user == null)
             {
                 return NotFound();
@@ -59,7 +41,7 @@ namespace MVC_Cinema_app.Controllers
         // GET: UserProfile/Edit
         public async Task<IActionResult> Edit()
         {
-            var user = await GetCurrentUserAsync();
+            var user = await _userService.GetCurrentUserAsync(this.User);
             if (user == null)
             {
                 return NotFound();
@@ -115,7 +97,7 @@ namespace MVC_Cinema_app.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Cancel(int reservationId)
         {
-            var user = await GetCurrentUserAsync();
+            var user = await _userService.GetCurrentUserAsync(this.User);
             if (user == null)
             {
                 return NotFound();
@@ -139,7 +121,7 @@ namespace MVC_Cinema_app.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Confirm(int reservationId)
         {
-            var user = await GetCurrentUserAsync();
+            var user = await _userService.GetCurrentUserAsync(this.User);
             if (user == null)
             {
                 return NotFound();

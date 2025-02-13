@@ -97,5 +97,16 @@ namespace BusinessLogic.Services
 
             return sessionByMovies;
         }
+
+        public async Task<List<SeatDTO>> GetAvailableSeatsInSessionAsync(SessionDTO session)
+        {
+            var claimedSeats = (await unitOfWork.Reservations.GetAllAsync(filter: r => 
+                r.SessionId == session.Id && r.Status.Name != ReservationStatusDTO.Cancelled))
+                .Select(r => r.Seat);
+
+            var seats = await unitOfWork.Seats.GetAllAsync(filter: s => s.RoomId == session.RoomId);
+            var availableSeats = seats.Where(s => !claimedSeats.Contains(s));
+            return _mapper.Map<IEnumerable<SeatDTO>>(availableSeats).ToList();
+        }
     }
 }

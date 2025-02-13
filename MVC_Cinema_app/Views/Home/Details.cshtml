@@ -26,16 +26,30 @@
 
                 <h4>Доступні сеанси:</h4>
                 <ul class="list-group">
-                    @foreach (var session in Model.Sessions)
+                    @foreach (var sessionDetails in Model.SessionDetails)
                     {
                         <li class="list-group-item session-item">
-                            @session.Date -
-                            @session.Time.ToString("HH:mm") -
-                            <strong>@session.Price грн</strong>
+                            @sessionDetails.Session.Date -
+                            @sessionDetails.Session.Time.ToString("HH:mm") -
+                            @sessionDetails.Session.RoomName -
+                            <strong>@sessionDetails.Session.Price грн</strong>
 
-                            <form asp-action="Book" asp-route-id="@session.Id" method="post">
-                                <button type="submit" class="btn btn-success">Забронювати</button>
-                            </form>
+                            @if (@sessionDetails.AvailableSeats.Count() < 1) {
+                                <h6>Немає вільних місць</h6>
+                            } else {
+                                <form asp-action="Book" asp-route-id="@sessionDetails.Session.Id" method="post">
+                                    <select asp-for="@sessionDetails.SelectedSessionId"
+                                            asp-items="@sessionDetails.AvailableSeats"
+                                            class="table-text"
+                                            onchange="document.getElementById('seatId_@sessionDetails.Session.Id').value = this.value;">
+                                        <!-- Availble seats will be here -->
+                                        <option>Оберіть місце</option>
+                                    </select>
+                                    <input type="hidden" name="movieId" value="@Model.Movie.Id" />
+                                    <input type="hidden" id="seatId_@sessionDetails.Session.Id" name="seatId" value="@sessionDetails.SelectedSessionId" />
+                                    <button type="submit" class="btn btn-success">Забронювати</button>
+                                </form>
+                            }
                         </li>
                     }
                 </ul>
