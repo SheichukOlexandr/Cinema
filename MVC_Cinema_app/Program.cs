@@ -42,6 +42,7 @@ builder.Services.AddScoped<SessionService>();
 
 builder.Services.AddScoped<ReservationStatusService>();
 builder.Services.AddScoped<ReservationService>();
+builder.Services.AddScoped<TicketGeneration>();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
