@@ -22,8 +22,14 @@ namespace BusinessLogic.DTOs
         // data to map:
         public string? UserFullName { get; set; }
         public SessionDTO? Session { get; set; }
-        public int SeatNumber { get; set; }
         public decimal SeatExtraPrice { get; set; }
         public string? StatusName { get; set; }
+        public string MovieTitle { get; set; }        // Назва фільму
+        public DateTime Date { get; set; }            // Дата сеансу
+        public TimeSpan Time { get; set; }            // Час сеансу
+        public string HallName { get; set; }          // Назва залу
+        public int SeatNumber { get; set; }           // Номер місця
+        public decimal SessionPrice { get; set; }     // Ціна сеансу
+        public decimal SeatPrice { get; set; }        // Додаткова ціна місця
     }
 }

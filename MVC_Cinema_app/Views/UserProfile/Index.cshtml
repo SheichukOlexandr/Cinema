@@ -114,12 +114,15 @@
                             <button type="submit" class="btn btn-danger">Скасувати</button>
                         </form>
                     }
-                    @if (item.StatusName == ReservationStatusDTO.Created) {
+                    @if (item.StatusName == ReservationStatusDTO.Created)
+                    {
                         <form asp-action="Confirm" method="post" onsubmit="return confirmReservation(@item.Session.Price + @item.SeatExtraPrice);">
                             <input type="hidden" name="reservationId" value="@item.Id" />
                             <button type="submit" class="btn btn-success">Підтвердити</button>
                         </form>
                     }
+                    <!-- Кнопка для генерації квитка -->
+                    <a asp-controller="UserProfile" asp-action="GenerateTicket" asp-route-reservationId="@item.Id" class="btn btn-primary">Згенерувати квиток</a>
                 </td>
             </tr>
         }

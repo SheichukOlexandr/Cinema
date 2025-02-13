@@ -5,6 +5,9 @@ using BusinessLogic.DTOs;
 using System.Security.Claims;
 using MVC_Cinema_app.Models;
 using Microsoft.AspNetCore.Authorization;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 
 namespace MVC_Cinema_app.Controllers
 {
@@ -159,6 +162,80 @@ namespace MVC_Cinema_app.Controllers
         private async Task<bool> UserExists(int id)
         {
             return await _userService.GetAsync(id) != null;
+        }
+        private byte[] GenerateTicketInternal(string movieTitle, string date, string time, string hall, int seatNumber, decimal sessionPrice, decimal seatPrice)
+        {
+            var document = Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(PageSizes.A5); // Розмір сторінки A5
+                    page.Margin(2, Unit.Centimetre); // Відступи
+                    page.PageColor(Colors.White); // Колір фону
+                    page.DefaultTextStyle(x => x.FontSize(14)); // Розмір шрифту
+
+                    // Заголовок квитка
+                    page.Header()
+                        .Text("Квиток на фільм")
+                        .SemiBold().FontSize(24).AlignCenter();
+
+                    // Основна інформація
+                    page.Content()
+                        .PaddingVertical(1, Unit.Centimetre)
+                        .Column(x =>
+                        {
+                            x.Spacing(10); // Відступи між елементами
+
+                            x.Item().Text($"Фільм: {movieTitle}");
+                            x.Item().Text($"Дата: {date}");
+                            x.Item().Text($"Час: {time}");
+                            x.Item().Text($"Зал: {hall}");
+                            x.Item().Text($"Місце: {seatNumber}");
+                            x.Item().Text($"Ціна сеансу: {sessionPrice} грн");
+                            x.Item().Text($"Ціна місця: {seatPrice} грн");
+                            x.Item().Text($"Загальна сума: {sessionPrice + seatPrice} грн");
+                        });
+
+                    // Підвал квитка
+                    page.Footer()
+                        .AlignCenter()
+                        .Text(x =>
+                        {
+                            x.Span("Дякуємо за покупку! ");
+                            x.Span("КіноМанія");
+                        });
+                });
+            });
+
+            // Генерація PDF у вигляді масиву байтів
+            using var stream = new MemoryStream();
+            document.GeneratePdf(stream);
+            return stream.ToArray();
+        }
+        [HttpGet]
+        public async Task<IActionResult> GenerateTicket(int reservationId)
+        {
+            // Отримання даних бронювання
+            var reservation = await _reservationService.GetAsync(reservationId);
+
+            if (reservation == null)
+            {
+                return NotFound(); // Якщо бронювання не знайдено
+            }
+
+            // Генерація PDF-квитка
+            var ticketBytes = GenerateTicketInternal(
+                reservation.MovieTitle,
+                reservation.Date.ToString("dd-MM-yyyy"),
+                reservation.Time.ToString(@"hh\:mm"), // Формат часу
+                reservation.HallName,
+                reservation.SeatNumber,
+                reservation.SessionPrice,
+                reservation.SeatPrice
+            );
+
+            // Повернення PDF-файлу користувачеві
+            return File(ticketBytes, "application/pdf", $"Ticket_{reservationId}.pdf");
         }
     }
 }
