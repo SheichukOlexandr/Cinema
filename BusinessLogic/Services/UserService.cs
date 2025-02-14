@@ -4,6 +4,7 @@ using System.Text;
 using BusinessLogic.DTOs;
 using DataAccess.Models;
 using AutoMapper;
+using System.Security.Claims;
 
 namespace BusinessLogic.Services
 {
@@ -74,6 +75,24 @@ namespace BusinessLogic.Services
         {
             var hashedInputPassword = HashPassword(password);
             return hashedPassword == hashedInputPassword;
+        }
+
+        public async Task<UserDTO?> GetCurrentUserAsync(ClaimsPrincipal claimsPrincipal)
+        {
+            var emailClaim = claimsPrincipal.Claims.FirstOrDefault(it => it.Type == ClaimTypes.Email);
+            if (emailClaim == null)
+            {
+                return null;
+            }
+
+            var email = emailClaim.Value;
+            var user = await GetUserByEmail(email);
+            if (user == null)
+            {
+                return null;
+            }
+
+            return user;
         }
     }
 }

@@ -1,0 +1,61 @@
+﻿@model MovieDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Movie.Title;
+}
+
+<div class="container">
+    <div class="movie-details">
+        <div class="row">
+            <!-- Movie Poster -->
+            <div class="col-md-4">
+                <img src="@Model.Movie.PosterURL" alt="@Model.Movie.Title" class="img-fluid rounded">
+            </div>
+
+            <!-- Movie Information -->
+            <div class="col-md-8">
+                <h1>@Model.Movie.Title</h1>
+                <h6><strong>Жанр:</strong> @Model.Movie.GenreName</h6>
+                <h6><strong>Рейтинг:</strong> @Model.Movie.Rating</h6>
+                <h6><strong>Вікова категорія:</strong> @Model.Movie.MinAge+</h6>
+                <h6><strong>Рік:</strong> @Model.Movie.ReleaseDate.Year</h6>
+                <h6><strong>Тривалість:</strong> @Model.Movie.Duration хв.</h6>
+                <h6><strong>Режисер:</strong> @Model.Movie.Director</h6>
+                <h6><strong>Акторський склад:</strong> @Model.Movie.Cast</h6>
+                <h6><strong>Опис:</strong> @Model.Movie.Description</h6>
+
+                <h4>Доступні сеанси:</h4>
+                <ul class="list-group">
+                    @foreach (var sessionDetails in Model.SessionDetails)
+                    {
+                        <li class="list-group-item session-item">
+                            @sessionDetails.Session.Date -
+                            @sessionDetails.Session.Time.ToString("HH:mm") -
+                            @sessionDetails.Session.RoomName -
+                            <strong>@sessionDetails.Session.Price грн</strong>
+
+                            @if (@sessionDetails.AvailableSeats.Count() < 1) {
+                                <h6>Немає вільних місць</h6>
+                            } else {
+                                <form asp-action="Book" asp-route-id="@sessionDetails.Session.Id" method="post">
+                                    <select asp-for="@sessionDetails.SelectedSessionId"
+                                            asp-items="@sessionDetails.AvailableSeats"
+                                            class="white-text black-background"
+                                            onchange="document.getElementById('seatId_@sessionDetails.Session.Id').value = this.value;">
+                                        <!-- Availble seats will be here -->
+                                        <option>Оберіть місце</option>
+                                    </select>
+                                    <input type="hidden" name="movieId" value="@Model.Movie.Id" />
+                                    <input type="hidden" id="seatId_@sessionDetails.Session.Id" name="seatId" value="@sessionDetails.SelectedSessionId" />
+                                    <button type="submit" class="btn btn-success">Забронювати</button>
+                                </form>
+                            }
+                        </li>
+                    }
+                </ul>
+
+                <a asp-action="Index" class="btn btn-secondary mt-3">Повернутись до списку</a>
+            </div>
+        </div>
+    </div>
+</div>
