@@ -89,7 +89,7 @@
                                 <span class="genre">@movieViewModel.Movie.GenreName</span>
                             </div>
                             <div class="card-info">
-                                <span class="year">@movieViewModel.Movie.ReleaseDate</span>
+                                <span class="year">@movieViewModel.Movie.ReleaseDate.Year</span>
                             </div>
                         </div>
                     </div>
@@ -155,94 +155,8 @@
     </main>
 </div>
 
-<!-- Movie Details Modal -->
-<div class="modal fade" id="movieDetailsModal" tabindex="-1" aria-labelledby="movieDetailsLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="movieTitle"></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body d-flex flex-column">
-                <div class="d-flex align-items-start mb-4">
-                    <!-- Movie Poster (Left) -->
-                    <img id="moviePoster" class="img-fluid rounded" alt="Movie Poster" style="max-width: 200px; height: auto; margin-right: 20px;">
-
-                    <!-- Movie Details (Right) -->
-                    <div>
-                        <h5><strong>Genre:</strong> <span id="movieGenre"></span></h5>
-                        <p><strong>Rating:</strong> <span id="movieRating"></span></p>
-                        <p><strong>Release Date:</strong> <span id="movieReleaseDate"></span></p>
-                        <p><strong>Description:</strong> <span id="movieDescription"></span></p>
-                    </div>
-                </div>
-
-                <!-- Sessions Section -->
-                <div class="sessions-section">
-                    <h5>Available Sessions:</h5>
-                    <div id="movieSessions" class="sessions-grid"></div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="~/js/site.js"></script>
-<!-- Bootstrap Bundle (Includes Popper) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/movies.js"></script>
 <!-- <script src="~/js/tmdb.js"></script> -->
-
-<script>
-        document.addEventListener("DOMContentLoaded", function () {
-        let movieDetailsModal = document.getElementById("movieDetailsModal");
-
-        movieDetailsModal.addEventListener("show.bs.modal", function (event) {
-            let movieCard = event.relatedTarget;
-
-            // Extract movie details from data attributes
-            let title = movieCard.getAttribute("data-title");
-            let genre = movieCard.getAttribute("data-genre");
-            let rating = movieCard.getAttribute("data-rating");
-            let releaseDate = movieCard.getAttribute("data-release-date");
-            let description = movieCard.getAttribute("data-description");
-            let poster = movieCard.getAttribute("data-poster");
-            let sessions = movieCard.getAttribute("data-sessions");
-
-            // Populate basic movie info
-            document.getElementById("movieTitle").innerText = title;
-            document.getElementById("movieGenre").innerText = genre;
-            document.getElementById("movieRating").innerText = rating;
-            document.getElementById("movieReleaseDate").innerText = releaseDate;
-            document.getElementById("movieDescription").innerText = description;
-            document.getElementById("moviePoster").setAttribute("src", poster);
-
-            // Populate sessions
-            const sessionsContainer = document.getElementById("movieSessions");
-            sessionsContainer.innerHTML = ''; // Clear existing sessions
-
-            if (sessions) {
-                const sessionsList = sessions.split(',');
-                sessionsList.forEach(session => {
-                    const [date, time, price] = session.split('|');
-                    const sessionElement = document.createElement('div');
-                    sessionElement.className = 'session-item';
-                    sessionElement.innerHTML = `
-                        <div class="session-time">${date}</div>
-                        <div class="session-time">${time}</div>
-                        <div class="session-price">${price} грн</div>
-                        <button class="btn btn-primary btn-sm">Купити квиток</button>
-                    `;
-                    sessionsContainer.appendChild(sessionElement);
-                });
-            } else {
-                sessionsContainer.innerHTML = '<p>Немає доступних сеансів</p>';
-            }
-        });
-    });
-</script>
