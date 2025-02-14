@@ -1,53 +1,159 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using BusinessLogic.DTOs
+@{
+    var hideHeader = ViewData["HideHeader"] as bool?;
+    var hideFooter = ViewData["HideFooter"] as bool?;
+}
+
+<!DOCTYPE html>
+<html lang="uk">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MVC_Cinema_app</title>
+    <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MVC_Cinema_app.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MVC_Cinema_app</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Movies" asp-action="Index">Movies</a>
-                        </li>
-                    </ul>
+    @if (hideHeader == null || !hideHeader.Value)
+    {
+        <div class="container">
+            <header class="">
+                <div class="navbar">
+                    <button class="navbar-menu-btn">
+                        <span class="one"></span>
+                        <span class="two"></span>
+                        <span class="three"></span>
+                    </button>
+
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
+                        <img src="~/image/homepage/Logo.png" alt="logo">
+                    </a>
+
+                    <nav class="">
+                        <ul class="navbar-nav">
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-link">Головна</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Movies" class="navbar-link">Фільми</a></li>
+                            <li><a href="#category" class="navbar-link">Бронювання</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Sessions" class="navbar-link">Сеанси</a></li>
+                            @if (User.Identity?.IsAuthenticated == true)
+                            {
+                                @if (User.IsInRole(UserStatusDTO.Admin)) {
+                                    <li><a asp-area="" asp-controller="Dashboard" asp-action="Index" class="navbar-link">АдмінПанель</a></li>
+                                }
+                                <li class="navbar-link">
+                                    <a asp-area="" asp-controller="UserProfile" asp-action="Index" class="btn btn-link text-white navbar-signin transition-link">
+                                        <ion-icon name="person"></ion-icon>
+                                    </a>
+                                </li>
+                                <li class="navbar-link">
+                                    <form asp-area="" asp-controller="Auth" asp-action="Logout" method="post" class="navbar-signin">
+                                        <button type="submit" class="btn btn-link text-white navbar-signin transition-link">
+                                            <span>Вихід</span>
+                                            <ion-icon name="log-out"></ion-icon>
+                                        </button>
+                                    </form>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="navbar-link">
+                                    <a class="text-white navbar-signin transition-link" asp-area="" asp-controller="Auth" asp-action="Index">
+                                        <span>Вхід</span>
+                                        <ion-icon name="log-in"></ion-icon>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </nav>
+
+                    <div class="navbar-actions">
+                        <form action="#" class="navbar-form">
+                            <input type="text" name="search" placeholder="Я шукаю..." class="navbar-form-search">
+
+                            <button class="navbar-form-btn">
+                                <ion-icon name="search"></ion-icon>
+                            </button>
+
+                            <button class="navbar-form-close">
+                                <ion-icon name="close-circle-outline"></ion-icon>
+                            </button>
+                        </form>
+
+                        <button class="navbar-search-btn">
+                            <ion-icon name="search"></ion-icon>
+                        </button>
+                        <ul class="navbar-nav">
+                           
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
+            </header>
+        </div>
+    }
+    <div class="container2">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
+    @if (hideFooter == null || !hideFooter.Value)
+    {
+        <footer>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - MVC_Cinema_app - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="~/image/homepage/Logo.png" alt="image" class="footer-logo">
+
+                </div>
+
+                <div class="footer-links">
+                    <ul>
+                        <h4 class="link-heading">КіноМанія</h4>
+
+                        <li class="link-item"><a href="#">Про нас</a></li>
+                        <li class="link-item"><a href="#">Тарифи</a></li>
+                        <li class="link-item"><a href="#">Контакти</a></li>
+                        <li class="link-item"><a href="#">123 </a></li>
+                    </ul>
+
+                    <ul>
+                        <h4 class="link-heading">Перегляд</h4>
+
+                        <li class="link-item"><a href="#">1</a></li>
+                        <li class="link-item"><a href="#">2</a></li>
+                        <li class="link-item"><a href="#">3</a></li>
+                        <li class="link-item"><a href="#">4</a></li>
+                    </ul>
+
+                    <ul>
+                        <h4 class="link-heading">Контент</h4>
+
+                        <li class="link-item"><a href="#">1</a></li>
+                        <li class="link-item"><a href="#">2</a></li>
+                        <li class="link-item"><a href="#">3</a></li>
+                        <li class="link-item"><a href="#">4</a></li>
+                    </ul>
+
+                    <ul>
+                        <h4 class="link-heading">Допомога</h4>
+
+                        <li class="link-item"><a href="#">Акаунт та оплата</a></li>
+                        <li class="link-item"><a href="#">Тарифи та ціни</a></li>
+                        <li class="link-item"><a href="#">3</a></li>
+                        <li class="link-item"><a href="#">4</a></li>
+                    </ul>
+                </div>
+            </div>
+
+
+        </footer>
+    }
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/page_animation.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
 

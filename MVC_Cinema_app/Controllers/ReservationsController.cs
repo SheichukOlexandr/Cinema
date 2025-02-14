@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BusinessLogic.DTOs;
+using BusinessLogic.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DataAccess.Contexts;
-using DataAccess.Models;
 
 namespace MVC_Cinema_app.Controllers
 {
+    [Authorize(Policy = Policies.AdminUserPolicy)]
     public class ReservationsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ReservationService _reservationService;
 
-        public ReservationsController(ApplicationDbContext context)
+        public ReservationsController(ReservationService reservationService)
         {
-            _context = context;
+            _reservationService = reservationService;
         }
 
         // GET: Reservations
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Reservations.Include(r => r.Seat).Include(r => r.Session).Include(r => r.Status).Include(r => r.User);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _reservationService.GetAllAsync());
         }
 
         // GET: Reservations/Details/5
@@ -34,12 +31,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var reservation = await _context.Reservations
-                .Include(r => r.Seat)
-                .Include(r => r.Session)
-                .Include(r => r.Status)
-                .Include(r => r.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var reservation = await _reservationService.GetAsync(id.Value);
             if (reservation == null)
             {
                 return NotFound();
@@ -49,12 +41,12 @@ namespace MVC_Cinema_app.Controllers
         }
 
         // GET: Reservations/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["SeatId"] = new SelectList(_context.Seats, "Id", "Id");
-            ViewData["SessionId"] = new SelectList(_context.Sessions, "Id", "Id");
-            ViewData["StatusId"] = new SelectList(_context.ReservationStatuses, "Id", "Name");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
+            ViewData["SeatId"] = new SelectList(await _reservationService.GetAllSeatsAsync(), "Id", "SeatName");
+            ViewData["SessionId"] = new SelectList(await _reservationService.GetAllSessionsAsync(), "Id", "Id");
+            ViewData["StatusId"] = new SelectList(await _reservationService.GetAllReservationStatusesAsync(), "Id", "Name");
+            ViewData["UserId"] = new SelectList(await _reservationService.GetAllUsersAsync(), "Id", "Email");
             return View();
         }
 
@@ -63,18 +55,17 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,SessionId,SeatId,StatusId")] Reservation reservation)
+        public async Task<IActionResult> Create([Bind("Id,UserId,SessionId,SeatId,StatusId")] ReservationDTO reservation)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(reservation);
-                await _context.SaveChangesAsync();
+                await _reservationService.AddAsync(reservation);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SeatId"] = new SelectList(_context.Seats, "Id", "Id", reservation.SeatId);
-            ViewData["SessionId"] = new SelectList(_context.Sessions, "Id", "Id", reservation.SessionId);
-            ViewData["StatusId"] = new SelectList(_context.ReservationStatuses, "Id", "Name", reservation.StatusId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", reservation.UserId);
+            ViewData["SeatId"] = new SelectList(await _reservationService.GetAllSeatsAsync(), "Id", "SeatName");
+            ViewData["SessionId"] = new SelectList(await _reservationService.GetAllSessionsAsync(), "Id", "Id");
+            ViewData["StatusId"] = new SelectList(await _reservationService.GetAllReservationStatusesAsync(), "Id", "Name");
+            ViewData["UserId"] = new SelectList(await _reservationService.GetAllUsersAsync(), "Id", "Email");
             return View(reservation);
         }
 
@@ -86,15 +77,15 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var reservation = await _context.Reservations.FindAsync(id);
+            var reservation = await _reservationService.GetAsync(id.Value);
             if (reservation == null)
             {
                 return NotFound();
             }
-            ViewData["SeatId"] = new SelectList(_context.Seats, "Id", "Id", reservation.SeatId);
-            ViewData["SessionId"] = new SelectList(_context.Sessions, "Id", "Id", reservation.SessionId);
-            ViewData["StatusId"] = new SelectList(_context.ReservationStatuses, "Id", "Name", reservation.StatusId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", reservation.UserId);
+            ViewData["SeatId"] = new SelectList(await _reservationService.GetAllSeatsAsync(), "Id", "SeatName");
+            ViewData["SessionId"] = new SelectList(await _reservationService.GetAllSessionsAsync(), "Id", "Id");
+            ViewData["StatusId"] = new SelectList(await _reservationService.GetAllReservationStatusesAsync(), "Id", "Name");
+            ViewData["UserId"] = new SelectList(await _reservationService.GetAllUsersAsync(), "Id", "Email");
             return View(reservation);
         }
 
@@ -103,7 +94,7 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,SessionId,SeatId,StatusId")] Reservation reservation)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,SessionId,SeatId,StatusId")] ReservationDTO reservation)
         {
             if (id != reservation.Id)
             {
@@ -114,12 +105,11 @@ namespace MVC_Cinema_app.Controllers
             {
                 try
                 {
-                    _context.Update(reservation);
-                    await _context.SaveChangesAsync();
+                    await _reservationService.UpdateAsync(reservation);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReservationExists(reservation.Id))
+                    if (!await ReservationExists(reservation.Id))
                     {
                         return NotFound();
                     }
@@ -130,10 +120,10 @@ namespace MVC_Cinema_app.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SeatId"] = new SelectList(_context.Seats, "Id", "Id", reservation.SeatId);
-            ViewData["SessionId"] = new SelectList(_context.Sessions, "Id", "Id", reservation.SessionId);
-            ViewData["StatusId"] = new SelectList(_context.ReservationStatuses, "Id", "Name", reservation.StatusId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", reservation.UserId);
+            ViewData["SeatId"] = new SelectList(await _reservationService.GetAllSeatsAsync(), "Id", "SeatName", reservation.SeatId);
+            ViewData["SessionId"] = new SelectList(await _reservationService.GetAllSessionsAsync(), "Id", "Id", reservation.SessionId);
+            ViewData["StatusId"] = new SelectList(await _reservationService.GetAllReservationStatusesAsync(), "Id", "Name", reservation.StatusId);
+            ViewData["UserId"] = new SelectList(await _reservationService.GetAllUsersAsync(), "Id", "Email", reservation.UserId);
             return View(reservation);
         }
 
@@ -145,12 +135,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var reservation = await _context.Reservations
-                .Include(r => r.Seat)
-                .Include(r => r.Session)
-                .Include(r => r.Status)
-                .Include(r => r.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var reservation = await _reservationService.GetAsync(id.Value);
             if (reservation == null)
             {
                 return NotFound();
@@ -164,19 +149,13 @@ namespace MVC_Cinema_app.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var reservation = await _context.Reservations.FindAsync(id);
-            if (reservation != null)
-            {
-                _context.Reservations.Remove(reservation);
-            }
-
-            await _context.SaveChangesAsync();
+            await _reservationService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ReservationExists(int id)
+        private async Task<bool> ReservationExists(int id)
         {
-            return _context.Reservations.Any(e => e.Id == id);
+            return await _reservationService.GetAsync(id) != null;
         }
     }
 }

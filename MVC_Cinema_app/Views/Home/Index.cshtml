@@ -1,8 +1,130 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Головна";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <main>
+        <section class="banner">
+            <div class="banner-card">
+                <img src="~/image/posters/big_posters/Mufasa_king_banner.jpg" alt="banner" class="banner-img">
+
+                <div class="card-content">
+                    <div class="card-info">
+                        <div class="genre">
+                            <ion-icon name="film"></ion-icon>
+                            <span>Сімений/Пригоди/Мультфільм</span>
+                        </div>
+
+                        <div class="year">
+                            <ion-icon name="calendar"></ion-icon>
+                            <span>2024</span>
+                        </div>
+
+                        <div class="duration">
+                            <ion-icon name="time"></ion-icon>
+                            <span>1г 58хв</span>
+                        </div>
+                    </div>
+                    <h2 class="card-title">Муфаса: Король Лев</h2>
+                </div>
+            </div>
+        </section>
+
+        <section class="movies">
+            <div class="filter-bar">
+                <div class="filter-dropdowns">
+                    <select name="genre" class="genre" id="genreDropdown">
+                    </select>
+
+                    <select name="year" class="year">
+                        <option value="all years">Всі роки</option>
+                        <option value="2025">2025</option>
+                        <option value="2020-2024">2020-2024</option>
+                        <option value="2010-2019">2010-2019</option>
+                        <option value="2000-2009">2000-2009</option>
+                        <option value="1980-1999">1980-1999</option>
+                    </select>
+                </div>
+
+                <div class="filter-radios">
+                    <input type="radio" name="grade" id="featured" checked>
+                    <label for="featured">Рекомендовані</label>
+
+                    <input type="radio" name="grade" id="popular">
+                    <label for="popular">Популярні</label>
+
+                    <input type="radio" name="grade" id="newest">
+                    <label for="newest">Нові</label>
+
+                    <div class="checked-radio-bg"></div>
+                </div>
+            </div>
+
+            <div class="movies-grid" id="moviesGrid">
+                <!-- Карточки фільмів будуть додані динамічно ось тут-->
+            </div>
+            <button class="load-more">Завантажити ще</button>
+        </section>
+
+        <section class="category" id="category">
+            <h2 class="section-heading">Категорії</h2>
+
+            <div class="category-grid">
+                <div class="category-card">
+                    <img src="https://i.postimg.cc/JzfWFmfC/action.jpg" alt="image" class="card-img">
+                    <div class="name">Бойовик</div>
+                    <div class="total">2</div>
+                </div>
+
+                <div class="category-card">
+                    <img src="https://i.postimg.cc/CKpxqjL8/comedy.jpg" alt="image" class="card-img">
+                    <div class="name">Комедія</div>
+                    <div class="total">2</div>
+                </div>
+
+                <div class="category-card">
+                    <img src="https://i.postimg.cc/3rfrBMxY/thriller.webp" alt="image" class="card-img">
+                    <div class="name">Триллер</div>
+                    <div class="total">0</div>
+                </div>
+
+                <div class="category-card">
+                    <img src="https://i.postimg.cc/HkXpdV4k/horror.jpg" alt="image" class="card-img">
+                    <div class="name">Жахи</div>
+                    <div class="total">0</div>
+                </div>
+
+                <div class="category-card">
+                    <img src="https://i.postimg.cc/qRRVhRnn/adventure.jpg" alt="image" class="card-img">
+                    <div class="name">Пригоди</div>
+                    <div class="total">0</div>
+                </div>
+
+                <div class="category-card">
+                    <img src="https://i.postimg.cc/15pmZ8K5/animated.jpg" alt="image" class="card-img">
+                    <div class="name">Анімація</div>
+                    <div class="total">0</div>
+                </div>
+
+                <div class="category-card">
+                    <img src="https://i.postimg.cc/XvX6Xq95/crime.jpg" alt="image" class="card-img">
+                    <div class="name">Крімінальний</div>
+                    <div class="total">0</div>
+                </div>
+
+                <div class="category-card">
+                    <img src="https://i.postimg.cc/8568BYKP/sci-fi.jpg" alt="image" class="card-img">
+                    <div class="name">Наукова фантастика</div>
+                    <div class="total">0</div>
+                </div>
+            </div>
+        </section>
+    </main>
 </div>
+
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="~/js/site.js"></script>
+<script src="~/js/genres.js"></script>
+<script src="~/js/movies.js"></script>
+<!-- <script src="~/js/tmdb.js"></script> -->

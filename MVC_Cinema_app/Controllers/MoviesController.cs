@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DataAccess.Models;
 using BusinessLogic.Services;
 using BusinessLogic.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC_Cinema_app.Controllers
 {
+    [Authorize(Policy = Policies.AdminUserPolicy)]
     public class MoviesController : Controller
     {
         private readonly MovieService _movieService;
@@ -34,8 +31,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var movie = await _movieService.GetAsync((int) id);
-
+            var movie = await _movieService.GetAsync(id.Value);
             if (movie == null)
             {
                 return NotFound();
@@ -61,7 +57,7 @@ namespace MVC_Cinema_app.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _movieService.CreateAsync(movie);
+                await _movieService.AddAsync(movie);
                 return RedirectToAction(nameof(Index));
             }
             ViewData["GenreId"] = new SelectList(await _movieService.GetAllGenresAsync(), "Id", "Name", movie.GenreId);
@@ -77,7 +73,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var movie = await _movieService.GetAsync((int) id);
+            var movie = await _movieService.GetAsync(id.Value);
             if (movie == null)
             {
                 return NotFound();
@@ -103,7 +99,7 @@ namespace MVC_Cinema_app.Controllers
             {
                 try
                 {
-                    await _movieService.EditAsync(movie);
+                    await _movieService.UpdateAsync(movie);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -131,7 +127,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var movie = await _movieService.GetAsync((int)id);
+            var movie = await _movieService.GetAsync(id.Value);
             if (movie == null)
             {
                 return NotFound();
@@ -145,12 +141,7 @@ namespace MVC_Cinema_app.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var movie = await _movieService.GetAsync(id);
-            if (movie != null)
-            {
-                await _movieService.DeleteAsync(id);
-            }
-
+            await _movieService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 

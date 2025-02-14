@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DataAccess.Contexts;
-using DataAccess.Models;
+using BusinessLogic.Services;
+using BusinessLogic.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC_Cinema_app.Controllers
 {
+    [Authorize(Policy = Policies.AdminUserPolicy)]
     public class GenresController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly GenreService _genreService;
 
-        public GenresController(ApplicationDbContext context)
+        public GenresController(GenreService genreService)
         {
-            _context = context;
+            _genreService = genreService;
         }
 
         // GET: Genres
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Genres.ToListAsync());
+            return View(await _genreService.GetAllAsync());
         }
 
         // GET: Genres/Details/5
@@ -33,8 +30,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var genre = await _context.Genres
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var genre = await _genreService.GetAsync(id.Value);
             if (genre == null)
             {
                 return NotFound();
@@ -54,12 +50,11 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Genre genre)
+        public async Task<IActionResult> Create([Bind("Id,Name")] GenreDTO genre)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(genre);
-                await _context.SaveChangesAsync();
+                await _genreService.AddAsync(genre);
                 return RedirectToAction(nameof(Index));
             }
             return View(genre);
@@ -73,7 +68,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var genre = await _context.Genres.FindAsync(id);
+            var genre = await _genreService.GetAsync(id.Value);
             if (genre == null)
             {
                 return NotFound();
@@ -86,7 +81,7 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Genre genre)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] GenreDTO genre)
         {
             if (id != genre.Id)
             {
@@ -97,12 +92,11 @@ namespace MVC_Cinema_app.Controllers
             {
                 try
                 {
-                    _context.Update(genre);
-                    await _context.SaveChangesAsync();
+                    await _genreService.UpdateAsync(genre);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GenreExists(genre.Id))
+                    if (!await GenreExistsAsync(genre.Id))
                     {
                         return NotFound();
                     }
@@ -124,8 +118,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var genre = await _context.Genres
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var genre = await _genreService.GetAsync(id.Value);
             if (genre == null)
             {
                 return NotFound();
@@ -139,19 +132,13 @@ namespace MVC_Cinema_app.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var genre = await _context.Genres.FindAsync(id);
-            if (genre != null)
-            {
-                _context.Genres.Remove(genre);
-            }
-
-            await _context.SaveChangesAsync();
+            await _genreService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool GenreExists(int id)
+        private async Task<bool> GenreExistsAsync(int id)
         {
-            return _context.Genres.Any(e => e.Id == id);
+            return await _genreService.GetAsync(id) == null;
         }
     }
 }

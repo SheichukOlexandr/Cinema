@@ -41,6 +41,58 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Genres");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Бойовик"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Комедія"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Драма"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Фантастика"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Трилер"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Жахи"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Мелодрама"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Пригоди"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Анімація"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Документальний"
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.Movie", b =>
@@ -100,6 +152,248 @@ namespace DataAccess.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("Movies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Cast = "Леонардо ДіКапріо, Джозеф Гордон-Левітт",
+                            Description = "Злодій, який викрадає корпоративні таємниці за допомогою технології обміну снами.",
+                            Director = "Крістофер Нолан",
+                            Duration = 148,
+                            GenreId = 1,
+                            MinAge = 13,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/r84x4x93LbZ2gozISTBYVeq0gLZ.jpg",
+                            Rating = 8.8000000000000007,
+                            ReleaseDate = new DateOnly(2010, 7, 16),
+                            StatusId = 1,
+                            Title = "Початок",
+                            TrailerURL = "https://youtu.be/cdx31ak4KbQ"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Cast = "Меттью МакКонахі, Енн Гетевей",
+                            Description = "Подорож крізь простір і час для порятунку людства.",
+                            Director = "Крістофер Нолан",
+                            Duration = 169,
+                            GenreId = 4,
+                            MinAge = 12,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/9d1sCoMSGJZtghS2X9us1h9u8lW.jpg",
+                            Rating = 8.5999999999999996,
+                            ReleaseDate = new DateOnly(2014, 11, 7),
+                            StatusId = 1,
+                            Title = "Інтерстеллар",
+                            TrailerURL = "https://youtu.be/_DQ-lqOhwIM"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Cast = "Крістіан Бейл, Гіт Леджер",
+                            Description = "Бетмен бореться з хаосом, який створює Джокер.",
+                            Director = "Крістофер Нолан",
+                            Duration = 152,
+                            GenreId = 1,
+                            MinAge = 13,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/hAf98uHIXMFzqNN5LX1vnouCShr.jpg",
+                            Rating = 9.0,
+                            ReleaseDate = new DateOnly(2008, 7, 18),
+                            StatusId = 1,
+                            Title = "Темний лицар",
+                            TrailerURL = "https://www.youtube.com/watch?v=EXeTwQWrcwY"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Cast = "Він Дізель, Пол Вокер",
+                            Description = "Команда вуличних гонщиків стикається з новими викликами.",
+                            Director = "Джеймс Ван",
+                            Duration = 137,
+                            GenreId = 1,
+                            MinAge = 16,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rLxfXS0Dpd4ixD7HOYagWTx83SS.jpg",
+                            Rating = 7.0999999999999996,
+                            ReleaseDate = new DateOnly(2015, 4, 3),
+                            StatusId = 1,
+                            Title = "Форсаж 7",
+                            TrailerURL = "https://youtu.be/USvJsCb1hA4"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Cast = "Роберт Дауні-молодший, Кріс Еванс",
+                            Description = "Фінальна битва Месників проти Таноса.",
+                            Director = "Джо Руссо, Ентоні Руссо",
+                            Duration = 181,
+                            GenreId = 4,
+                            MinAge = 12,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/6gWhqrYEOBqqzXPKP7c0m4bIvTX.jpg",
+                            Rating = 8.4000000000000004,
+                            ReleaseDate = new DateOnly(2019, 4, 26),
+                            StatusId = 1,
+                            Title = "Месники: Фінал",
+                            TrailerURL = "https://youtu.be/7ZHb4PWOI5M"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Cast = "Хоакін Фенікс",
+                            Description = "Історія походження одного з найвідоміших лиходіїв коміксів.",
+                            Director = "Тодд Філліпс",
+                            Duration = 122,
+                            GenreId = 2,
+                            MinAge = 18,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/5h77YBF7g9s0ju5yblWskkN3wa7.jpg",
+                            Rating = 8.4000000000000004,
+                            ReleaseDate = new DateOnly(2019, 10, 4),
+                            StatusId = 1,
+                            Title = "Джокер",
+                            TrailerURL = "https://youtu.be/y2NE4dYI5Pg"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Cast = "Джим Керрі, Кіану Рівз",
+                            Description = "Сонік, Наклз і Тейлз повертаються для нової грандіозної пригоди.",
+                            Director = "Джефф Фаулер",
+                            Duration = 110,
+                            GenreId = 2,
+                            MinAge = 0,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/9U8WEuITXagHQWFQW48egF8oZeb.jpg",
+                            Rating = 7.7999999999999998,
+                            ReleaseDate = new DateOnly(2024, 12, 26),
+                            StatusId = 1,
+                            Title = "Їжак Сонік 3 ",
+                            TrailerURL = "https://youtu.be/bDIUaKYV_Tg"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Cast = "Деніел Редкліфф, Емма Вотсон",
+                            Description = "Перша частина пригод Гаррі Поттера у світі чарівників.",
+                            Director = "Кріс Коламбус",
+                            Duration = 152,
+                            GenreId = 8,
+                            MinAge = 10,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/fczjRHiQCSHHFXBwa6peifwbvFz.jpg",
+                            Rating = 7.5999999999999996,
+                            ReleaseDate = new DateOnly(2001, 11, 16),
+                            StatusId = 1,
+                            Title = "Гаррі Поттер і філософський камінь",
+                            TrailerURL = "https://youtu.be/l91Km49W9qI"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Cast = "Бен Берт, Елісса Найт",
+                            Description = "Історія маленького робота, який змінив світ.",
+                            Director = "Ендрю Стентон",
+                            Duration = 98,
+                            GenreId = 4,
+                            MinAge = 6,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/1ZF4joYyVyg4xrapmGzZUCIv7Lj.jpg",
+                            Rating = 8.4000000000000004,
+                            ReleaseDate = new DateOnly(2008, 6, 27),
+                            StatusId = 1,
+                            Title = "Волл-і",
+                            TrailerURL = "https://youtu.be/Tbr_L9Gap_M"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Cast = "Дональд Гловер, Бейонсе",
+                            Description = "Ремейк класичного мультфільму про пригоди Сімби.",
+                            Director = "Джон Фавро",
+                            Duration = 118,
+                            GenreId = 2,
+                            MinAge = 6,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/azLX5jPAbjWbdAUUrspkRFvx8Z1.jpg",
+                            Rating = 6.9000000000000004,
+                            ReleaseDate = new DateOnly(2019, 7, 19),
+                            StatusId = 1,
+                            Title = "Король Лев",
+                            TrailerURL = "https://youtu.be/QUoxYKDtpUk"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Cast = "Сон Кан Хо, Лі Сон Гюн",
+                            Description = "Історія про соціальну нерівність через призму однієї родини.",
+                            Director = "Пон Джун Хо",
+                            Duration = 132,
+                            GenreId = 5,
+                            MinAge = 16,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/eYQlHTn4kD7CKbudVzxHMxVU3cV.jpg",
+                            Rating = 8.5999999999999996,
+                            ReleaseDate = new DateOnly(2019, 5, 30),
+                            StatusId = 1,
+                            Title = "Паразити",
+                            TrailerURL = "https://youtu.be/KKNXGJIpnKY"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Cast = "Тімоті Шаламе, Зендея",
+                            Description = "Епічна науково-фантастична сага про боротьбу за виживання.",
+                            Director = "Дені Вільньов",
+                            Duration = 155,
+                            GenreId = 4,
+                            MinAge = 13,
+                            PosterURL = "https://uaserial.com/images/serials/66/662c218bd4504886698257.webp",
+                            Rating = 8.0999999999999996,
+                            ReleaseDate = new DateOnly(2021, 10, 22),
+                            StatusId = 1,
+                            Title = "Дюна",
+                            TrailerURL = "https://youtu.be/Ljzu52GMytk"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Cast = "Марк Гемілл, Харрісон Форд",
+                            Description = "Перший епізод культової космічної саги.",
+                            Director = "Джордж Лукас",
+                            Duration = 121,
+                            GenreId = 8,
+                            MinAge = 10,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rEpXNtqdiNul8sJa3sUQRIYdVDU.jpg",
+                            Rating = 8.5999999999999996,
+                            ReleaseDate = new DateOnly(1977, 5, 25),
+                            StatusId = 1,
+                            Title = "Зоряні війни: Епізод IV - Нова надія",
+                            TrailerURL = "https://youtu.be/XsS1yE2f-hE"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Cast = "Кіану Рівз, Лоренс Фішберн",
+                            Description = "Класика наукової фантастики про боротьбу зі штучним інтелектом.",
+                            Director = "Лана Вачовскі, Ліллі Вачовскі",
+                            Duration = 136,
+                            GenreId = 1,
+                            MinAge = 16,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/58748AndVH1DitlTbcbLpKHuSS2.jpg",
+                            Rating = 8.6999999999999993,
+                            ReleaseDate = new DateOnly(1999, 3, 31),
+                            StatusId = 1,
+                            Title = "Матриця",
+                            TrailerURL = "https://youtu.be/d0XTFAMmhrE"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Cast = "Елайджа Вуд, Вігго Мортенсен",
+                            Description = "Перша частина епічної трилогії за мотивами творів Толкіна.",
+                            Director = "Пітер Джексон",
+                            Duration = 178,
+                            GenreId = 1,
+                            MinAge = 12,
+                            PosterURL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/yrEZeHgn2Y3F3G4w6qeI22LrZzQ.jpg",
+                            Rating = 8.8000000000000007,
+                            ReleaseDate = new DateOnly(2001, 12, 19),
+                            StatusId = 1,
+                            Title = "Володар перснів: Хранителі Персня",
+                            TrailerURL = "https://youtu.be/CbYmZOV3G-Q"
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.MoviePrice", b =>
@@ -121,6 +415,98 @@ namespace DataAccess.Migrations
                     b.HasIndex("MovieId");
 
                     b.ToTable("MoviePrices");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            MovieId = 1,
+                            Price = 200.00m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            MovieId = 2,
+                            Price = 210.00m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            MovieId = 3,
+                            Price = 220.00m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            MovieId = 4,
+                            Price = 230.00m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            MovieId = 5,
+                            Price = 240.00m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            MovieId = 6,
+                            Price = 250.00m
+                        },
+                        new
+                        {
+                            Id = 7,
+                            MovieId = 7,
+                            Price = 260.00m
+                        },
+                        new
+                        {
+                            Id = 8,
+                            MovieId = 8,
+                            Price = 270.00m
+                        },
+                        new
+                        {
+                            Id = 9,
+                            MovieId = 9,
+                            Price = 280.00m
+                        },
+                        new
+                        {
+                            Id = 10,
+                            MovieId = 10,
+                            Price = 290.00m
+                        },
+                        new
+                        {
+                            Id = 11,
+                            MovieId = 11,
+                            Price = 300.00m
+                        },
+                        new
+                        {
+                            Id = 12,
+                            MovieId = 12,
+                            Price = 310.00m
+                        },
+                        new
+                        {
+                            Id = 13,
+                            MovieId = 13,
+                            Price = 320.00m
+                        },
+                        new
+                        {
+                            Id = 14,
+                            MovieId = 14,
+                            Price = 330.00m
+                        },
+                        new
+                        {
+                            Id = 15,
+                            MovieId = 15,
+                            Price = 340.00m
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.MovieStatus", b =>
@@ -138,6 +524,23 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MovieStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "В прокаті"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Скоро у кіно"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Архівний"
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.Reservation", b =>
@@ -188,6 +591,28 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ReservationStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Створено"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Підтверджено"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Завершено"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Скасовано"
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.Room", b =>
@@ -208,6 +633,20 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Rooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Capacity = 100,
+                            Name = "Зал 1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Capacity = 150,
+                            Name = "Зал 2"
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.Seat", b =>
@@ -232,6 +671,36 @@ namespace DataAccess.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("Seats");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ExtraPrice = 0.00m,
+                            Number = 1,
+                            RoomId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ExtraPrice = 0.00m,
+                            Number = 2,
+                            RoomId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ExtraPrice = 50.00m,
+                            Number = 1,
+                            RoomId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ExtraPrice = 50.00m,
+                            Number = 2,
+                            RoomId = 2
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.Session", b =>
@@ -261,6 +730,368 @@ namespace DataAccess.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("Sessions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 10,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 1,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 1,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 1,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 2,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 2,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 2,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 3,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 3,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 3,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 4,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 4,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 4,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 5,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 51,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 5,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 52,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 5,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 60,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 6,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 61,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 6,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 62,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 6,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 70,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 7,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 71,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 7,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 72,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 7,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 80,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 8,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 81,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 8,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 82,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 8,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 90,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 9,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 91,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 9,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 92,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 9,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 100,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 10,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 101,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 10,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 102,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 10,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 110,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 11,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 111,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 11,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 112,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 11,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 120,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 12,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 121,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 12,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 122,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 12,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 130,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 13,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 131,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 13,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 132,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 13,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 140,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 14,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 141,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 14,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 142,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 14,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 150,
+                            Date = new DateOnly(2025, 3, 1),
+                            MoviePriceId = 15,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 151,
+                            Date = new DateOnly(2025, 3, 2),
+                            MoviePriceId = 15,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 152,
+                            Date = new DateOnly(2025, 3, 3),
+                            MoviePriceId = 15,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.User", b =>
@@ -299,6 +1130,28 @@ namespace DataAccess.Migrations
                     b.HasIndex("StatusId");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "user@cinema.com",
+                            FirstName = "Mike",
+                            LastName = "Brown",
+                            Password = "4f9f10b304cfe9b2b11fcb1387f694e18f08ea358c7e9f567434d3ad6cbd7fc4",
+                            PhoneNumber = "+38050221131",
+                            StatusId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "admin@cinema.com",
+                            FirstName = "John",
+                            LastName = "Sandres",
+                            Password = "4f9f10b304cfe9b2b11fcb1387f694e18f08ea358c7e9f567434d3ad6cbd7fc4",
+                            PhoneNumber = "+38095221141",
+                            StatusId = 2
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.UserStatus", b =>
@@ -316,6 +1169,23 @@ namespace DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Активний"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Адміністратор"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Заблокований"
+                        });
                 });
 
             modelBuilder.Entity("DataAccess.Models.Movie", b =>

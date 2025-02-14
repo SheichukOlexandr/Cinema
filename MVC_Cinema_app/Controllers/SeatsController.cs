@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DataAccess.Contexts;
-using DataAccess.Models;
+using BusinessLogic.Services;
+using BusinessLogic.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC_Cinema_app.Controllers
 {
+    [Authorize(Policy = Policies.AdminUserPolicy)]
     public class SeatsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly SeatService _seatService;
 
-        public SeatsController(ApplicationDbContext context)
+        public SeatsController(SeatService seatService)
         {
-            _context = context;
+            _seatService = seatService;
         }
 
         // GET: Seats
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Seats.Include(s => s.Room);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _seatService.GetAllAsync());
         }
 
         // GET: Seats/Details/5
@@ -34,9 +31,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var seat = await _context.Seats
-                .Include(s => s.Room)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var seat = await _seatService.GetAsync(id.Value);
             if (seat == null)
             {
                 return NotFound();
@@ -46,9 +41,9 @@ namespace MVC_Cinema_app.Controllers
         }
 
         // GET: Seats/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name");
+            ViewData["RoomId"] = new SelectList(await _seatService.GetAllRoomsAsync(), "Id", "Name");
             return View();
         }
 
@@ -57,15 +52,14 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,RoomId,Number,ExtraPrice")] Seat seat)
+        public async Task<IActionResult> Create([Bind("Id,RoomId,Number,ExtraPrice")] SeatDTO seat)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(seat);
-                await _context.SaveChangesAsync();
+                await _seatService.AddAsync(seat);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", seat.RoomId);
+            ViewData["RoomId"] = new SelectList(await _seatService.GetAllRoomsAsync(), "Id", "Name", seat.RoomId);
             return View(seat);
         }
 
@@ -77,12 +71,12 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var seat = await _context.Seats.FindAsync(id);
+            var seat = await _seatService.GetAsync(id.Value);
             if (seat == null)
             {
                 return NotFound();
             }
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", seat.RoomId);
+            ViewData["RoomId"] = new SelectList(await _seatService.GetAllRoomsAsync(), "Id", "Name", seat.RoomId);
             return View(seat);
         }
 
@@ -91,7 +85,7 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,RoomId,Number,ExtraPrice")] Seat seat)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RoomId,Number,ExtraPrice")] SeatDTO seat)
         {
             if (id != seat.Id)
             {
@@ -102,12 +96,11 @@ namespace MVC_Cinema_app.Controllers
             {
                 try
                 {
-                    _context.Update(seat);
-                    await _context.SaveChangesAsync();
+                    await _seatService.UpdateAsync(seat);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SeatExists(seat.Id))
+                    if (!await SeatExists(seat.Id))
                     {
                         return NotFound();
                     }
@@ -118,7 +111,7 @@ namespace MVC_Cinema_app.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RoomId"] = new SelectList(_context.Rooms, "Id", "Name", seat.RoomId);
+            ViewData["RoomId"] = new SelectList(await _seatService.GetAllRoomsAsync(), "Id", "Name", seat.RoomId);
             return View(seat);
         }
 
@@ -130,9 +123,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var seat = await _context.Seats
-                .Include(s => s.Room)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var seat = await _seatService.GetAsync(id.Value);
             if (seat == null)
             {
                 return NotFound();
@@ -146,19 +137,13 @@ namespace MVC_Cinema_app.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var seat = await _context.Seats.FindAsync(id);
-            if (seat != null)
-            {
-                _context.Seats.Remove(seat);
-            }
-
-            await _context.SaveChangesAsync();
+            await _seatService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SeatExists(int id)
+        private async Task<bool> SeatExists(int id)
         {
-            return _context.Seats.Any(e => e.Id == id);
+            return await _seatService.GetAsync(id) != null;
         }
     }
 }

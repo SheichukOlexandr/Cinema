@@ -1,25 +1,26 @@
-﻿@model IEnumerable<DataAccess.Models.Seat>
+﻿@model IEnumerable<BusinessLogic.DTOs.SeatDTO>
 
 @{
-    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
+    ViewData["Title"] = "Seats";
 }
 
-<h1>Index</h1>
+<h1>Місця</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Додати нові місця</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Number)
+                Назва кінозали
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ExtraPrice)
+                Місце
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Room)
+                Ціна
             </th>
             <th></th>
         </tr>
@@ -28,18 +29,18 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.RoomName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Number)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ExtraPrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Room.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Видалення</a>
             </td>
         </tr>
 }

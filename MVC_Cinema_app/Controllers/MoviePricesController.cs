@@ -1,29 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using DataAccess.Contexts;
-using DataAccess.Models;
+using BusinessLogic.Services;
+using BusinessLogic.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC_Cinema_app.Controllers
 {
+    [Authorize(Policy = Policies.AdminUserPolicy)]
     public class MoviePricesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly MoviePriceService _moviePriceService;
 
-        public MoviePricesController(ApplicationDbContext context)
+        public MoviePricesController(MoviePriceService moviePriceService)
         {
-            _context = context;
+            _moviePriceService = moviePriceService;
         }
 
         // GET: MoviePrices
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.MoviePrices.Include(m => m.Movie);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _moviePriceService.GetAllAsync());
         }
 
         // GET: MoviePrices/Details/5
@@ -34,9 +31,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var moviePrice = await _context.MoviePrices
-                .Include(m => m.Movie)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var moviePrice = await _moviePriceService.GetAsync(id.Value);
             if (moviePrice == null)
             {
                 return NotFound();
@@ -46,9 +41,9 @@ namespace MVC_Cinema_app.Controllers
         }
 
         // GET: MoviePrices/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Cast");
+            ViewData["MovieId"] = new SelectList(await _moviePriceService.GetAllMoviesAsync(), "Id", "Title");
             return View();
         }
 
@@ -57,16 +52,15 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,MovieId,Price")] MoviePrice moviePrice)
+        public async Task<IActionResult> Create([Bind("Id,MovieId,Price")] MoviePriceDTO moviePriceDTO)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(moviePrice);
-                await _context.SaveChangesAsync();
+                await _moviePriceService.AddAsync(moviePriceDTO);
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Cast", moviePrice.MovieId);
-            return View(moviePrice);
+            ViewData["MovieId"] = new SelectList(await _moviePriceService.GetAllMoviesAsync(), "Id", "Title", moviePriceDTO.MovieId);
+            return View(moviePriceDTO);
         }
 
         // GET: MoviePrices/Edit/5
@@ -77,12 +71,12 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var moviePrice = await _context.MoviePrices.FindAsync(id);
+            var moviePrice = await _moviePriceService.GetAsync(id.Value);
             if (moviePrice == null)
             {
                 return NotFound();
             }
-            ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Cast", moviePrice.MovieId);
+            ViewData["MovieId"] = new SelectList(await _moviePriceService.GetAllMoviesAsync(), "Id", "Title", moviePrice.MovieId);
             return View(moviePrice);
         }
 
@@ -91,9 +85,9 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,MovieId,Price")] MoviePrice moviePrice)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,MovieId,Price")] MoviePriceDTO moviePriceDTO)
         {
-            if (id != moviePrice.Id)
+            if (id != moviePriceDTO.Id)
             {
                 return NotFound();
             }
@@ -102,12 +96,11 @@ namespace MVC_Cinema_app.Controllers
             {
                 try
                 {
-                    _context.Update(moviePrice);
-                    await _context.SaveChangesAsync();
+                    await _moviePriceService.UpdateAsync(moviePriceDTO);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MoviePriceExists(moviePrice.Id))
+                    if (!await MoviePriceExists(moviePriceDTO.Id))
                     {
                         return NotFound();
                     }
@@ -118,8 +111,8 @@ namespace MVC_Cinema_app.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MovieId"] = new SelectList(_context.Movies, "Id", "Cast", moviePrice.MovieId);
-            return View(moviePrice);
+            ViewData["MovieId"] = new SelectList(await _moviePriceService.GetAllMoviesAsync(), "Id", "Title", moviePriceDTO.MovieId);
+            return View(moviePriceDTO);
         }
 
         // GET: MoviePrices/Delete/5
@@ -130,9 +123,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var moviePrice = await _context.MoviePrices
-                .Include(m => m.Movie)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var moviePrice = await _moviePriceService.GetAsync(id.Value);
             if (moviePrice == null)
             {
                 return NotFound();
@@ -146,19 +137,13 @@ namespace MVC_Cinema_app.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var moviePrice = await _context.MoviePrices.FindAsync(id);
-            if (moviePrice != null)
-            {
-                _context.MoviePrices.Remove(moviePrice);
-            }
-
-            await _context.SaveChangesAsync();
+            await _moviePriceService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MoviePriceExists(int id)
+        private async Task<bool> MoviePriceExists(int id)
         {
-            return _context.MoviePrices.Any(e => e.Id == id);
+            return await _moviePriceService.GetAsync(id) != null;
         }
     }
 }

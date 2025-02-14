@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\gentelella\**" />
+    <Content Remove="wwwroot\lib\gentelella\**" />
+    <EmbeddedResource Remove="wwwroot\lib\gentelella\**" />
+    <None Remove="wwwroot\lib\gentelella\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.3.0" />
@@ -27,6 +34,11 @@
   <ItemGroup>
     <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\image\homepage\" />
+    <Folder Include="wwwroot\image\posters\" />
   </ItemGroup>
 
 </Project>

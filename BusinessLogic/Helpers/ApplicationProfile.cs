@@ -14,9 +14,14 @@ namespace BusinessLogic.Helpers
                 .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => src.Status.Name));
             CreateMap<MovieDTO, Movie>(); // Reverse
 
-            CreateMap<MoviePrice, MoviePriceDTO>().ReverseMap();
+            CreateMap<MoviePrice, MoviePriceDTO>()
+                .ForMember(dest => dest.MovieName, opt => opt.MapFrom(src => src.Movie.Title))
+                .ForMember(dest => dest.MoviePriceName, opt => opt.MapFrom(src => src.Movie.Title + " – " + src.Price));
+            CreateMap<MoviePriceDTO, MoviePrice>(); // Reverse
+
             CreateMap<Seat, SeatDTO>()
-                .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Room.Name));
+                .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Room.Name))
+                .ForMember(dest => dest.SeatName, opt => opt.MapFrom(src => src.Room.Name + " – " + src.Number));
             CreateMap<SeatDTO, Seat>(); // Reverse
 
             CreateMap<Room, RoomDTO>().ReverseMap();
@@ -24,6 +29,7 @@ namespace BusinessLogic.Helpers
             CreateMap<Session, SessionDTO>()
                 .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Room.Name))
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.MoviePrice.Price))
+                .ForMember(dest => dest.MovieId, opt => opt.MapFrom(src => src.MoviePrice.Movie.Id))
                 .ForMember(dest => dest.MovieName, opt => opt.MapFrom(src => src.MoviePrice.Movie.Title));
             CreateMap<SessionDTO, Session>(); // Reverse
 
@@ -31,15 +37,14 @@ namespace BusinessLogic.Helpers
             CreateMap<UserStatus, UserStatusDTO>().ReverseMap();
             CreateMap<User, UserDTO>()
                 .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => src.Status.Name));
-            CreateMap<UserDTO, User>(); // Reverse
+            CreateMap<UserDTO, User>()
+                .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.NewPassword));
 
             CreateMap<Reservation, ReservationDTO>()
                 .ForMember(dest => dest.UserFullName, opt => opt.MapFrom(src => src.User.FirstName + " " + src.User.LastName))
-                .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Session.Date))
-                .ForMember(dest => dest.Time, opt => opt.MapFrom(src => src.Session.Time))
-                .ForMember(dest => dest.MovieName, opt => opt.MapFrom(src => src.Session.MoviePrice.Movie.Title))
+                .ForMember(dest => dest.Session, opt => opt.MapFrom(src => src.Session))
                 .ForMember(dest => dest.SeatNumber, opt => opt.MapFrom(src => src.Seat.Number))
-                .ForMember(dest => dest.RoomName, opt => opt.MapFrom(src => src.Seat.Room))
+                .ForMember(dest => dest.SeatExtraPrice, opt => opt.MapFrom(src => src.Seat.ExtraPrice))
                 .ForMember(dest => dest.StatusName, opt => opt.MapFrom(src => src.Status.Name));
             CreateMap<ReservationDTO, Reservation>(); // Reverse
         }

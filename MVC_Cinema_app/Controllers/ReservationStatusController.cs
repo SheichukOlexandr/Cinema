@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DataAccess.Contexts;
-using DataAccess.Models;
+using BusinessLogic.Services;
+using BusinessLogic.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC_Cinema_app.Controllers
 {
+    [Authorize(Policy = Policies.AdminUserPolicy)]
     public class ReservationStatusController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ReservationStatusService _reservationStatusService;
 
-        public ReservationStatusController(ApplicationDbContext context)
+        public ReservationStatusController(ReservationStatusService reservationStatusService)
         {
-            _context = context;
+            _reservationStatusService = reservationStatusService;
         }
 
         // GET: ReservationStatus
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ReservationStatuses.ToListAsync());
+            return View(await _reservationStatusService.GetAllAsync());
         }
 
         // GET: ReservationStatus/Details/5
@@ -33,8 +30,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var reservationStatus = await _context.ReservationStatuses
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var reservationStatus = await _reservationStatusService.GetAsync(id.Value);
             if (reservationStatus == null)
             {
                 return NotFound();
@@ -54,12 +50,11 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] ReservationStatus reservationStatus)
+        public async Task<IActionResult> Create([Bind("Id,Name")] ReservationStatusDTO reservationStatus)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(reservationStatus);
-                await _context.SaveChangesAsync();
+                await _reservationStatusService.AddAsync(reservationStatus);
                 return RedirectToAction(nameof(Index));
             }
             return View(reservationStatus);
@@ -73,7 +68,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var reservationStatus = await _context.ReservationStatuses.FindAsync(id);
+            var reservationStatus = await _reservationStatusService.GetAsync(id.Value);
             if (reservationStatus == null)
             {
                 return NotFound();
@@ -86,7 +81,7 @@ namespace MVC_Cinema_app.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] ReservationStatus reservationStatus)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] ReservationStatusDTO reservationStatus)
         {
             if (id != reservationStatus.Id)
             {
@@ -97,12 +92,11 @@ namespace MVC_Cinema_app.Controllers
             {
                 try
                 {
-                    _context.Update(reservationStatus);
-                    await _context.SaveChangesAsync();
+                    await _reservationStatusService.UpdateAsync(reservationStatus);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReservationStatusExists(reservationStatus.Id))
+                    if (!await ReservationStatusExists(reservationStatus.Id))
                     {
                         return NotFound();
                     }
@@ -124,8 +118,7 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-            var reservationStatus = await _context.ReservationStatuses
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var reservationStatus = await _reservationStatusService.GetAsync(id.Value);
             if (reservationStatus == null)
             {
                 return NotFound();
@@ -139,19 +132,13 @@ namespace MVC_Cinema_app.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var reservationStatus = await _context.ReservationStatuses.FindAsync(id);
-            if (reservationStatus != null)
-            {
-                _context.ReservationStatuses.Remove(reservationStatus);
-            }
-
-            await _context.SaveChangesAsync();
+            await _reservationStatusService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ReservationStatusExists(int id)
+        private async Task<bool> ReservationStatusExists(int id)
         {
-            return _context.ReservationStatuses.Any(e => e.Id == id);
+            return await _reservationStatusService.GetAsync(id) != null;
         }
     }
 }

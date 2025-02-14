@@ -1,52 +1,53 @@
 ﻿@model IEnumerable<BusinessLogic.DTOs.MovieDTO>
 
 @{
-    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
+    ViewData["Title"] = "Movies";
 }
 
-<h1>Index</h1>
+<h1>Фільми</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Додати новий фільм</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Назва фільму
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Director)
+                Режисер
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Duration)
+                Тривалість
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cast)
+                Акторський склад
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReleaseDate)
+                Жанр
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Дата виходу
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MinAge)
+                Опис
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Rating)
+                Мінімальний вік
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PosterURL)
+                Рейтинг
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TrailerURL)
+                Статус
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GenreName)
+                Постер
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StatusName)
+                Трейлер
             </th>
             <th></th>
         </tr>
@@ -67,6 +68,9 @@
                 @Html.DisplayFor(modelItem => item.Cast)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.GenreName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ReleaseDate)
             </td>
             <td>
@@ -79,21 +83,18 @@
                 @Html.DisplayFor(modelItem => item.Rating)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.StatusName)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.PosterURL)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TrailerURL)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GenreName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StatusName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Видалення</a>
             </td>
         </tr>
 }
