@@ -53,7 +53,13 @@ namespace MVC_Cinema_app.Controllers
                 })
             }).ToList();
 
-            var model = new GenreViewModel { GenreOptions = genreOptions, Movies = movieViews };
+            var newMovies = moviesWithSessions.Select(it => it.Movie).Where(it => DateTime.Now.Year - it.ReleaseDate.Year < 2).ToList();
+
+            var model = new HomeViewModel { 
+                GenreOptions = genreOptions, 
+                Movies = movieViews,
+                NewMovies = newMovies
+            };
 
             return View(model);
         }

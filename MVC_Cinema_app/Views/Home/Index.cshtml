@@ -1,4 +1,4 @@
-﻿@model GenreViewModel
+﻿@model HomeViewModel
 @{
     ViewData["Title"] = "Головна";
 }
@@ -6,29 +6,33 @@
 <div class="container">
     <main>
         <section class="banner">
-            <div class="banner-card">
-                <img src="~/image/posters/big_posters/Mufasa_king_banner.jpg" alt="banner" class="banner-img">
+            @foreach (var movie in Model.NewMovies)
+            {
+                <div class="banner-card">
+                    <img src="@movie.PosterURL" alt="banner" class="banner-img">
 
-                <div class="card-content">
-                    <div class="card-info">
-                        <div class="genre">
-                            <ion-icon name="film"></ion-icon>
-                            <span>Сімений/Пригоди/Мультфільм</span>
-                        </div>
+                    <div class="card-content">
+                        <div class="card-info">
+                            <div class="genre">
+                                <ion-icon name="film"></ion-icon>
+                                <span>@movie.GenreName</span>
+                            </div>
 
-                        <div class="year">
-                            <ion-icon name="calendar"></ion-icon>
-                            <span>2024</span>
-                        </div>
+                            <div class="year">
+                                <ion-icon name="calendar"></ion-icon>
+                                <span>@movie.ReleaseDate.Year</span>
+                            </div>
 
-                        <div class="duration">
-                            <ion-icon name="time"></ion-icon>
-                            <span>1г 58хв</span>
+                            <div class="duration">
+                                <ion-icon name="time"></ion-icon>
+                                <span>@(movie.Duration / 60)г @(movie.Duration % 60)г</span>
+                            </div>
                         </div>
+                        <h2 class="card-title">@movie.Title</h2>
                     </div>
-                    <h2 class="card-title">Муфаса: Король Лев</h2>
                 </div>
-            </div>
+            }
+            
         </section>
 
         <section class="movies">
