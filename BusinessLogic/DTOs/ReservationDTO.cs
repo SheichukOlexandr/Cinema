@@ -22,8 +22,10 @@ namespace BusinessLogic.DTOs
         // data to map:
         public string? UserFullName { get; set; }
         public SessionDTO? Session { get; set; }
-        public int SeatNumber { get; set; }
         public decimal SeatExtraPrice { get; set; }
+
+        public int SeatNumber { get; set; }
         public string? StatusName { get; set; }
+       
     }
 }

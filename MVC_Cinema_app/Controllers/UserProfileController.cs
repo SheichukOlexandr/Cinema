@@ -13,11 +13,13 @@ namespace MVC_Cinema_app.Controllers
     {
         private readonly UserService _userService;
         private readonly ReservationService _reservationService;
+        private readonly TicketGeneration _ticketGeneration; // Додаємо сервіс квитків
 
-        public UserProfileController(UserService userService, ReservationService reservationService)
+        public UserProfileController(UserService userService, ReservationService reservationService, TicketGeneration ticketGeneration)
         {
             _userService = userService;
             _reservationService = reservationService;
+            _ticketGeneration = ticketGeneration; // Ініціалізація сервісу квитків
         }
 
         private async Task<UserDTO?> GetCurrentUserAsync()
@@ -48,7 +50,8 @@ namespace MVC_Cinema_app.Controllers
             }
 
             var reservations = await _reservationService.GetAllReservationsByUserIdAsync(user.Id);
-            var model = new UserProfileViewModel { 
+            var model = new UserProfileViewModel
+            {
                 User = user,
                 Reservations = reservations
             };
@@ -74,8 +77,6 @@ namespace MVC_Cinema_app.Controllers
         }
 
         // POST: UserProfile/Edit
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit([Bind("User, NewPasswordConfirmed")] UserEditViewModel model)
@@ -108,9 +109,7 @@ namespace MVC_Cinema_app.Controllers
             return View(model);
         }
 
-        // POST: UserProfile/Cancel/3
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: UserProfile/Cancel/{reservationId}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Cancel(int reservationId)
@@ -132,9 +131,7 @@ namespace MVC_Cinema_app.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // POST: UserProfile/Confirm/3
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: UserProfile/Confirm/{reservationId}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Confirm(int reservationId)
@@ -144,6 +141,7 @@ namespace MVC_Cinema_app.Controllers
             {
                 return NotFound();
             }
+
 
             var reservation = await _reservationService.GetAsync(reservationId);
             if (reservation == null)
@@ -159,6 +157,26 @@ namespace MVC_Cinema_app.Controllers
         private async Task<bool> UserExists(int id)
         {
             return await _userService.GetAsync(id) != null;
+        }
+
+        // GET: UserProfile/GenerateTicket/{reservationId}
+        [HttpGet]
+        public async Task<IActionResult> GenerateTicket(int reservationId)
+        {
+            // Отримання даних бронювання
+            var reservation = await _reservationService.GetAsync(reservationId);
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+
+            // Генерація PDF-квитка через сервіс TicketGeneration
+            var ticketBytes = _ticketGeneration.GenerateTicket(reservation);
+
+            // Повернення PDF-файлу користувачеві
+            return File(ticketBytes, "application/pdf", $"Ticket_{reservation.Session.Date}_{reservation.Session.Time}.pdf"
+
+);
         }
     }
 }

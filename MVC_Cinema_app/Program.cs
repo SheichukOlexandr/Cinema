@@ -9,8 +9,12 @@ using BusinessLogic.Helpers;
 using BusinessLogic.DTOs;
 using System.Security.Claims;
 using MVC_Cinema_app;
+using QuestPDF.Infrastructure; // Додано для QuestPDF
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Додавання QuestPDF у Community-режимі
+QuestPDF.Settings.License = LicenseType.Community;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -38,6 +42,7 @@ builder.Services.AddScoped<SessionService>();
 
 builder.Services.AddScoped<ReservationStatusService>();
 builder.Services.AddScoped<ReservationService>();
+builder.Services.AddScoped<TicketGeneration>();
 
 builder.Services.AddScoped<UserService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -82,7 +87,8 @@ app.Run();
 
 namespace MVC_Cinema_app
 {
-    class Policies {
+    class Policies
+    {
         public const string DefaultUserPolicy = "DefaultUser";
         public const string AdminUserPolicy = "AdminUser";
     };
