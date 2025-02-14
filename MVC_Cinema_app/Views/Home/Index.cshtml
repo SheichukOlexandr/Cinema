@@ -1,39 +1,45 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewData["Title"] = "Головна";
 }
 
 <div class="container">
     <main>
         <section class="banner">
-            <div class="banner-card">
-                <img src="~/image/posters/big_posters/Mufasa_king_banner.jpg" alt="banner" class="banner-img">
+            @foreach (var movie in Model.NewMovies)
+            {
+                <div class="banner-card">
+                    <img src="@movie.PosterURL" alt="banner" class="banner-img">
 
-                <div class="card-content">
-                    <div class="card-info">
-                        <div class="genre">
-                            <ion-icon name="film"></ion-icon>
-                            <span>Сімений/Пригоди/Мультфільм</span>
-                        </div>
+                    <div class="card-content">
+                        <div class="card-info">
+                            <div class="genre">
+                                <ion-icon name="film"></ion-icon>
+                                <span>@movie.GenreName</span>
+                            </div>
 
-                        <div class="year">
-                            <ion-icon name="calendar"></ion-icon>
-                            <span>2024</span>
-                        </div>
+                            <div class="year">
+                                <ion-icon name="calendar"></ion-icon>
+                                <span>@movie.ReleaseDate.Year</span>
+                            </div>
 
-                        <div class="duration">
-                            <ion-icon name="time"></ion-icon>
-                            <span>1г 58хв</span>
+                            <div class="duration">
+                                <ion-icon name="time"></ion-icon>
+                                <span>@(movie.Duration / 60)г @(movie.Duration % 60)г</span>
+                            </div>
                         </div>
+                        <h2 class="card-title">@movie.Title</h2>
                     </div>
-                    <h2 class="card-title">Муфаса: Король Лев</h2>
                 </div>
-            </div>
+            }
+            
         </section>
 
         <section class="movies">
             <div class="filter-bar">
                 <div class="filter-dropdowns">
-                    <select name="genre" class="genre" id="genreDropdown">
+                    <select asp-for="SelectedGenreId" asp-items="Model.GenreOptions" class="genre" id="genreDropdown">
+                        <option value="all genres">Всі жанри</option>
                     </select>
 
                     <select name="year" class="year">
@@ -62,6 +68,35 @@
 
             <div class="movies-grid" id="moviesGrid">
                 <!-- Карточки фільмів будуть додані динамічно ось тут-->
+                @foreach (var movieViewModel in Model.Movies)
+                {
+                    <a asp-action="Details" asp-route-id="@movieViewModel.Movie.Id" class="movie-card visible" data-genre="@movieViewModel.Movie.GenreName">
+                        <div class="card-head">
+                            <img src="@movieViewModel.Movie.PosterURL" alt="movie" class="card-img">
+                            <div class="card-overlay">
+                                <div class="bookmark">
+                                    <ion-icon name="bookmark"></ion-icon>
+                                </div>
+                                <div class="rating">
+                                    <ion-icon name="star-outline"></ion-icon>
+                                    <span>@movieViewModel.Movie.Rating</span>
+                                </div>
+                                <div class="play">
+                                    <ion-icon name="play-circle-outline"></ion-icon>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">@movieViewModel.Movie.Title</h3>
+                            <div class="card-info">
+                                <span class="genre">@movieViewModel.Movie.GenreName</span>
+                            </div>
+                            <div class="card-info">
+                                <span class="year">@movieViewModel.Movie.ReleaseDate.Year</span>
+                            </div>
+                        </div>
+                    </a>
+                }
             </div>
             <button class="load-more">Завантажити ще</button>
         </section>
@@ -140,6 +175,5 @@
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="~/js/site.js"></script>
-<script src="~/js/genres.js"></script>
 <script src="~/js/movies.js"></script>
 <!-- <script src="~/js/tmdb.js"></script> -->
