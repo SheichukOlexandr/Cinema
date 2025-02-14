@@ -2,6 +2,7 @@
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
+using System;
 using System.IO;
 
 namespace BusinessLogic.Services
@@ -42,6 +43,8 @@ namespace BusinessLogic.Services
                             x.Item().Text($"🎟️ Ціна сеансу: {reservation.Session.Price} грн");
                             x.Item().Text($"💰 Ціна місця: {reservation.SeatExtraPrice} грн");
                             x.Item().Text($"💳 Загальна сума: {reservation.Session.Price + reservation.SeatExtraPrice} грн");
+                            x.Item().Text($"📌 Статус бронювання: {reservation.StatusName}"); // ✅ Додано статус бронювання
+                            x.Item().Text($"🕓 Дата і час генерації: {DateTime.Now:dd-MM-yyyy HH:mm}"); // ✅ Додано дату і час генерації квитка
                         });
 
                     page.Footer()
@@ -59,5 +62,4 @@ namespace BusinessLogic.Services
             return stream.ToArray();
         }
     }
-
 }
