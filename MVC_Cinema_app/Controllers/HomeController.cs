@@ -99,6 +99,12 @@ namespace MVC_Cinema_app.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Book(int id, int? seatId, int movieId)
         {
+            var user = await _userService.GetCurrentUserAsync(this.User);
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Auth");
+            }
+
             if (!seatId.HasValue || seatId == 0)
             {
                 return RedirectToAction("Details", new { id = movieId });
@@ -117,12 +123,6 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-
-            var user = await _userService.GetCurrentUserAsync(this.User);
-            if (user == null)
-            {
-                return NotFound();
-            }
 
             var reservation = new ReservationDTO
             {

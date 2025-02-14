@@ -40,7 +40,7 @@
                                 <form asp-action="Book" asp-route-id="@sessionDetails.Session.Id" method="post">
                                     <select asp-for="@sessionDetails.SelectedSessionId"
                                             asp-items="@sessionDetails.AvailableSeats"
-                                            class="table-text"
+                                            class="white-text black-background"
                                             onchange="document.getElementById('seatId_@sessionDetails.Session.Id').value = this.value;">
                                         <!-- Availble seats will be here -->
                                         <option>Оберіть місце</option>

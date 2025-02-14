@@ -66,8 +66,7 @@
                 <!-- Карточки фільмів будуть додані динамічно ось тут-->
                 @foreach (var movieViewModel in Model.Movies)
                 {
-                    <a asp-action="Details" asp-route-id="@movieViewModel.Movie.Id">
-                    <div class="movie-card visible">
+                    <a asp-action="Details" asp-route-id="@movieViewModel.Movie.Id" class="movie-card visible" data-genre="@movieViewModel.Movie.GenreName">
                         <div class="card-head">
                             <img src="@movieViewModel.Movie.PosterURL" alt="movie" class="card-img">
                             <div class="card-overlay">
@@ -92,7 +91,6 @@
                                 <span class="year">@movieViewModel.Movie.ReleaseDate.Year</span>
                             </div>
                         </div>
-                    </div>
                     </a>
                 }
             </div>

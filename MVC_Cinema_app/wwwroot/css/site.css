@@ -986,7 +986,7 @@ login-user {
     color: #ccc;
 }
 
-.table-text {
+.white-text {
     color: var(--off-white);
 }
 
@@ -994,4 +994,8 @@ login-user {
     background: var(--primary);
     color: var(--off-white);
     border: 1px solid #dee2e6;
+}
+
+.black-background {
+    background: var(--rich-blank-fogra-29);
 }
