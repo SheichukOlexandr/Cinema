@@ -27,15 +27,12 @@
                     </button>
 
                     <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
-                        <img src="~/image/homepage/Logo.png" alt="logo">
+                        <img class="logo1" src="~/image/homepage/Logo.png" alt="logo">
                     </a>
 
                     <nav class="">
                         <ul class="navbar-nav">
                             <li><a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-link">Головна</a></li>
-                            <li><a asp-area="" asp-controller="Home" asp-action="Movies" class="navbar-link">Фільми</a></li>
-                            <li><a href="#category" class="navbar-link">Бронювання</a></li>
-                            <li><a asp-area="" asp-controller="Home" asp-action="Sessions" class="navbar-link">Сеанси</a></li>
                             @if (User.Identity?.IsAuthenticated == true)
                             {
                                 @if (User.IsInRole(UserStatusDTO.Admin)) {
