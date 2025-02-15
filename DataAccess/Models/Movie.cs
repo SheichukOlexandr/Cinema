@@ -14,6 +14,7 @@
         public double Rating { get; set; }
         public int StatusId { get; set; }
         public string PosterURL { get; set; }
+        public string BannerURL { get; set; }
         public string TrailerURL { get; set; }
 
         // зв'язки

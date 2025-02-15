@@ -3,32 +3,37 @@
     ViewData["Title"] = "Головна";
 }
 
-<div class="carousel">
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <a href="Злодій, який викрадає корпоративні таємниці за допомогою технології обміну снами.">
-                <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/r84x4x93LbZ2gozISTBYVeq0gLZ.jpg" alt="Початок">
-            </a>
-        </div>
-        <div class="carousel-item">
-            <a href="Подорож крізь простір і час для порятунку людства.">
-                <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/9d1sCoMSGJZtghS2X9us1h9u8lW.jpg" alt="Інтерстеллар">
-            </a>
-        </div>
-        <div class="carousel-item">
-            <a href="Команда вуличних гонщиків стикається з новими викликами.">
-                <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/rLxfXS0Dpd4ixD7HOYagWTx83SS.jpg" alt="Форсаж 7">
-            </a>
-        </div>
-        <div class="carousel-item">
-            <a href="Фінальна битва Месників проти Таноса.">
-                <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/6gWhqrYEOBqqzXPKP7c0m4bIvTX.jpg" alt="Месники: Фінал">
-            </a>
-        </div>
-    </div>
-    <button class="prev">&#10094;</button>
-    <button class="next">&#10095;</button>
-</div>
+<div class="container">
+    <main>
+        <section class="banner-container">
+            <div class="banner-wrapper">
+                @foreach (var movie in Model.NewMovies)
+                {
+                    <a asp-action="Details" asp-route-id="@movie.Id" class="banner-card">
+                        <img src="@movie.BannerURL" alt="banner" class="banner-img">
+                        <div class="card-content">
+                            <div class="card-info">
+                                <div class="genre">
+                                    <ion-icon name="film"></ion-icon>
+                                    <span>@movie.GenreName</span>
+                                </div>
+                                <div class="year">
+                                    <ion-icon name="calendar"></ion-icon>
+                                    <span>@movie.ReleaseDate.Year</span>
+                                </div>
+                                <div class="duration">
+                                    <ion-icon name="time"></ion-icon>
+                                    <span>@(movie.Duration / 60)г @(movie.Duration % 60)г</span>
+                                </div>
+                            </div>
+                            <h2 class="card-title">@movie.Title</h2>
+                        </div>
+                    </a>
+                }
+            </div>
+            <button class="banner-button next" onclick="nextSlide()">&#10095;</button>
+            <button class="banner-button prev" onclick="prevSlide()">&#10094;</button>
+        </section>
 
 
         <!-- Фільтрація фільмів -->
@@ -94,30 +99,6 @@
                     </a>
                 }
             </div>
-            <button class="load-more">Завантажити ще</button>
-        </section>
-
-        <!-- Категорії фільмів -->
-        <section class="category" id="category">
-            <h2 class="section-heading">Категорії</h2>
-
-            <div class="category-grid">
-                <div class="category-card">
-                    <img src="https://i.postimg.cc/JzfWFmfC/action.jpg" alt="image" class="card-img">
-                    <div class="name">Бойовик</div>
-                    <div class="total">2</div>
-                </div>
-                <div class="category-card">
-                    <img src="https://i.postimg.cc/CKpxqjL8/comedy.jpg" alt="image" class="card-img">
-                    <div class="name">Комедія</div>
-                    <div class="total">2</div>
-                </div>
-                <div class="category-card">
-                    <img src="https://i.postimg.cc/3rfrBMxY/thriller.webp" alt="image" class="card-img">
-                    <div class="name">Триллер</div>
-                    <div class="total">0</div>
-                </div>
-            </div>
         </section>
     </main>
 </div>
@@ -127,3 +108,4 @@
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="~/js/site.js"></script>
 <script src="~/js/movies.js"></script>
+<script src="~/js/banner.js"></script>

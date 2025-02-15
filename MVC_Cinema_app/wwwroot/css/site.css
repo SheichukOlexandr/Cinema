@@ -222,8 +222,42 @@ nav {
 
 /*BANNER SECTION*/
 
-.banner {
+.banner-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
     margin-bottom: 60px;
+}
+
+.banner-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.banner-card {
+    min-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.banner-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
 }
 
 .banner-card {
@@ -1000,58 +1034,5 @@ login-user {
     background: var(--rich-blank-fogra-29);
 }
 
-/* Основний контейнер каруселі */
-.carousel {
-    position: relative;
-    width: 100%;
-    max-width: 900px;
-    margin: auto;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
 
-/* Внутрішній контейнер для слайдів */
-.carousel-inner {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
 
-/* Кожен слайд */
-.carousel-item {
-    min-width: 100%;
-    transition: opacity 0.5s ease-in-out;
-}
-
-    .carousel-item img {
-        width: 100%;
-        display: block;
-        border-radius: 10px;
-    }
-
-/* Кнопки для навігації */
-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 24px;
-    z-index: 10;
-    border-radius: 5px;
-}
-
-.prev {
-    left: 10px;
-}
-
-.next {
-    right: 10px;
-}
-
-button:hover {
-    background: rgba(0, 0, 0, 0.8);
-}
