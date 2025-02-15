@@ -3,6 +3,7 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["HideSearch"] = true;
     ViewData["Title"] = "User Profile";
 }
 
@@ -62,7 +63,9 @@
 
     <!-- Заброньовані фільми -->
     <div class="reserved-movies">
-        <h2 class="profile-title">Заброньовані фільми</h2>
+        <h2 class="profile-title">
+            Очікують підтвердження
+        </h2>
         <div class="reserved-movies-container">
             @foreach (var item in Model.Reservations)
             {
