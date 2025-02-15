@@ -23,7 +23,7 @@ function prevSlide() {
 }
 
 function startAutoSlide() {
-    slideInterval = setInterval(nextSlide, 2000); // Auto-slide every 7 sec
+    slideInterval = setInterval(nextSlide, 5000); // Auto-slide every 5 sec
 }
 
 function resetInterval() {

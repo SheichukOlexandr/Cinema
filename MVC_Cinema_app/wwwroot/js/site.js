@@ -20,3 +20,4 @@ const searchBarIsActive = () => navbarForm.classList.toggle('active');
 
 navbarSearchBtn.addEventListener('click', searchBarIsActive);
 navbarFormCloseBtn.addEventListener('click', searchBarIsActive);
+
