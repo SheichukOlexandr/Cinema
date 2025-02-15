@@ -48,10 +48,12 @@
                     <p><strong>Статус:</strong> @item.StatusName</p>
                 </div>
 
-                <div class="reservation-actions">
+                <div class="reservation-actions-ticket">
                     @if (item.StatusName == ReservationStatusDTO.Confirmed || item.StatusName == ReservationStatusDTO.Completed)
                     {
-                        <a asp-controller="UserProfile" asp-action="GenerateTicket" asp-route-reservationId="@item.Id" class="profile-btn profile-btn-primary">Згенерувати квиток</a>
+                        <a asp-controller="UserProfile" asp-action="GenerateTicket" asp-route-reservationId="@item.Id" class="ticket-btn">
+                            <span>Згенерувати квиток</span>
+                        </a>
                     }
                 </div>
             </div>

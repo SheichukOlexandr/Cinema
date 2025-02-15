@@ -51,20 +51,20 @@
 }
 
 .session-item {
-    background: #f8f9fa;
+    background: hsl(218deg 38.44% 14.89%);
     padding: 15px;
     margin-bottom: 10px;
     border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #ddd;
+    border: 1px solid hsl(218deg 42.26% 18.37%);
 }
 
 /* Стилі тексту */
 .session-info {
     font-size: 18px;
-    color: #333;
+    color: white;
 }
 
 .no-seats {
