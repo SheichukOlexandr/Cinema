@@ -26,5 +26,7 @@ namespace BusinessLogic.DTOs
         public int MovieId { get; set; }
         public string? MovieName { get; set; }
 
+        public MovieDTO Movie { get; set; } // Ссылка на MovieDTO
+
     }
 }

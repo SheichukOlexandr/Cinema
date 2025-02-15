@@ -160,5 +160,36 @@ namespace MVC_Cinema_app.Controllers
 
 );
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int reservationId)
+        {
+            var user = await _userService.GetCurrentUserAsync(this.User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var reservation = await _reservationService.GetAsync(reservationId);
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+
+            if (reservation.StatusName != ReservationStatusDTO.Cancelled)
+            {
+                return BadRequest("Видаляти можна тільки скасовані бронювання.");
+            }
+
+            bool isDeleted = await _reservationService.DeleteReservationAsync(reservationId);
+            if (!isDeleted)
+            {
+                return StatusCode(500, "Помилка при видаленні бронювання.");
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

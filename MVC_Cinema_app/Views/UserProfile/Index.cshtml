@@ -10,46 +10,45 @@
     <!-- Блок информации о пользователе -->
     <div class="user-info">
         <h2 class="profile-title">Мій акаунт</h2>
-        <div class="user-details">`
+        <div class="user-details">
             <div class="user-block green">
                 <p><strong>Ім'я:</strong> @Model.User.FirstName</p>
                 <p><strong>Прізвище:</strong> @Model.User.LastName</p>
                 <p><strong>Ел. пошта:</strong> @Model.User.Email</p>
                 <p><strong>Номер телефону:</strong> @Model.User.PhoneNumber</p>
-            </div>
-            <div class="edit-block">
                 <a asp-action="Edit" asp-route-id="" class="profile-btn profile-edit">Редагувати</a>
             </div>
         </div>
     </div>
-
-    <!-- Блок бронирований -->
+    <!-- Тільки підтверджені бронювання -->
     <div class="booking-info">
         <h2 class="profile-title">Мої бронювання</h2>
 
-        @foreach (var item in Model.Reservations)
+        @foreach (var item in Model.Reservations.Where(r => r.StatusName == ReservationStatusDTO.Confirmed || r.StatusName == ReservationStatusDTO.Completed))
         {
-            <div class="reservation-block yellow">
+            <div class="reservation-banner" onclick="toggleDetails(@item.Id)">
+                <img src="@item.Session.Movie.PosterURL" alt="Постер фільму" class="reservation-poster">
+                <div class="reservation-banner-info">
+                    <h3>@item.Session.MovieName</h3>
+                    <p>@item.Session.Date о @item.Session.Time</p>
+                    <button class="profile-btn profile-btn-secondary" onclick="event.stopPropagation(); toggleDetails(@item.Id)">Показати деталі бронювання</button>
+                </div>
+            </div>
+
+            <!-- Деталі бронювання -->
+            <div id="details-@item.Id" class="reservation-details-container">
                 <div class="reservation-details">
                     <p><strong>Фільм:</strong> @item.Session.MovieName</p>
                     <p><strong>Дата:</strong> @item.Session.Date</p>
                     <p><strong>Час:</strong> @item.Session.Time</p>
                     <p><strong>Зал:</strong> @item.Session.RoomName</p>
                     <p><strong>Місце:</strong> @item.SeatNumber</p>
-                </div>
-                <div class="reservation-price">
                     <p><strong>Ціна сеансу:</strong> @item.Session.Price</p>
                     <p><strong>Ціна місця:</strong> @item.SeatExtraPrice</p>
-                </div>
-                <div class="reservation-status">
                     <p><strong>Статус:</strong> @item.StatusName</p>
-                    @if (item.StatusName != ReservationStatusDTO.Cancelled && item.StatusName != ReservationStatusDTO.Completed)
-                    {
-                        <form asp-action="Cancel" method="post" onsubmit="return confirmCancel();">
-                            <input type="hidden" name="reservationId" value="@item.Id" />
-                            <button type="submit" class="profile-btn profile-btn-danger">Скасувати</button>
-                        </form>
-                    }
+                </div>
+
+                <div class="reservation-actions">
                     @if (item.StatusName == ReservationStatusDTO.Confirmed || item.StatusName == ReservationStatusDTO.Completed)
                     {
                         <a asp-controller="UserProfile" asp-action="GenerateTicket" asp-route-reservationId="@item.Id" class="profile-btn profile-btn-primary">Згенерувати квиток</a>
@@ -58,13 +57,73 @@
             </div>
         }
     </div>
-</div>
 
-<script>
-    function confirmCancel() {
-        return confirm("Ви впевнені, що хочете скасувати бронювання?");
-    }
-</script>
+    <!-- Заброньовані фільми -->
+    <div class="reserved-movies">
+        <h2 class="profile-title">Заброньовані фільми</h2>
+        <div class="reserved-movies-container">
+            @foreach (var item in Model.Reservations)
+            {
+                <div class="reserved-movie">
+                    <img src="@item.Session.Movie.PosterURL" alt="Постер" class="reserved-movie-poster @((item.StatusName == ReservationStatusDTO.Cancelled) ? "cancelled" : "")">
+                    <p>@item.Session.MovieName</p>
+
+                    <div class="reservation-actions">
+                        @if (item.StatusName == ReservationStatusDTO.Created)
+                        {
+                            <form asp-action="Confirm" method="post" onsubmit="return confirmReservation(@item.Session.Price + @item.SeatExtraPrice);">
+                                <input type="hidden" name="reservationId" value="@item.Id" />
+                                <button type="submit" class="custom-btn">
+                                    <span>Підтвердити</span>
+                                </button>
+                            </form>
+                        }
+                    </div>
+                    <div class="reservation-actions-cancel">
+                        @if (item.StatusName == ReservationStatusDTO.Created || item.StatusName == ReservationStatusDTO.Confirmed)
+                        {
+                            <form asp-action="Cancel" method="post" onsubmit="return confirmCancel();">
+                                <input type="hidden" name="reservationId" value="@item.Id" />
+                                <button type="submit" class="cancel-btn">
+                                    <span>Скасувати</span>
+                                </button>
+                            </form>
+                        }
+                        @if (item.StatusName == ReservationStatusDTO.Cancelled)
+                        {
+                            <form asp-controller="UserProfile" asp-action="Delete" method="post" onsubmit="return confirmDelete();">
+                                <input type="hidden" name="reservationId" value="@item.Id" />
+                                <button type="submit" class="cancel-btn">
+                                    <span>Видалити бронювання</span>
+                                </button>
+                            </form>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    
+
+    <script>
+        function confirmReservation(totalPrice) {
+            return confirm("Ви впевнені, що хочете підтвердити бронювання? Загальна вартість: " + totalPrice);
+        }
+
+        function confirmCancel() {
+            return confirm("Ви впевнені, що хочете скасувати бронювання?");
+        }
+
+        function confirmDelete() {
+            return confirm("Ви впевнені, що хочете видалити бронювання?");
+        }
+
+        function toggleDetails(id) {
+            let details = document.getElementById("details-" + id);
+            details.style.display = (details.style.display === "none" || details.style.display === "") ? "block" : "none";
+        }
+    </script>
 
 @section Styles {
     <link rel="stylesheet" href="~/css/user-profile.css">

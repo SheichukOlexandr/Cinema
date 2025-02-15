@@ -2,8 +2,9 @@
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #1e1e1e;
+    background-color: hsl(218deg 38.44% 13.76%);
     color: white;
+    border-radius: 10px;
 }
 
 .profile-title {
@@ -17,7 +18,7 @@
     flex-wrap: wrap;
     display: flex;
     justify-content: space-between;
-    gap: 15px;
+   
     
 }
 
@@ -29,7 +30,7 @@
 }
 
 .green {
-    background-color: #3082ed;
+    background-color: #2c3e50;
     max-width: 200px
 }
 
@@ -54,39 +55,169 @@
     margin-top: 30px;
 }
 
-.reservation-block {
+
+/* Стилі баннеру з постером */
+.reservation-banner {
     display: flex;
-    justify-content: space-between;
-    background-color: #f1c40f; /* Желтый блок */
+    align-items: center;
+    background-color: #2c3e50;
     padding: 15px;
-    margin-bottom: 10px;
     border-radius: 10px;
-    color: black;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.reservation-details, .reservation-price, .reservation-status {
-    flex: 1;
-    text-align: center;
-}
-
-.profile-btn {
-    display: inline-block;
-    padding: 8px 12px;
-    border-radius: 5px;
-    color: white;
-    text-decoration: none;
-    text-align: center;
-}
-
-.profile-btn-danger {
-    background-color: #c0392b;
-}
-
-.profile-btn-primary {
-    background-color: #3498db;
-}
-
-    .profile-btn-danger:hover,
-    .profile-btn-primary:hover {
-        opacity: 0.8;
+    .reservation-banner:hover {
+        background-color: #34495e;
     }
+
+.reservation-poster {
+    width: 80px;
+    height: 120px;
+    border-radius: 5px;
+    margin-right: 15px;
+}
+
+.reservation-banner-info {
+    flex-grow: 1;
+}
+
+.reservation-details-container {
+    display: none;
+    background-color: #2c3e50;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.reservation-actions {
+    
+    display: flex;
+    justify-content: space-around;
+}
+.custom-btn {
+    align-items: center;
+    background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    color: #ffffff;
+    display: flex;
+    font-size: 18px;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 3px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+    .custom-btn:active,
+    .custom-btn:hover {
+        outline: 0;
+    }
+
+    .custom-btn span {
+        background-color: rgb(5, 6, 45);
+        padding: 16px 24px;
+        border-radius: 6px;
+        width: 100%;
+        height: 100%;
+        transition: 300ms;
+    }
+
+    .custom-btn:hover span {
+        background: none;
+    }
+
+    .custom-btn:active {
+        transform: scale(0.9);
+    }
+
+.cancel-btn {
+    align-items: center;
+    background-image: linear-gradient(144deg, #ff416c, #ff4b2b 50%, #ff0000);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: rgba(255, 65, 100, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    color: #ffffff;
+    display: flex;
+    font-size: 18px;
+    justify-content: center;
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 140px;
+    padding: 3px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+    .cancel-btn:active,
+    .cancel-btn:hover {
+        outline: 0;
+    }
+
+    .cancel-btn span {
+        background-color: rgb(45, 5, 5);
+        padding: 16px 24px;
+        border-radius: 6px;
+        width: 100%;
+        height: 100%;
+        transition: 300ms;
+    }
+
+    .cancel-btn:hover span {
+        background: none;
+    }
+
+    .cancel-btn:active {
+        transform: scale(0.9);
+    }
+
+.reservation-actions-cancel {
+    gap: 10px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+/* Блок з усіма заброньованими фільмами */
+.reserved-movies {
+    margin-top: 30px;
+    font-size: larger;
+}
+
+.reserved-movies-container {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.reserved-movie {
+    text-align: center;
+}
+
+.reserved-movie-poster {
+    width: 100px;
+    height: 150px;
+    border-radius: 5px;
+}
+.reserved-movies-container .reserved-movie-poster {
+    width: 220px;
+    height: 330px;
+}
+
