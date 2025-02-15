@@ -1,4 +1,10 @@
-﻿.profile-container {
+﻿
+.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+}
+
+.profile-container {
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
@@ -268,3 +274,123 @@
     height: 330px;
 }
 
+/* Модальное окно */
+.modal {
+    display: none; /* Спочатку приховане */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Трохи затемнення */
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out; /* Плавна зміна прозорості */
+}
+
+/* Контент модального окна */
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: #2e3944;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    opacity: 0;
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    align-items: center;
+}
+.modal.show {
+    display: block;
+    opacity: 1;
+}
+    .modal.show .modal-content {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1); /* Збільшення до 100% */
+    }
+/* Анімація закриття */
+.modal.hide {
+    opacity: 0;
+}
+    .modal.hide .modal-content {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+.modal-poster {
+    width: 240px; /* Розмір постера */
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.button {
+    position: relative;
+    width: 15em;
+    height: 4em;
+    border: none;
+    background: rgba(180, 83, 107, 0.11);
+    border-radius: 5px;
+    transition: background 0.5s;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+    /* Лінії хрестика */
+    .button .X,
+    .button .Y {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 2em;
+        height: 2px;
+        background-color: white;
+        transition: background 0.3s;
+    }
+
+    .button .X {
+        transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .button .Y {
+        transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    /* Текст "Закрити" */
+    .button .close {
+        position: absolute;
+        display: flex;
+        padding: 0.8rem 1.5rem;
+        align-items: center;
+        justify-content: center;
+        top: -50%;
+        left: 50%;
+        width: 3.5em;
+        height: 1.7em;
+        font-size: 12px;
+        background-color: rgb(19, 22, 24);
+        color: rgb(187, 229, 236);
+        border: none;
+        border-radius: 3px;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateX(-50%);
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    /* Анімація при наведенні */
+    .button:hover {
+        background-color: rgb(211, 21, 21);
+    }
+
+        .button:hover .close {
+            opacity: 1;
+        }
+
+    .button:active {
+        background-color: rgb(130, 0, 0);
+    }

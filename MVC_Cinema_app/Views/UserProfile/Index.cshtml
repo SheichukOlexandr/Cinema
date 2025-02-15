@@ -61,11 +61,9 @@
         }
     </div>
 
-    <!-- Заброньовані фільми -->
+    <!--  очікують підтвердження  -->
     <div class="reserved-movies">
-        <h2 class="profile-title">
-            Очікують підтвердження
-        </h2>
+        <h2 class="profile-title">Очікують підтвердження</h2>
         <div class="reserved-movies-container">
             @foreach (var item in Model.Reservations)
             {
@@ -76,14 +74,20 @@
                     <div class="reservation-actions">
                         @if (item.StatusName == ReservationStatusDTO.Created)
                         {
-                            <form asp-action="Confirm" method="post" onsubmit="return confirmReservation(@item.Session.Price + @item.SeatExtraPrice);">
-                                <input type="hidden" name="reservationId" value="@item.Id" />
-                                <button type="submit" class="custom-btn">
-                                    <span>Підтвердити</span>
-                                </button>
-                            </form>
+                            <button class="custom-btn open-modal-btn"
+                                    data-poster="@item.Session.Movie.PosterURL"
+                                    data-id="@item.Id"
+                                    data-movie="@item.Session.MovieName"
+                                    data-date="@item.Session.Date"
+                                    data-time="@item.Session.Time"
+                                    data-price="@(@item.Session.Price + @item.SeatExtraPrice)"
+                                    data-seat="@item.SeatNumber">
+                                <span>Деталі сеансу</span>
+                            </button>
+
                         }
                     </div>
+
                     <div class="reservation-actions-cancel">
                         @if (item.StatusName == ReservationStatusDTO.Created || item.StatusName == ReservationStatusDTO.Confirmed)
                         {
@@ -109,27 +113,33 @@
         </div>
     </div>
 
-    
+    <!--  Модальное окно -->
+    <div id="reservation-modal" class="modal">
+        <div class="modal-content">
+            <button class="button">
+                <span class="X"></span>
+                <span class="Y"></span>
+                <span class="close">Закрити</span>
+            </button>
+            <img id="modal-poster" src="" alt="Постер фільму" class="modal-poster">
+            <h2 id="modal-movie-name">Деталі сеансу</h2>
+            <p><strong>Дата:</strong> <span id="modal-date"></span></p>
+            <p><strong>Час:</strong> <span id="modal-time"></span></p>
+            <p><strong>Ціна:</strong> <span id="modal-price"></span></p>
+            <p><strong>Місце:</strong> <span id="modal-seat"></span></p>
 
-    <script>
-        function confirmReservation(totalPrice) {
-            return confirm("Ви впевнені, що хочете підтвердити бронювання? Загальна вартість: " + totalPrice);
-        }
-
-        function confirmCancel() {
-            return confirm("Ви впевнені, що хочете скасувати бронювання?");
-        }
-
-        function confirmDelete() {
-            return confirm("Ви впевнені, що хочете видалити бронювання?");
-        }
-
-        function toggleDetails(id) {
-            let details = document.getElementById("details-" + id);
-            details.style.display = (details.style.display === "none" || details.style.display === "") ? "block" : "none";
-        }
-    </script>
+            <form id="confirm-form" asp-action="Confirm" method="post">
+                <input type="hidden" name="reservationId" id="modal-reservation-id">
+                <button type="submit" class="custom-btn">
+                    <span>Підтвердити</span>
+                </button>
+            </form>
+        </div>
+    </div>
 
 @section Styles {
     <link rel="stylesheet" href="~/css/user-profile.css">
 }
+    @section Scripts {
+        <script src="~/js/user-modal.js"></script>
+    }
