@@ -1,0 +1,92 @@
+﻿.profile-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1e1e1e;
+    color: white;
+}
+
+.profile-title {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.user-details {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    
+}
+
+.user-block {
+    flex: 1;
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+}
+
+.green {
+    background-color: #3082ed;
+    max-width: 200px
+}
+
+.red {
+    background-color: #e74c3c; /* Красный блок */
+}
+
+.edit-block {
+    display: flex;
+    align-items: center;
+}
+
+.profile-edit {
+    background-color: #2980b9;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.booking-info {
+    margin-top: 30px;
+}
+
+.reservation-block {
+    display: flex;
+    justify-content: space-between;
+    background-color: #f1c40f; /* Желтый блок */
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    color: black;
+}
+
+.reservation-details, .reservation-price, .reservation-status {
+    flex: 1;
+    text-align: center;
+}
+
+.profile-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 5px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+}
+
+.profile-btn-danger {
+    background-color: #c0392b;
+}
+
+.profile-btn-primary {
+    background-color: #3498db;
+}
+
+    .profile-btn-danger:hover,
+    .profile-btn-primary:hover {
+        opacity: 0.8;
+    }
