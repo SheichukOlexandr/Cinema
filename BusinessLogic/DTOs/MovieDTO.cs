@@ -43,6 +43,9 @@ namespace BusinessLogic.DTOs
         [Url(ErrorMessage = "Некоректне посилання на постер")]
         public string PosterURL { get; set; }
 
+        [Url(ErrorMessage = "Некоректне посилання на баннер")]
+        public string BannerURL { get; set; }
+
         [Url(ErrorMessage = "Некоректне посилання на трейлер")]
         public string TrailerURL { get; set; }
 

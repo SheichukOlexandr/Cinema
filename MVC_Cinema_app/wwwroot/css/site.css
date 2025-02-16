@@ -237,8 +237,42 @@ nav {
 
 /*BANNER SECTION*/
 
-.banner {
+.banner-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
     margin-bottom: 60px;
+}
+
+.banner-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.banner-card {
+    min-width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.banner-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
 }
 
 .banner-card {
@@ -791,3 +825,6 @@ login-user {
 .black-background {
     background: var(--rich-blank-fogra-29);
 }
+
+
+

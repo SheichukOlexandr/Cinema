@@ -5,36 +5,38 @@
 
 <div class="container">
     <main>
-        <section class="banner">
-            @foreach (var movie in Model.NewMovies)
-            {
-                <div class="banner-card">
-                    <img src="@movie.PosterURL" alt="banner" class="banner-img">
-
-                    <div class="card-content">
-                        <div class="card-info">
-                            <div class="genre">
-                                <ion-icon name="film"></ion-icon>
-                                <span>@movie.GenreName</span>
+        <section class="banner-container">
+            <div class="banner-wrapper">
+                @foreach (var movie in Model.NewMovies)
+                {
+                    <a asp-action="Details" asp-route-id="@movie.Id" class="banner-card">
+                        <img src="@movie.BannerURL" alt="banner" class="banner-img">
+                        <div class="card-content">
+                            <div class="card-info">
+                                <div class="genre">
+                                    <ion-icon name="film"></ion-icon>
+                                    <span>@movie.GenreName</span>
+                                </div>
+                                <div class="year">
+                                    <ion-icon name="calendar"></ion-icon>
+                                    <span>@movie.ReleaseDate.Year</span>
+                                </div>
+                                <div class="duration">
+                                    <ion-icon name="time"></ion-icon>
+                                    <span>@(movie.Duration / 60)г @(movie.Duration % 60)г</span>
+                                </div>
                             </div>
-
-                            <div class="year">
-                                <ion-icon name="calendar"></ion-icon>
-                                <span>@movie.ReleaseDate.Year</span>
-                            </div>
-
-                            <div class="duration">
-                                <ion-icon name="time"></ion-icon>
-                                <span>@(movie.Duration / 60)г @(movie.Duration % 60)г</span>
-                            </div>
+                            <h2 class="card-title">@movie.Title</h2>
                         </div>
-                        <h2 class="card-title">@movie.Title</h2>
-                    </div>
-                </div>
-            }
-            
+                    </a>
+                }
+            </div>
+            <button class="banner-button next" onclick="nextSlide()">&#10095;</button>
+            <button class="banner-button prev" onclick="prevSlide()">&#10094;</button>
         </section>
 
+
+        <!-- Фільтрація фільмів -->
         <section class="movies">
             <div class="filter-bar">
                 <div class="filter-dropdowns">
@@ -67,12 +69,11 @@
             </div>
 
             <div class="movies-grid" id="moviesGrid">
-                <!-- Карточки фільмів будуть додані динамічно ось тут-->
                 @foreach (var movieViewModel in Model.Movies)
                 {
                     <a asp-action="Details" asp-route-id="@movieViewModel.Movie.Id" class="movie-card visible" data-genre="@movieViewModel.Movie.GenreName">
                         <div class="card-head">
-                            <img src="@movieViewModel.Movie.PosterURL" alt="movie" class="card-img">
+                            <img src="@movieViewModel.Movie.PosterURL" alt="@movieViewModel.Movie.Title" class="card-img">
                             <div class="card-overlay">
                                 <div class="bookmark">
                                     <ion-icon name="bookmark"></ion-icon>
@@ -102,8 +103,9 @@
     </main>
 </div>
 
+<!-- Підключення іконок та скриптів -->
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="~/js/site.js"></script>
 <script src="~/js/movies.js"></script>
-<!-- <script src="~/js/tmdb.js"></script> -->
+<script src="~/js/banner.js"></script>
