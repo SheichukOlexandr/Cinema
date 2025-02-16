@@ -215,7 +215,7 @@ namespace DataAccess.Contexts
                         Id = moviePrice.Id * 10 + i,
                         MoviePriceId = moviePrice.Id,
                         RoomId = rooms[i % rooms.Length].Id,
-                        Date = DateOnly.FromDateTime(new DateTime(2025, 3, 1).AddDays(i)),
+                        Date = DateOnly.FromDateTime(new DateTime(2025, 3, 1).AddDays(i + moviePrice.Id)),
                         Time = startTime.AddHours(i * 3) // Кожен сеанс через 3 години
                     });
                 }

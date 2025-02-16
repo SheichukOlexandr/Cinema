@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250215115725_InitialCreate")]
+    [Migration("20250216122220_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -757,7 +757,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 10,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 2),
                             MoviePriceId = 1,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -765,7 +765,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 11,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 3),
                             MoviePriceId = 1,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -773,7 +773,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 12,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 4),
                             MoviePriceId = 1,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -781,7 +781,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 20,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 3),
                             MoviePriceId = 2,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -789,7 +789,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 21,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 4),
                             MoviePriceId = 2,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -797,7 +797,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 22,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 5),
                             MoviePriceId = 2,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -805,7 +805,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 30,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 4),
                             MoviePriceId = 3,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -813,7 +813,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 31,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 5),
                             MoviePriceId = 3,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -821,7 +821,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 32,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 6),
                             MoviePriceId = 3,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -829,7 +829,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 40,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 5),
                             MoviePriceId = 4,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -837,7 +837,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 41,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 6),
                             MoviePriceId = 4,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -845,7 +845,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 42,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 7),
                             MoviePriceId = 4,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -853,7 +853,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 50,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 6),
                             MoviePriceId = 5,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -861,7 +861,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 51,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 7),
                             MoviePriceId = 5,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -869,7 +869,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 52,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 8),
                             MoviePriceId = 5,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -877,7 +877,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 60,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 7),
                             MoviePriceId = 6,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -885,7 +885,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 61,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 8),
                             MoviePriceId = 6,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -893,7 +893,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 62,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 9),
                             MoviePriceId = 6,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -901,7 +901,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 70,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 8),
                             MoviePriceId = 7,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -909,7 +909,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 71,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 9),
                             MoviePriceId = 7,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -917,7 +917,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 72,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 10),
                             MoviePriceId = 7,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -925,7 +925,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 80,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 9),
                             MoviePriceId = 8,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -933,7 +933,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 81,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 10),
                             MoviePriceId = 8,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -941,7 +941,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 82,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 11),
                             MoviePriceId = 8,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -949,7 +949,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 90,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 10),
                             MoviePriceId = 9,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -957,7 +957,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 91,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 11),
                             MoviePriceId = 9,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -965,7 +965,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 92,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 12),
                             MoviePriceId = 9,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -973,7 +973,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 100,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 11),
                             MoviePriceId = 10,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -981,7 +981,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 101,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 12),
                             MoviePriceId = 10,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -989,7 +989,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 102,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 13),
                             MoviePriceId = 10,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -997,7 +997,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 110,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 12),
                             MoviePriceId = 11,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -1005,7 +1005,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 111,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 13),
                             MoviePriceId = 11,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -1013,7 +1013,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 112,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 14),
                             MoviePriceId = 11,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -1021,7 +1021,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 120,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 13),
                             MoviePriceId = 12,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -1029,7 +1029,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 121,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 14),
                             MoviePriceId = 12,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -1037,7 +1037,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 122,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 15),
                             MoviePriceId = 12,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -1045,7 +1045,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 130,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 14),
                             MoviePriceId = 13,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -1053,7 +1053,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 131,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 15),
                             MoviePriceId = 13,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -1061,7 +1061,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 132,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 16),
                             MoviePriceId = 13,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -1069,7 +1069,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 140,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 15),
                             MoviePriceId = 14,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -1077,7 +1077,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 141,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 16),
                             MoviePriceId = 14,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -1085,7 +1085,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 142,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 17),
                             MoviePriceId = 14,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -1093,7 +1093,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 150,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 16),
                             MoviePriceId = 15,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -1101,7 +1101,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 151,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 17),
                             MoviePriceId = 15,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -1109,7 +1109,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 152,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 18),
                             MoviePriceId = 15,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)

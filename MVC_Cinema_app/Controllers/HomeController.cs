@@ -12,13 +12,15 @@ namespace MVC_Cinema_app.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ReservationService _reservationService;
         private readonly GenreService _genreService;
+        private readonly MovieService _movieService;
         private readonly SessionService _sessionService;
         private readonly UserService _userService;
         private readonly ReservationStatusService _reservationStatusService;
 
         public HomeController(
             ILogger<HomeController> logger, 
-            ReservationService reservationService, 
+            ReservationService reservationService,
+            MovieService movieService,
             GenreService genreService, 
             SessionService sessionService,
             UserService userService,
@@ -26,6 +28,7 @@ namespace MVC_Cinema_app.Controllers
         {
             _logger = logger;
             _reservationService = reservationService;
+            _movieService = movieService;
             _genreService = genreService;
             _sessionService = sessionService;
             _userService = userService;
@@ -36,6 +39,11 @@ namespace MVC_Cinema_app.Controllers
         {
             var allGenres = await _genreService.GetAllAsync();
             var genreOptions = allGenres.Select(it => new SelectListItem { Value = it.Name, Text = it.Name }).ToList();
+
+            var allMovies = await _movieService.GetAllAsync();
+            var allAgeGroups = allMovies.Select(it => it.MinAge).Distinct().ToList();
+            allAgeGroups.Sort();
+            var ageOptions = allAgeGroups.Select(it => new SelectListItem { Value = it.ToString(), Text = it + "+" }).ToList();
 
             var moviesWithSessions = await _sessionService.GetSessionsGroupedByMovies();
 
@@ -60,6 +68,7 @@ namespace MVC_Cinema_app.Controllers
 
             var model = new HomeViewModel { 
                 GenreOptions = genreOptions, 
+                AgeOptions = ageOptions,
                 Movies = movieViews,
                 NewMovies = newMovies
             };

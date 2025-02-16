@@ -385,7 +385,7 @@ nav {
         }
 
 input ~ .checked-radio-bg {
-    --width: 140px;
+    --width: 50px;
     --left: 13px;
     background: var(--oxford-blue);
     position: absolute;
@@ -397,13 +397,13 @@ input ~ .checked-radio-bg {
 }
 
 #popular:checked ~ .checked-radio-bg {
-    --width: 100px;
-    --left: 166px;
+    --width: 115px;
+    --left: 76px;
 }
 
 #newest:checked ~ .checked-radio-bg {
-    --width: 70px;
-    --left: 275px;
+    --width: 75px;
+    --left: 205px;
 }
 
 .movies-grid {
@@ -826,5 +826,6 @@ login-user {
     background: var(--rich-blank-fogra-29);
 }
 
-
-
+.inverted {
+    filter: invert(1);
+}

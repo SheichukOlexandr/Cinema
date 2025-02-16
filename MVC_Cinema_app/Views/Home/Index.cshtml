@@ -40,11 +40,11 @@
         <section class="movies">
             <div class="filter-bar">
                 <div class="filter-dropdowns">
-                    <select asp-for="SelectedGenreId" asp-items="Model.GenreOptions" class="genre" id="genreDropdown">
+                    <select asp-items="Model.GenreOptions" id="genreDropdown">
                         <option value="all genres">Всі жанри</option>
                     </select>
 
-                    <select name="year" class="year">
+                    <select name="year" class="year" id="yearDropdown">
                         <option value="all years">Всі роки</option>
                         <option value="2025">2025</option>
                         <option value="2020-2024">2020-2024</option>
@@ -52,17 +52,24 @@
                         <option value="2000-2009">2000-2009</option>
                         <option value="1980-1999">1980-1999</option>
                     </select>
+
+                    <select asp-items="Model.AgeOptions" id="ageDropdown">
+                        <option value="all ages">Всі катерогії</option>
+                    </select>
+
+                    <label for="sessionMinDate">Сеанси після:</label>
+                    <input type="date" min="2025-02-15" max="2030-12-31" id="sessionMinDate" class="inverted">
                 </div>
 
                 <div class="filter-radios">
-                    <input type="radio" name="grade" id="featured" checked>
-                    <label for="featured">Рекомендовані</label>
+                    <input type="radio" name="grade" id="all" checked>
+                    <label for="all">Всі</label>
 
                     <input type="radio" name="grade" id="popular">
-                    <label for="popular">Популярні</label>
+                    <label for="popular">Популярніші</label>
 
                     <input type="radio" name="grade" id="newest">
-                    <label for="newest">Нові</label>
+                    <label for="newest">Новіші</label>
 
                     <div class="checked-radio-bg"></div>
                 </div>
@@ -71,7 +78,14 @@
             <div class="movies-grid" id="moviesGrid">
                 @foreach (var movieViewModel in Model.Movies)
                 {
-                    <a asp-action="Details" asp-route-id="@movieViewModel.Movie.Id" class="movie-card visible" data-genre="@movieViewModel.Movie.GenreName">
+                    <a asp-action="Details" asp-route-id="@movieViewModel.Movie.Id" class="movie-card visible"
+                        data-name="@movieViewModel.Movie.Title"
+                        data-genre="@movieViewModel.Movie.GenreName"
+                        data-year="@movieViewModel.Movie.ReleaseDate.Year"
+                        data-rating="@movieViewModel.Movie.Rating"
+                        data-age="@movieViewModel.Movie.MinAge"
+                        data-sessions='@Html.Raw(Json.Serialize(movieViewModel.SessionDetails.Select(iterator => iterator.Session)))'>
+
                         <div class="card-head">
                             <img src="@movieViewModel.Movie.PosterURL" alt="@movieViewModel.Movie.Title" class="card-img">
                             <div class="card-overlay">
