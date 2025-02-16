@@ -12,7 +12,7 @@
             document.getElementById("modal-price").textContent = this.dataset.price + " грн";
             document.getElementById("modal-seat").textContent = this.dataset.seat;
             document.getElementById("modal-reservation-id").value = this.dataset.id;
-
+            document.getElementById("modal-seat-price").textContent = this.dataset.seatPrice + " грн";
             // Додаємо постер
             if (this.dataset.poster) {
                 modalPoster.src = this.dataset.poster;
