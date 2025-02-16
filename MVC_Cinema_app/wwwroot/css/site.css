@@ -252,7 +252,6 @@ nav {
 .banner-card {
     min-width: 100%;
     box-sizing: border-box;
-    text-align: center;
 }
 
 .banner-button {
@@ -277,7 +276,7 @@ nav {
 
 .banner-card {
     position: relative;
-    height: 400px;
+    height: 550px;
     overflow: hidden;
     border-radius: 20px;
     cursor: pointer;
@@ -285,9 +284,8 @@ nav {
 
     .banner-card .card-content {
         position: absolute;
-        right: 80px;
-        bottom: 60px;
-        left: 80px;
+        bottom: 50px;
+        left: 50px;
     }
 
     .banner-card .card-info {
