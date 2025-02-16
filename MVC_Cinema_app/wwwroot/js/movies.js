@@ -3,12 +3,14 @@
     const yearDropdown = document.getElementById('yearDropdown');
     const ageDropdown = document.getElementById('ageDropdown');
     const sessionMinDate = document.getElementById('sessionMinDate');
+    const search = document.getElementById('search');
     const sortRadios = document.querySelectorAll('.filter-radios input[name="grade"]');
 
     genreDropdown.addEventListener('change', applyFiltersAndSorting)
     yearDropdown.addEventListener('change', applyFiltersAndSorting)
     ageDropdown.addEventListener('change', applyFiltersAndSorting)
     sessionMinDate.addEventListener('change', applyFiltersAndSorting)
+    search.addEventListener('input', applyFiltersAndSorting)
     sortRadios.forEach(radio => {
         radio.addEventListener('change', applyFiltersAndSorting);
     });
@@ -24,6 +26,10 @@
 
     applyFiltersAndSorting();
 });
+
+window.onload = function () {
+    applyFiltersAndSorting();
+};
 
 function applyFiltersAndSorting() {
     const moviesGrid = document.getElementById('moviesGrid');
@@ -58,18 +64,21 @@ function filterMovie(movie) {
     const selectedYear = document.getElementById('yearDropdown').value;
     const selectedAge = document.getElementById('ageDropdown').value;
     const selectedMinDate = document.getElementById('sessionMinDate').value;
+    const selectedName = document.getElementById('search').value;
 
     const movieYear = parseInt(movie.getAttribute('data-year'));
     const movieGenre = movie.getAttribute('data-genre');
     const movieAge = parseInt(movie.getAttribute('data-age'));
     const sessions = JSON.parse(movie.getAttribute('data-sessions'));
+    const movieName = movie.getAttribute('data-name');
 
     const genreCondition = selectedGenre === 'all genres' || movieGenre === selectedGenre;
     const yearCondition = selectedYear === 'all years' || isMovieInYearRange(movieYear, selectedYear);
     const ageCondition = selectedAge === 'all ages' || parseInt(selectedAge) == movieAge;
     const dateCondition = isMovieAvailableAfter(sessions, selectedMinDate)
+    const nameCondition = selectedName.trim() === "" || movieName.toLowerCase().includes(selectedName.toLowerCase())
 
-    return genreCondition && yearCondition && ageCondition && dateCondition;
+    return genreCondition && yearCondition && ageCondition && dateCondition && nameCondition;
 }
 
 function sortMovies(a, b, sortType) {

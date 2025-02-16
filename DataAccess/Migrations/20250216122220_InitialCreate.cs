@@ -1,0 +1,515 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+
+#nullable disable
+
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace DataAccess.Migrations
+{
+    /// <inheritdoc />
+    public partial class InitialCreate : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "Genres",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genres", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MovieStatuses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MovieStatuses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReservationStatuses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReservationStatuses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Rooms",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Capacity = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rooms", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserStatuses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserStatuses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Movies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    Director = table.Column<string>(type: "text", nullable: false),
+                    Duration = table.Column<int>(type: "integer", nullable: false),
+                    Cast = table.Column<string>(type: "text", nullable: false),
+                    GenreId = table.Column<int>(type: "integer", nullable: false),
+                    ReleaseDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    MinAge = table.Column<int>(type: "integer", nullable: false),
+                    Rating = table.Column<double>(type: "double precision", nullable: false),
+                    StatusId = table.Column<int>(type: "integer", nullable: false),
+                    PosterURL = table.Column<string>(type: "text", nullable: false),
+                    BannerURL = table.Column<string>(type: "text", nullable: false),
+                    TrailerURL = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Movies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Movies_Genres_GenreId",
+                        column: x => x.GenreId,
+                        principalTable: "Genres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Movies_MovieStatuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "MovieStatuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Seats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RoomId = table.Column<int>(type: "integer", nullable: false),
+                    Number = table.Column<int>(type: "integer", nullable: false),
+                    ExtraPrice = table.Column<decimal>(type: "numeric(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seats", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Seats_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FirstName = table.Column<string>(type: "text", nullable: false),
+                    LastName = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    StatusId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Users_UserStatuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "UserStatuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MoviePrices",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    MovieId = table.Column<int>(type: "integer", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MoviePrices", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MoviePrices_Movies_MovieId",
+                        column: x => x.MovieId,
+                        principalTable: "Movies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sessions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    MoviePriceId = table.Column<int>(type: "integer", nullable: false),
+                    RoomId = table.Column<int>(type: "integer", nullable: false),
+                    Date = table.Column<DateOnly>(type: "date", nullable: false),
+                    Time = table.Column<TimeOnly>(type: "time without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sessions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Sessions_MoviePrices_MoviePriceId",
+                        column: x => x.MoviePriceId,
+                        principalTable: "MoviePrices",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Sessions_Rooms_RoomId",
+                        column: x => x.RoomId,
+                        principalTable: "Rooms",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reservations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    SessionId = table.Column<int>(type: "integer", nullable: false),
+                    SeatId = table.Column<int>(type: "integer", nullable: false),
+                    StatusId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reservations_ReservationStatuses_StatusId",
+                        column: x => x.StatusId,
+                        principalTable: "ReservationStatuses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Seats_SeatId",
+                        column: x => x.SeatId,
+                        principalTable: "Seats",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Reservations_Sessions_SessionId",
+                        column: x => x.SessionId,
+                        principalTable: "Sessions",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Reservations_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Genres",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Бойовик" },
+                    { 2, "Комедія" },
+                    { 3, "Драма" },
+                    { 4, "Фантастика" },
+                    { 5, "Трилер" },
+                    { 6, "Жахи" },
+                    { 7, "Мелодрама" },
+                    { 8, "Пригоди" },
+                    { 9, "Анімація" },
+                    { 10, "Документальний" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MovieStatuses",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "В прокаті" },
+                    { 2, "Скоро у кіно" },
+                    { 3, "Архівний" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ReservationStatuses",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Створено" },
+                    { 2, "Підтверджено" },
+                    { 3, "Завершено" },
+                    { 4, "Скасовано" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Rooms",
+                columns: new[] { "Id", "Capacity", "Name" },
+                values: new object[,]
+                {
+                    { 1, 100, "Зал 1" },
+                    { 2, 150, "Зал 2" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UserStatuses",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Активний" },
+                    { 2, "Адміністратор" },
+                    { 3, "Заблокований" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Movies",
+                columns: new[] { "Id", "BannerURL", "Cast", "Description", "Director", "Duration", "GenreId", "MinAge", "PosterURL", "Rating", "ReleaseDate", "StatusId", "Title", "TrailerURL" },
+                values: new object[,]
+                {
+                    { 1, "https://media.themoviedb.org/t/p/w1000_and_h563_face/ii8QGacT3MXESqBckQlyrATY0lT.jpg", "Леонардо ДіКапріо, Джозеф Гордон-Левітт", "Злодій, який викрадає корпоративні таємниці за допомогою технології обміну снами.", "Крістофер Нолан", 148, 1, 13, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/r84x4x93LbZ2gozISTBYVeq0gLZ.jpg", 8.8000000000000007, new DateOnly(2010, 7, 16), 1, "Початок", "https://youtu.be/cdx31ak4KbQ" },
+                    { 2, "https://media.themoviedb.org/t/p/w1000_and_h563_face/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg", "Меттью МакКонахі, Енн Гетевей", "Подорож крізь простір і час для порятунку людства.", "Крістофер Нолан", 169, 4, 12, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/9d1sCoMSGJZtghS2X9us1h9u8lW.jpg", 8.5999999999999996, new DateOnly(2014, 11, 7), 1, "Інтерстеллар", "https://youtu.be/_DQ-lqOhwIM" },
+                    { 3, "https://media.themoviedb.org/t/p/w1000_and_h563_face/enNubozHn9pXi0ycTVYUWfpHZm.jpg", "Крістіан Бейл, Гіт Леджер", "Бетмен бореться з хаосом, який створює Джокер.", "Крістофер Нолан", 152, 1, 13, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/hAf98uHIXMFzqNN5LX1vnouCShr.jpg", 9.0, new DateOnly(2008, 7, 18), 1, "Темний лицар", "https://www.youtube.com/watch?v=EXeTwQWrcwY" },
+                    { 4, "https://media.themoviedb.org/t/p/w1000_and_h563_face/cHkhb5A4gQRK6zs6Pv7zorHs8Nk.jpg", "Він Дізель, Пол Вокер", "Команда вуличних гонщиків стикається з новими викликами.", "Джеймс Ван", 137, 1, 16, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rLxfXS0Dpd4ixD7HOYagWTx83SS.jpg", 7.0999999999999996, new DateOnly(2015, 4, 3), 1, "Форсаж 7", "https://youtu.be/USvJsCb1hA4" },
+                    { 5, "https://media.themoviedb.org/t/p/w1000_and_h563_face/h9q0ozwMWy7CK5U7FSZsMVtbsCQ.jpg", "Роберт Дауні-молодший, Кріс Еванс", "Фінальна битва Месників проти Таноса.", "Джо Руссо, Ентоні Руссо", 181, 4, 12, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/6gWhqrYEOBqqzXPKP7c0m4bIvTX.jpg", 8.4000000000000004, new DateOnly(2019, 4, 26), 1, "Месники: Фінал", "https://youtu.be/7ZHb4PWOI5M" },
+                    { 6, "https://media.themoviedb.org/t/p/w1000_and_h563_face/ftkY1xIQ6ianSVp3EDufPVPLwa2.jpg", "Хоакін Фенікс", "Історія походження одного з найвідоміших лиходіїв коміксів.", "Тодд Філліпс", 122, 2, 18, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/5h77YBF7g9s0ju5yblWskkN3wa7.jpg", 8.4000000000000004, new DateOnly(2019, 10, 4), 1, "Джокер", "https://youtu.be/y2NE4dYI5Pg" },
+                    { 7, "https://media.themoviedb.org/t/p/w1000_and_h563_face/zOpe0eHsq0A2NvNyBbtT6sj53qV.jpg", "Джим Керрі, Кіану Рівз", "Сонік, Наклз і Тейлз повертаються для нової грандіозної пригоди.", "Джефф Фаулер", 110, 2, 0, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/9U8WEuITXagHQWFQW48egF8oZeb.jpg", 7.7999999999999998, new DateOnly(2024, 12, 26), 1, "Їжак Сонік 3 ", "https://youtu.be/bDIUaKYV_Tg" },
+                    { 8, "https://media.themoviedb.org/t/p/w1000_and_h563_face/hwInwXo34ji3QfcNXvFBC3GX2TA.jpg", "Деніел Редкліфф, Емма Вотсон", "Перша частина пригод Гаррі Поттера у світі чарівників.", "Кріс Коламбус", 152, 8, 10, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/fczjRHiQCSHHFXBwa6peifwbvFz.jpg", 7.5999999999999996, new DateOnly(2001, 11, 16), 1, "Гаррі Поттер і філософський камінь", "https://youtu.be/l91Km49W9qI" },
+                    { 9, "https://media.themoviedb.org/t/p/w1000_and_h563_face/3CvNc04vTwTir5q3LBDuvUb8Ng6.jpg", "Бен Берт, Елісса Найт", "Історія маленького робота, який змінив світ.", "Ендрю Стентон", 98, 4, 6, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/1ZF4joYyVyg4xrapmGzZUCIv7Lj.jpg", 8.4000000000000004, new DateOnly(2008, 6, 27), 1, "Волл-і", "https://youtu.be/Tbr_L9Gap_M" },
+                    { 10, "https://media.themoviedb.org/t/p/w1000_and_h563_face/zfqOvDITgMM4tg1DGRnLRtlu5PN.jpg", "Дональд Гловер, Бейонсе", "Ремейк класичного мультфільму про пригоди Сімби.", "Джон Фавро", 118, 2, 6, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/azLX5jPAbjWbdAUUrspkRFvx8Z1.jpg", 6.9000000000000004, new DateOnly(2019, 7, 19), 1, "Король Лев", "https://youtu.be/QUoxYKDtpUk" },
+                    { 11, "https://media.themoviedb.org/t/p/w1000_and_h563_face/hiKmpZMGZsrkA3cdce8a7Dpos1j.jpg", "Сон Кан Хо, Лі Сон Гюн", "Історія про соціальну нерівність через призму однієї родини.", "Пон Джун Хо", 132, 5, 16, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/eYQlHTn4kD7CKbudVzxHMxVU3cV.jpg", 8.5999999999999996, new DateOnly(2019, 5, 30), 1, "Паразити", "https://youtu.be/KKNXGJIpnKY" },
+                    { 12, "https://media.themoviedb.org/t/p/w1000_and_h563_face/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg", "Тімоті Шаламе, Зендея", "Епічна науково-фантастична сага про боротьбу за виживання.", "Дені Вільньов", 155, 4, 13, "https://uaserial.com/images/serials/66/662c218bd4504886698257.webp", 8.0999999999999996, new DateOnly(2021, 10, 22), 1, "Дюна", "https://youtu.be/Ljzu52GMytk" },
+                    { 13, "https://media.themoviedb.org/t/p/w1000_and_h563_face/v8VIkb8XwmM9KilPHLvyNZpEEur.jpg", "Марк Гемілл, Харрісон Форд", "Перший епізод культової космічної саги.", "Джордж Лукас", 121, 8, 10, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rEpXNtqdiNul8sJa3sUQRIYdVDU.jpg", 8.5999999999999996, new DateOnly(1977, 5, 25), 1, "Зоряні війни: Епізод IV - Нова надія", "https://youtu.be/XsS1yE2f-hE" },
+                    { 14, "https://media.themoviedb.org/t/p/w1000_and_h563_face/tlm8UkiQsitc8rSuIAscQDCnP8d.jpg", "Кіану Рівз, Лоренс Фішберн", "Класика наукової фантастики про боротьбу зі штучним інтелектом.", "Лана Вачовскі, Ліллі Вачовскі", 136, 1, 16, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/58748AndVH1DitlTbcbLpKHuSS2.jpg", 8.6999999999999993, new DateOnly(1999, 3, 31), 1, "Матриця", "https://youtu.be/d0XTFAMmhrE" },
+                    { 15, "https://media.themoviedb.org/t/p/w1000_and_h563_face/x2RS3uTcsJJ9IfjNPcgDmukoEcQ.jpg", "Елайджа Вуд, Вігго Мортенсен", "Перша частина епічної трилогії за мотивами творів Толкіна.", "Пітер Джексон", 178, 1, 12, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/yrEZeHgn2Y3F3G4w6qeI22LrZzQ.jpg", 8.8000000000000007, new DateOnly(2001, 12, 19), 1, "Володар перснів: Хранителі Персня", "https://youtu.be/CbYmZOV3G-Q" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Seats",
+                columns: new[] { "Id", "ExtraPrice", "Number", "RoomId" },
+                values: new object[,]
+                {
+                    { 1, 0.00m, 1, 1 },
+                    { 2, 0.00m, 2, 1 },
+                    { 3, 50.00m, 1, 2 },
+                    { 4, 50.00m, 2, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Email", "FirstName", "LastName", "Password", "PhoneNumber", "StatusId" },
+                values: new object[,]
+                {
+                    { 1, "user@cinema.com", "Mike", "Brown", "4f9f10b304cfe9b2b11fcb1387f694e18f08ea358c7e9f567434d3ad6cbd7fc4", "+38050221131", 1 },
+                    { 2, "admin@cinema.com", "John", "Sandres", "4f9f10b304cfe9b2b11fcb1387f694e18f08ea358c7e9f567434d3ad6cbd7fc4", "+38095221141", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MoviePrices",
+                columns: new[] { "Id", "MovieId", "Price" },
+                values: new object[,]
+                {
+                    { 1, 1, 200.00m },
+                    { 2, 2, 210.00m },
+                    { 3, 3, 220.00m },
+                    { 4, 4, 230.00m },
+                    { 5, 5, 240.00m },
+                    { 6, 6, 250.00m },
+                    { 7, 7, 260.00m },
+                    { 8, 8, 270.00m },
+                    { 9, 9, 280.00m },
+                    { 10, 10, 290.00m },
+                    { 11, 11, 300.00m },
+                    { 12, 12, 310.00m },
+                    { 13, 13, 320.00m },
+                    { 14, 14, 330.00m },
+                    { 15, 15, 340.00m }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Sessions",
+                columns: new[] { "Id", "Date", "MoviePriceId", "RoomId", "Time" },
+                values: new object[,]
+                {
+                    { 10, new DateOnly(2025, 3, 2), 1, 1, new TimeOnly(10, 0, 0) },
+                    { 11, new DateOnly(2025, 3, 3), 1, 2, new TimeOnly(13, 0, 0) },
+                    { 12, new DateOnly(2025, 3, 4), 1, 1, new TimeOnly(16, 0, 0) },
+                    { 20, new DateOnly(2025, 3, 3), 2, 1, new TimeOnly(10, 0, 0) },
+                    { 21, new DateOnly(2025, 3, 4), 2, 2, new TimeOnly(13, 0, 0) },
+                    { 22, new DateOnly(2025, 3, 5), 2, 1, new TimeOnly(16, 0, 0) },
+                    { 30, new DateOnly(2025, 3, 4), 3, 1, new TimeOnly(10, 0, 0) },
+                    { 31, new DateOnly(2025, 3, 5), 3, 2, new TimeOnly(13, 0, 0) },
+                    { 32, new DateOnly(2025, 3, 6), 3, 1, new TimeOnly(16, 0, 0) },
+                    { 40, new DateOnly(2025, 3, 5), 4, 1, new TimeOnly(10, 0, 0) },
+                    { 41, new DateOnly(2025, 3, 6), 4, 2, new TimeOnly(13, 0, 0) },
+                    { 42, new DateOnly(2025, 3, 7), 4, 1, new TimeOnly(16, 0, 0) },
+                    { 50, new DateOnly(2025, 3, 6), 5, 1, new TimeOnly(10, 0, 0) },
+                    { 51, new DateOnly(2025, 3, 7), 5, 2, new TimeOnly(13, 0, 0) },
+                    { 52, new DateOnly(2025, 3, 8), 5, 1, new TimeOnly(16, 0, 0) },
+                    { 60, new DateOnly(2025, 3, 7), 6, 1, new TimeOnly(10, 0, 0) },
+                    { 61, new DateOnly(2025, 3, 8), 6, 2, new TimeOnly(13, 0, 0) },
+                    { 62, new DateOnly(2025, 3, 9), 6, 1, new TimeOnly(16, 0, 0) },
+                    { 70, new DateOnly(2025, 3, 8), 7, 1, new TimeOnly(10, 0, 0) },
+                    { 71, new DateOnly(2025, 3, 9), 7, 2, new TimeOnly(13, 0, 0) },
+                    { 72, new DateOnly(2025, 3, 10), 7, 1, new TimeOnly(16, 0, 0) },
+                    { 80, new DateOnly(2025, 3, 9), 8, 1, new TimeOnly(10, 0, 0) },
+                    { 81, new DateOnly(2025, 3, 10), 8, 2, new TimeOnly(13, 0, 0) },
+                    { 82, new DateOnly(2025, 3, 11), 8, 1, new TimeOnly(16, 0, 0) },
+                    { 90, new DateOnly(2025, 3, 10), 9, 1, new TimeOnly(10, 0, 0) },
+                    { 91, new DateOnly(2025, 3, 11), 9, 2, new TimeOnly(13, 0, 0) },
+                    { 92, new DateOnly(2025, 3, 12), 9, 1, new TimeOnly(16, 0, 0) },
+                    { 100, new DateOnly(2025, 3, 11), 10, 1, new TimeOnly(10, 0, 0) },
+                    { 101, new DateOnly(2025, 3, 12), 10, 2, new TimeOnly(13, 0, 0) },
+                    { 102, new DateOnly(2025, 3, 13), 10, 1, new TimeOnly(16, 0, 0) },
+                    { 110, new DateOnly(2025, 3, 12), 11, 1, new TimeOnly(10, 0, 0) },
+                    { 111, new DateOnly(2025, 3, 13), 11, 2, new TimeOnly(13, 0, 0) },
+                    { 112, new DateOnly(2025, 3, 14), 11, 1, new TimeOnly(16, 0, 0) },
+                    { 120, new DateOnly(2025, 3, 13), 12, 1, new TimeOnly(10, 0, 0) },
+                    { 121, new DateOnly(2025, 3, 14), 12, 2, new TimeOnly(13, 0, 0) },
+                    { 122, new DateOnly(2025, 3, 15), 12, 1, new TimeOnly(16, 0, 0) },
+                    { 130, new DateOnly(2025, 3, 14), 13, 1, new TimeOnly(10, 0, 0) },
+                    { 131, new DateOnly(2025, 3, 15), 13, 2, new TimeOnly(13, 0, 0) },
+                    { 132, new DateOnly(2025, 3, 16), 13, 1, new TimeOnly(16, 0, 0) },
+                    { 140, new DateOnly(2025, 3, 15), 14, 1, new TimeOnly(10, 0, 0) },
+                    { 141, new DateOnly(2025, 3, 16), 14, 2, new TimeOnly(13, 0, 0) },
+                    { 142, new DateOnly(2025, 3, 17), 14, 1, new TimeOnly(16, 0, 0) },
+                    { 150, new DateOnly(2025, 3, 16), 15, 1, new TimeOnly(10, 0, 0) },
+                    { 151, new DateOnly(2025, 3, 17), 15, 2, new TimeOnly(13, 0, 0) },
+                    { 152, new DateOnly(2025, 3, 18), 15, 1, new TimeOnly(16, 0, 0) }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MoviePrices_MovieId",
+                table: "MoviePrices",
+                column: "MovieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Movies_GenreId",
+                table: "Movies",
+                column: "GenreId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Movies_StatusId",
+                table: "Movies",
+                column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_SeatId",
+                table: "Reservations",
+                column: "SeatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_SessionId",
+                table: "Reservations",
+                column: "SessionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_StatusId",
+                table: "Reservations",
+                column: "StatusId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_UserId",
+                table: "Reservations",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Seats_RoomId",
+                table: "Seats",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sessions_MoviePriceId",
+                table: "Sessions",
+                column: "MoviePriceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sessions_RoomId",
+                table: "Sessions",
+                column: "RoomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_StatusId",
+                table: "Users",
+                column: "StatusId");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Reservations");
+
+            migrationBuilder.DropTable(
+                name: "ReservationStatuses");
+
+            migrationBuilder.DropTable(
+                name: "Seats");
+
+            migrationBuilder.DropTable(
+                name: "Sessions");
+
+            migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "MoviePrices");
+
+            migrationBuilder.DropTable(
+                name: "Rooms");
+
+            migrationBuilder.DropTable(
+                name: "UserStatuses");
+
+            migrationBuilder.DropTable(
+                name: "Movies");
+
+            migrationBuilder.DropTable(
+                name: "Genres");
+
+            migrationBuilder.DropTable(
+                name: "MovieStatuses");
+        }
+    }
+}

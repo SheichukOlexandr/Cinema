@@ -79,6 +79,7 @@
                 @foreach (var movieViewModel in Model.Movies)
                 {
                     <a asp-action="Details" asp-route-id="@movieViewModel.Movie.Id" class="movie-card visible"
+                        data-name="@movieViewModel.Movie.Title"
                         data-genre="@movieViewModel.Movie.GenreName"
                         data-year="@movieViewModel.Movie.ReleaseDate.Year"
                         data-rating="@movieViewModel.Movie.Rating"
