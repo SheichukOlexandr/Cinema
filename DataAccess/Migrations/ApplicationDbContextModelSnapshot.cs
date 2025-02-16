@@ -103,6 +103,10 @@ namespace DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("BannerURL")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Cast")
                         .IsRequired()
                         .HasColumnType("text");
@@ -157,6 +161,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/ii8QGacT3MXESqBckQlyrATY0lT.jpg",
                             Cast = "Леонардо ДіКапріо, Джозеф Гордон-Левітт",
                             Description = "Злодій, який викрадає корпоративні таємниці за допомогою технології обміну снами.",
                             Director = "Крістофер Нолан",
@@ -173,6 +178,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
                             Cast = "Меттью МакКонахі, Енн Гетевей",
                             Description = "Подорож крізь простір і час для порятунку людства.",
                             Director = "Крістофер Нолан",
@@ -189,6 +195,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/enNubozHn9pXi0ycTVYUWfpHZm.jpg",
                             Cast = "Крістіан Бейл, Гіт Леджер",
                             Description = "Бетмен бореться з хаосом, який створює Джокер.",
                             Director = "Крістофер Нолан",
@@ -205,6 +212,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/cHkhb5A4gQRK6zs6Pv7zorHs8Nk.jpg",
                             Cast = "Він Дізель, Пол Вокер",
                             Description = "Команда вуличних гонщиків стикається з новими викликами.",
                             Director = "Джеймс Ван",
@@ -221,6 +229,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 5,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/h9q0ozwMWy7CK5U7FSZsMVtbsCQ.jpg",
                             Cast = "Роберт Дауні-молодший, Кріс Еванс",
                             Description = "Фінальна битва Месників проти Таноса.",
                             Director = "Джо Руссо, Ентоні Руссо",
@@ -237,6 +246,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 6,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/ftkY1xIQ6ianSVp3EDufPVPLwa2.jpg",
                             Cast = "Хоакін Фенікс",
                             Description = "Історія походження одного з найвідоміших лиходіїв коміксів.",
                             Director = "Тодд Філліпс",
@@ -253,6 +263,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 7,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/zOpe0eHsq0A2NvNyBbtT6sj53qV.jpg",
                             Cast = "Джим Керрі, Кіану Рівз",
                             Description = "Сонік, Наклз і Тейлз повертаються для нової грандіозної пригоди.",
                             Director = "Джефф Фаулер",
@@ -269,6 +280,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 8,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/hwInwXo34ji3QfcNXvFBC3GX2TA.jpg",
                             Cast = "Деніел Редкліфф, Емма Вотсон",
                             Description = "Перша частина пригод Гаррі Поттера у світі чарівників.",
                             Director = "Кріс Коламбус",
@@ -285,6 +297,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 9,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/3CvNc04vTwTir5q3LBDuvUb8Ng6.jpg",
                             Cast = "Бен Берт, Елісса Найт",
                             Description = "Історія маленького робота, який змінив світ.",
                             Director = "Ендрю Стентон",
@@ -301,6 +314,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 10,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/zfqOvDITgMM4tg1DGRnLRtlu5PN.jpg",
                             Cast = "Дональд Гловер, Бейонсе",
                             Description = "Ремейк класичного мультфільму про пригоди Сімби.",
                             Director = "Джон Фавро",
@@ -317,6 +331,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 11,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/hiKmpZMGZsrkA3cdce8a7Dpos1j.jpg",
                             Cast = "Сон Кан Хо, Лі Сон Гюн",
                             Description = "Історія про соціальну нерівність через призму однієї родини.",
                             Director = "Пон Джун Хо",
@@ -333,6 +348,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 12,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg",
                             Cast = "Тімоті Шаламе, Зендея",
                             Description = "Епічна науково-фантастична сага про боротьбу за виживання.",
                             Director = "Дені Вільньов",
@@ -349,6 +365,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 13,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/v8VIkb8XwmM9KilPHLvyNZpEEur.jpg",
                             Cast = "Марк Гемілл, Харрісон Форд",
                             Description = "Перший епізод культової космічної саги.",
                             Director = "Джордж Лукас",
@@ -365,6 +382,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 14,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/tlm8UkiQsitc8rSuIAscQDCnP8d.jpg",
                             Cast = "Кіану Рівз, Лоренс Фішберн",
                             Description = "Класика наукової фантастики про боротьбу зі штучним інтелектом.",
                             Director = "Лана Вачовскі, Ліллі Вачовскі",
@@ -381,6 +399,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 15,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/x2RS3uTcsJJ9IfjNPcgDmukoEcQ.jpg",
                             Cast = "Елайджа Вуд, Вігго Мортенсен",
                             Description = "Перша частина епічної трилогії за мотивами творів Толкіна.",
                             Director = "Пітер Джексон",
