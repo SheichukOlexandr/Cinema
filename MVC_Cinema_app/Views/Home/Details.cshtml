@@ -1,0 +1,83 @@
+﻿@model MovieDetailsViewModel
+
+@{
+    ViewData["HideSearch"] = true;
+    ViewData["Title"] = Model.Movie.Title;
+}
+
+<div class="movie-details-container">
+    <div class="movie-content">
+        <!-- Movie Poster -->
+        <div class="movie-poster">
+            <img src="@Model.Movie.PosterURL" alt="@Model.Movie.Title">
+        </div>
+
+        <!-- Movie Information -->
+        <div class="movie-info">
+            <h1>@Model.Movie.Title</h1>
+            <p><strong>Жанр:</strong> @Model.Movie.GenreName</p>
+            <p><strong>Рейтинг:</strong> ⭐ @Model.Movie.Rating</p>
+            <p><strong>Вікова категорія:</strong> @Model.Movie.MinAge+</p>
+            <p><strong>Рік:</strong> @Model.Movie.ReleaseDate.Year</p>
+            <p><strong>Тривалість:</strong> @Model.Movie.Duration хв.</p>
+            <p><strong>Режисер:</strong> @Model.Movie.Director</p>
+            <p><strong>Акторський склад:</strong> @Model.Movie.Cast</p>
+            <p><strong>Опис:</strong> @Model.Movie.Description</p>
+
+            <!-- Кнопка для просмотра трейлера -->
+            <button class="btn-trailer" onclick="openTrailerModal('@Model.Movie.TrailerURL')">🎬 Дивитись трейлер</button>
+
+            <h3>Доступні сеанси:</h3>
+            <ul class="session-list">
+                @foreach (var sessionDetails in Model.SessionDetails)
+                {
+                    <li class="session-item">
+                        <span class="session-info">
+                            @sessionDetails.Session.Date -
+                            @sessionDetails.Session.Time.ToString("HH:mm") -
+                            @sessionDetails.Session.RoomName -
+                            <strong>@sessionDetails.Session.Price грн</strong>
+                        </span>
+
+                        @if (@sessionDetails.AvailableSeats.Count() < 1)
+                        {
+                            <span class="no-seats">Немає вільних місць</span>
+                        }
+                        else
+                        {
+                            <form asp-action="Book" asp-route-id="@sessionDetails.Session.Id" method="post" class="booking-form">
+                                <select asp-for="@sessionDetails.SelectedSessionId"
+                                        asp-items="@sessionDetails.AvailableSeats"
+                                        class="seat-select"
+                                        onchange="document.getElementById('seatId_@sessionDetails.Session.Id').value = this.value;">
+                                    <option>Оберіть місце</option>
+                                </select>
+                                <input type="hidden" name="movieId" value="@Model.Movie.Id" />
+                                <input type="hidden" id="seatId_@sessionDetails.Session.Id" name="seatId" value="@sessionDetails.SelectedSessionId" />
+                                <button type="submit" class="btn-book">Забронювати</button>
+                            </form>
+                        }
+                    </li>
+                }
+            </ul>
+
+            <a asp-action="Index" class="btn-back">⬅ Повернутись до списку</a>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для трейлера -->
+<div id="trailerModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeTrailerModal()">&times;</span>
+        <iframe id="trailerFrame" width="100%" height="720" frameborder="0" allowfullscreen></iframe>
+    </div>
+</div>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/movie-details.css">
+}
+
+@section Scripts {
+    <script src="~/js/trailer-modal.js"></script>
+}

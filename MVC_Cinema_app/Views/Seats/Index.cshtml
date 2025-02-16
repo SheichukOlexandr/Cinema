@@ -1,0 +1,48 @@
+﻿@model IEnumerable<BusinessLogic.DTOs.SeatDTO>
+
+@{
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
+    ViewData["Title"] = "Seats";
+}
+
+<h1>Місця</h1>
+
+<p>
+    <a asp-action="Create">Додати нові місця</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Назва кінозали
+            </th>
+            <th>
+                Місце
+            </th>
+            <th>
+                Ціна
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExtraPrice)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Видалення</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<BusinessLogic.DTOs.MoviePriceDTO>
+
+@{
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
+    ViewData["Title"] = "Movie Prices";
+}
+
+<h1>Ціна фільмів</h1>
+
+<p>
+    <a asp-action="Create">Додати нову ціну</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Назва фільму
+            </th>
+            <th>
+                Ціна
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редагування</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Видалення</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

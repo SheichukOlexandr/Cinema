@@ -1,8 +1,125 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Головна";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <main>
+        <section class="banner-container">
+            <div class="banner-wrapper">
+                @foreach (var movie in Model.NewMovies)
+                {
+                    <a asp-action="Details" asp-route-id="@movie.Id" class="banner-card">
+                        <img src="@movie.BannerURL" alt="banner" class="banner-img">
+                        <div class="card-content">
+                            <div class="card-info">
+                                <div class="genre">
+                                    <ion-icon name="film"></ion-icon>
+                                    <span>@movie.GenreName</span>
+                                </div>
+                                <div class="year">
+                                    <ion-icon name="calendar"></ion-icon>
+                                    <span>@movie.ReleaseDate.Year</span>
+                                </div>
+                                <div class="duration">
+                                    <ion-icon name="time"></ion-icon>
+                                    <span>@(movie.Duration / 60)г @(movie.Duration % 60)г</span>
+                                </div>
+                            </div>
+                            <h2 class="card-title">@movie.Title</h2>
+                        </div>
+                    </a>
+                }
+            </div>
+            <button class="banner-button next" onclick="nextSlide()">&#10095;</button>
+            <button class="banner-button prev" onclick="prevSlide()">&#10094;</button>
+        </section>
+
+
+        <!-- Фільтрація фільмів -->
+        <section class="movies">
+            <div class="filter-bar">
+                <div class="filter-dropdowns">
+                    <select asp-items="Model.GenreOptions" id="genreDropdown">
+                        <option value="all genres">Всі жанри</option>
+                    </select>
+
+                    <select name="year" class="year" id="yearDropdown">
+                        <option value="all years">Всі роки</option>
+                        <option value="2025">2025</option>
+                        <option value="2020-2024">2020-2024</option>
+                        <option value="2010-2019">2010-2019</option>
+                        <option value="2000-2009">2000-2009</option>
+                        <option value="1980-1999">1980-1999</option>
+                    </select>
+
+                    <select asp-items="Model.AgeOptions" id="ageDropdown">
+                        <option value="all ages">Всі катерогії</option>
+                    </select>
+
+                    <label for="sessionMinDate">Сеанси після:</label>
+                    <input type="date" min="2025-02-15" max="2030-12-31" id="sessionMinDate" class="inverted">
+                </div>
+
+                <div class="filter-radios">
+                    <input type="radio" name="grade" id="all" checked>
+                    <label for="all">Всі</label>
+
+                    <input type="radio" name="grade" id="popular">
+                    <label for="popular">Популярніші</label>
+
+                    <input type="radio" name="grade" id="newest">
+                    <label for="newest">Новіші</label>
+
+                    <div class="checked-radio-bg"></div>
+                </div>
+            </div>
+
+            <div class="movies-grid" id="moviesGrid">
+                @foreach (var movieViewModel in Model.Movies)
+                {
+                    <a asp-action="Details" asp-route-id="@movieViewModel.Movie.Id" class="movie-card visible"
+                        data-name="@movieViewModel.Movie.Title"
+                        data-genre="@movieViewModel.Movie.GenreName"
+                        data-year="@movieViewModel.Movie.ReleaseDate.Year"
+                        data-rating="@movieViewModel.Movie.Rating"
+                        data-age="@movieViewModel.Movie.MinAge"
+                        data-sessions='@Html.Raw(Json.Serialize(movieViewModel.SessionDetails.Select(iterator => iterator.Session)))'>
+
+                        <div class="card-head">
+                            <img src="@movieViewModel.Movie.PosterURL" alt="@movieViewModel.Movie.Title" class="card-img">
+                            <div class="card-overlay">
+                                <div class="bookmark">
+                                    <ion-icon name="bookmark"></ion-icon>
+                                </div>
+                                <div class="rating">
+                                    <ion-icon name="star-outline"></ion-icon>
+                                    <span>@movieViewModel.Movie.Rating</span>
+                                </div>
+                                <div class="play">
+                                    <ion-icon name="play-circle-outline"></ion-icon>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title">@movieViewModel.Movie.Title</h3>
+                            <div class="card-info">
+                                <span class="genre">@movieViewModel.Movie.GenreName</span>
+                            </div>
+                            <div class="card-info">
+                                <span class="year">@movieViewModel.Movie.ReleaseDate.Year</span>
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </section>
+    </main>
 </div>
+
+<!-- Підключення іконок та скриптів -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="~/js/site.js"></script>
+<script src="~/js/movies.js"></script>
+<script src="~/js/banner.js"></script>

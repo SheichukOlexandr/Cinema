@@ -1,0 +1,36 @@
+﻿@model BusinessLogic.DTOs.SeatDTO
+
+@{
+    Layout = "~/Views/Shared/MinimalLayout.cshtml";
+    ViewData["Title"] = "Details";
+}
+
+
+<div>
+    <h4>Місця</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Назва кінозалу
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.RoomName)
+        </dd>
+        <dt class="col-sm-2">
+            Номер місця
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Number)
+        </dd>
+        <dt class = "col-sm-2">
+            Ціна
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ExtraPrice)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Відредагувати</a> |
+    <a asp-action="Index">Назад до списку</a>
+</div>
