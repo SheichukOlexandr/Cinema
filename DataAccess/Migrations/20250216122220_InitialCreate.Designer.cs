@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250213141634_InitialCreate")]
+    [Migration("20250216122220_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -106,6 +106,10 @@ namespace DataAccess.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("BannerURL")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Cast")
                         .IsRequired()
                         .HasColumnType("text");
@@ -160,6 +164,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/ii8QGacT3MXESqBckQlyrATY0lT.jpg",
                             Cast = "Леонардо ДіКапріо, Джозеф Гордон-Левітт",
                             Description = "Злодій, який викрадає корпоративні таємниці за допомогою технології обміну снами.",
                             Director = "Крістофер Нолан",
@@ -176,6 +181,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 2,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/rAiYTfKGqDCRIIqo664sY9XZIvQ.jpg",
                             Cast = "Меттью МакКонахі, Енн Гетевей",
                             Description = "Подорож крізь простір і час для порятунку людства.",
                             Director = "Крістофер Нолан",
@@ -192,6 +198,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 3,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/enNubozHn9pXi0ycTVYUWfpHZm.jpg",
                             Cast = "Крістіан Бейл, Гіт Леджер",
                             Description = "Бетмен бореться з хаосом, який створює Джокер.",
                             Director = "Крістофер Нолан",
@@ -208,6 +215,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 4,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/cHkhb5A4gQRK6zs6Pv7zorHs8Nk.jpg",
                             Cast = "Він Дізель, Пол Вокер",
                             Description = "Команда вуличних гонщиків стикається з новими викликами.",
                             Director = "Джеймс Ван",
@@ -224,6 +232,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 5,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/h9q0ozwMWy7CK5U7FSZsMVtbsCQ.jpg",
                             Cast = "Роберт Дауні-молодший, Кріс Еванс",
                             Description = "Фінальна битва Месників проти Таноса.",
                             Director = "Джо Руссо, Ентоні Руссо",
@@ -240,6 +249,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 6,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/ftkY1xIQ6ianSVp3EDufPVPLwa2.jpg",
                             Cast = "Хоакін Фенікс",
                             Description = "Історія походження одного з найвідоміших лиходіїв коміксів.",
                             Director = "Тодд Філліпс",
@@ -256,6 +266,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 7,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/zOpe0eHsq0A2NvNyBbtT6sj53qV.jpg",
                             Cast = "Джим Керрі, Кіану Рівз",
                             Description = "Сонік, Наклз і Тейлз повертаються для нової грандіозної пригоди.",
                             Director = "Джефф Фаулер",
@@ -272,6 +283,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 8,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/hwInwXo34ji3QfcNXvFBC3GX2TA.jpg",
                             Cast = "Деніел Редкліфф, Емма Вотсон",
                             Description = "Перша частина пригод Гаррі Поттера у світі чарівників.",
                             Director = "Кріс Коламбус",
@@ -288,6 +300,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 9,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/3CvNc04vTwTir5q3LBDuvUb8Ng6.jpg",
                             Cast = "Бен Берт, Елісса Найт",
                             Description = "Історія маленького робота, який змінив світ.",
                             Director = "Ендрю Стентон",
@@ -304,6 +317,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 10,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/zfqOvDITgMM4tg1DGRnLRtlu5PN.jpg",
                             Cast = "Дональд Гловер, Бейонсе",
                             Description = "Ремейк класичного мультфільму про пригоди Сімби.",
                             Director = "Джон Фавро",
@@ -320,6 +334,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 11,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/hiKmpZMGZsrkA3cdce8a7Dpos1j.jpg",
                             Cast = "Сон Кан Хо, Лі Сон Гюн",
                             Description = "Історія про соціальну нерівність через призму однієї родини.",
                             Director = "Пон Джун Хо",
@@ -336,6 +351,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 12,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg",
                             Cast = "Тімоті Шаламе, Зендея",
                             Description = "Епічна науково-фантастична сага про боротьбу за виживання.",
                             Director = "Дені Вільньов",
@@ -352,6 +368,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 13,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/v8VIkb8XwmM9KilPHLvyNZpEEur.jpg",
                             Cast = "Марк Гемілл, Харрісон Форд",
                             Description = "Перший епізод культової космічної саги.",
                             Director = "Джордж Лукас",
@@ -368,6 +385,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 14,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/tlm8UkiQsitc8rSuIAscQDCnP8d.jpg",
                             Cast = "Кіану Рівз, Лоренс Фішберн",
                             Description = "Класика наукової фантастики про боротьбу зі штучним інтелектом.",
                             Director = "Лана Вачовскі, Ліллі Вачовскі",
@@ -384,6 +402,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 15,
+                            BannerURL = "https://media.themoviedb.org/t/p/w1000_and_h563_face/x2RS3uTcsJJ9IfjNPcgDmukoEcQ.jpg",
                             Cast = "Елайджа Вуд, Вігго Мортенсен",
                             Description = "Перша частина епічної трилогії за мотивами творів Толкіна.",
                             Director = "Пітер Джексон",
@@ -738,7 +757,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 10,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 2),
                             MoviePriceId = 1,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -746,7 +765,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 11,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 3),
                             MoviePriceId = 1,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -754,7 +773,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 12,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 4),
                             MoviePriceId = 1,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -762,7 +781,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 20,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 3),
                             MoviePriceId = 2,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -770,7 +789,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 21,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 4),
                             MoviePriceId = 2,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -778,7 +797,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 22,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 5),
                             MoviePriceId = 2,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -786,7 +805,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 30,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 4),
                             MoviePriceId = 3,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -794,7 +813,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 31,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 5),
                             MoviePriceId = 3,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -802,7 +821,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 32,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 6),
                             MoviePriceId = 3,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -810,7 +829,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 40,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 5),
                             MoviePriceId = 4,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -818,7 +837,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 41,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 6),
                             MoviePriceId = 4,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -826,7 +845,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 42,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 7),
                             MoviePriceId = 4,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -834,7 +853,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 50,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 6),
                             MoviePriceId = 5,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -842,7 +861,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 51,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 7),
                             MoviePriceId = 5,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -850,7 +869,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 52,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 8),
                             MoviePriceId = 5,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -858,7 +877,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 60,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 7),
                             MoviePriceId = 6,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -866,7 +885,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 61,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 8),
                             MoviePriceId = 6,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -874,7 +893,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 62,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 9),
                             MoviePriceId = 6,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -882,7 +901,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 70,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 8),
                             MoviePriceId = 7,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -890,7 +909,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 71,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 9),
                             MoviePriceId = 7,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -898,7 +917,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 72,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 10),
                             MoviePriceId = 7,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -906,7 +925,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 80,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 9),
                             MoviePriceId = 8,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -914,7 +933,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 81,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 10),
                             MoviePriceId = 8,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -922,7 +941,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 82,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 11),
                             MoviePriceId = 8,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -930,7 +949,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 90,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 10),
                             MoviePriceId = 9,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -938,7 +957,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 91,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 11),
                             MoviePriceId = 9,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -946,7 +965,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 92,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 12),
                             MoviePriceId = 9,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -954,7 +973,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 100,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 11),
                             MoviePriceId = 10,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -962,7 +981,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 101,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 12),
                             MoviePriceId = 10,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -970,7 +989,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 102,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 13),
                             MoviePriceId = 10,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -978,7 +997,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 110,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 12),
                             MoviePriceId = 11,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -986,7 +1005,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 111,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 13),
                             MoviePriceId = 11,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -994,7 +1013,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 112,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 14),
                             MoviePriceId = 11,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -1002,7 +1021,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 120,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 13),
                             MoviePriceId = 12,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -1010,7 +1029,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 121,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 14),
                             MoviePriceId = 12,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -1018,7 +1037,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 122,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 15),
                             MoviePriceId = 12,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -1026,7 +1045,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 130,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 14),
                             MoviePriceId = 13,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -1034,7 +1053,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 131,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 15),
                             MoviePriceId = 13,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -1042,7 +1061,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 132,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 16),
                             MoviePriceId = 13,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -1050,7 +1069,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 140,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 15),
                             MoviePriceId = 14,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -1058,7 +1077,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 141,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 16),
                             MoviePriceId = 14,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -1066,7 +1085,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 142,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 17),
                             MoviePriceId = 14,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
@@ -1074,7 +1093,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 150,
-                            Date = new DateOnly(2025, 3, 1),
+                            Date = new DateOnly(2025, 3, 16),
                             MoviePriceId = 15,
                             RoomId = 1,
                             Time = new TimeOnly(10, 0, 0)
@@ -1082,7 +1101,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 151,
-                            Date = new DateOnly(2025, 3, 2),
+                            Date = new DateOnly(2025, 3, 17),
                             MoviePriceId = 15,
                             RoomId = 2,
                             Time = new TimeOnly(13, 0, 0)
@@ -1090,7 +1109,7 @@ namespace DataAccess.Migrations
                         new
                         {
                             Id = 152,
-                            Date = new DateOnly(2025, 3, 3),
+                            Date = new DateOnly(2025, 3, 18),
                             MoviePriceId = 15,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
