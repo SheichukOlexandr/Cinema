@@ -46,15 +46,18 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Зберегти" class="btn btn-primary" />
+                <div>
+                    <a asp-action="Index">Назад до списку</a>
+                </div>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Назад до списку</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/user-profile.css">
 }

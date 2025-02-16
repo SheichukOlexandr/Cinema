@@ -156,9 +156,7 @@ namespace MVC_Cinema_app.Controllers
             var ticketBytes = _ticketGeneration.GenerateTicket(reservation);
 
             // Повернення PDF-файлу користувачеві
-            return File(ticketBytes, "application/pdf", $"Ticket_{reservation.Session.Date}_{reservation.Session.Time}.pdf"
-
-);
+            return File(ticketBytes, "application/pdf", $"Ticket_{reservation.Session.Date}_{reservation.Session.Time}.pdf");
         }
 
         [HttpPost]
@@ -190,6 +188,5 @@ namespace MVC_Cinema_app.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
     }
 }
