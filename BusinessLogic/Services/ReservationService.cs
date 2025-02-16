@@ -116,5 +116,23 @@ namespace BusinessLogic.Services
             reservation.StatusId = status.Id;
             await unitOfWork.Reservations.UpdateAsync(reservation);
         }
+
+        public async Task<bool> DeleteReservationAsync(int reservationId)
+        {
+            var reservation = await unitOfWork.Reservations.GetByIdAsync(reservationId);
+            if (reservation == null)
+            {
+                return false;
+            }
+
+            if (reservation.Status.Name != ReservationStatusDTO.Cancelled)
+            {
+                throw new InvalidOperationException("Можна видаляти тільки скасовані бронювання.");
+            }
+
+            await unitOfWork.Reservations.DeleteAsync(reservationId);
+            return true;
+        }
+
     }
 }

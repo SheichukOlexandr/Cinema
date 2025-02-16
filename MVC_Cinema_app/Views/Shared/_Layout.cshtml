@@ -12,6 +12,7 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     @if (hideHeader == null || !hideHeader.Value)
@@ -26,15 +27,12 @@
                     </button>
 
                     <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
-                        <img src="~/image/homepage/Logo.png" alt="logo">
+                        <img class="logo1" src="~/image/homepage/Logo.png" alt="logo">
                     </a>
 
                     <nav class="">
                         <ul class="navbar-nav">
                             <li><a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-link">Головна</a></li>
-                            <li><a asp-area="" asp-controller="Home" asp-action="Movies" class="navbar-link">Фільми</a></li>
-                            <li><a href="#category" class="navbar-link">Бронювання</a></li>
-                            <li><a asp-area="" asp-controller="Home" asp-action="Sessions" class="navbar-link">Сеанси</a></li>
                             @if (User.Identity?.IsAuthenticated == true)
                             {
                                 @if (User.IsInRole(UserStatusDTO.Admin)) {
@@ -65,7 +63,8 @@
                             }
                         </ul>
                     </nav>
-
+                    @if (ViewData["HideSearch"] == null || !(bool)ViewData["HideSearch"])
+                    {
                     <div class="navbar-actions">
                         <form action="#" class="navbar-form">
                             <input type="text" name="search" placeholder="Я шукаю..." class="navbar-form-search">
@@ -86,6 +85,7 @@
                            
                         </ul>
                     </div>
+                    }
                 </div>
             </header>
         </div>
