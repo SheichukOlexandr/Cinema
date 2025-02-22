@@ -9,8 +9,8 @@ namespace BusinessLogic.Services
     {
         private readonly string _smtpServer = "smtp.gmail.com"; // SMTP-сервер Gmail
         private readonly int _smtpPort = 587; // Порт для Gmail
-        private readonly string _smtpUser = "skrypka.danylo@chnu.edu.ua"; // Ваша email-адреса
-        private readonly string _smtpPassword = "20052010asdfg"; // Ваш пароль або App Password
+        private readonly string _smtpUser = "kravchenko.maksym@chnu.edu.ua"; // Ваша email-адреса
+        private readonly string _smtpPassword = "13137972Max!"; // Ваш пароль або App Password
 
         public async Task<bool> SendTicketEmailAsync(string recipientEmail, string subject, string body, byte[] ticketBytes, string ticketFileName = "ticket.pdf")
         {
