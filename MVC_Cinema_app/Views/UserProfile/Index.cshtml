@@ -55,6 +55,11 @@
                         <a asp-controller="UserProfile" asp-action="GenerateTicket" asp-route-reservationId="@item.Id" class="ticket-btn">
                             <span>Згенерувати квиток</span>
                         </a>
+                        <form asp-action="SendTicketToEmail" asp-route-reservationId="@item.Id" method="post">
+                            <button type="submit" class="ticket-btn email-btn">
+                                <span>Відправити на email</span>
+                            </button>
+                        </form>
                     }
                 </div>
             </div>

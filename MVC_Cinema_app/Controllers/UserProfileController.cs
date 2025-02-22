@@ -5,7 +5,6 @@ using BusinessLogic.DTOs;
 using System.Security.Claims;
 using MVC_Cinema_app.Models;
 using Microsoft.AspNetCore.Authorization;
-using System.Threading.Tasks;
 
 namespace MVC_Cinema_app.Controllers
 {
@@ -14,19 +13,19 @@ namespace MVC_Cinema_app.Controllers
     {
         private readonly UserService _userService;
         private readonly ReservationService _reservationService;
-        private readonly TicketGeneration _ticketGeneration;
-        private readonly EmailService _emailService; // Додаємо сервіс email
+        private readonly TicketGeneration _ticketGeneration; // Сервіс генерації квитків
+        private readonly EmailService _emailService; // Сервіс відправки email
 
         public UserProfileController(
             UserService userService,
             ReservationService reservationService,
             TicketGeneration ticketGeneration,
-            EmailService emailService) // Ініціалізація сервісу email
+            EmailService emailService)
         {
             _userService = userService;
             _reservationService = reservationService;
-            _ticketGeneration = ticketGeneration;
-            _emailService = emailService;
+            _ticketGeneration = ticketGeneration; // Ініціалізація сервісу квитків
+            _emailService = emailService; // Ініціалізація сервісу email
         }
 
         // GET: UserProfile
@@ -139,13 +138,6 @@ namespace MVC_Cinema_app.Controllers
 
             await _reservationService.ConfirmReservationAsync(reservation);
 
-            // Після підтвердження бронювання — генеруємо квиток
-            var ticketBytes = _ticketGeneration.GenerateTicket(reservation);
-
-            // Відправка квитка користувачу на email
-            string emailBody = $"Дякуємо за покупку! Ваш квиток на {reservation.Session.MovieName} вже доступний.";
-            await _emailService.SendTicketEmailAsync(user.Email, "Ваш електронний квиток", emailBody, ticketBytes);
-
             return RedirectToAction(nameof(Index));
         }
 
@@ -158,17 +150,67 @@ namespace MVC_Cinema_app.Controllers
         [HttpGet]
         public async Task<IActionResult> GenerateTicket(int reservationId)
         {
+            // Отримання даних бронювання
             var reservation = await _reservationService.GetAsync(reservationId);
             if (reservation == null)
             {
                 return NotFound();
             }
 
+            // Генерація PDF-квитка через сервіс TicketGeneration
             var ticketBytes = _ticketGeneration.GenerateTicket(reservation);
 
+            // Повернення PDF-файлу користувачеві
             return File(ticketBytes, "application/pdf", $"Ticket_{reservation.Session.Date}_{reservation.Session.Time}.pdf");
         }
 
+        // POST: UserProfile/SendTicketToEmail/{reservationId}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SendTicketToEmail(int reservationId)
+        {
+            var user = await _userService.GetCurrentUserAsync(this.User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var reservation = await _reservationService.GetAsync(reservationId);
+            if (reservation == null)
+            {
+                return NotFound();
+            }
+
+            if (reservation.StatusName != ReservationStatusDTO.Confirmed && reservation.StatusName != ReservationStatusDTO.Completed)
+            {
+                return BadRequest("Квиток можна відправити тільки для підтверджених або завершених бронювань.");
+            }
+
+            // Генерація PDF-квитка
+            var ticketBytes = _ticketGeneration.GenerateTicket(reservation);
+
+            // Текст листа
+            string emailBody = $"Вітаємо, {user.FirstName}! Ваш квиток на фільм \"{reservation.Session.MovieName}\" додається у вкладенні.";
+
+            // Відправка квитка на email
+            bool emailSent = await _emailService.SendTicketEmailAsync(
+                user.Email, // Електронна пошта користувача
+                "Ваш електронний квиток", // Тема листа
+                emailBody, // Текст листа
+                ticketBytes, // PDF-квиток
+                $"Квиток_{reservation.Session.Date}_{reservation.Session.Time}.pdf" // Назва файлу
+            );
+
+            if (!emailSent)
+            {
+                return StatusCode(500, "Не вдалося надіслати квиток. Спробуйте ще раз пізніше.");
+            }
+
+            TempData["SuccessMessage"] = "Квиток успішно надіслано на вашу пошту!";
+            return RedirectToAction(nameof(Index));
+        }
+
+        // POST: UserProfile/Delete/{reservationId}
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int reservationId)

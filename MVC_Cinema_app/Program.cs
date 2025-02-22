@@ -35,6 +35,7 @@ builder.Services.AddScoped<GenreService>();
 builder.Services.AddScoped<MovieStatusService>();
 builder.Services.AddScoped<MovieService>();
 builder.Services.AddScoped<MoviePriceService>();
+builder.Services.AddScoped<EmailService>();
 
 builder.Services.AddScoped<RoomService>();
 builder.Services.AddScoped<SeatService>();
