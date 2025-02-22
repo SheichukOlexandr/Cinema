@@ -5,6 +5,7 @@ using BusinessLogic.DTOs;
 using System.Security.Claims;
 using MVC_Cinema_app.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Threading.Tasks;
 
 namespace MVC_Cinema_app.Controllers
 {
@@ -13,13 +14,19 @@ namespace MVC_Cinema_app.Controllers
     {
         private readonly UserService _userService;
         private readonly ReservationService _reservationService;
-        private readonly TicketGeneration _ticketGeneration; // Додаємо сервіс квитків
+        private readonly TicketGeneration _ticketGeneration;
+        private readonly EmailService _emailService; // Додаємо сервіс email
 
-        public UserProfileController(UserService userService, ReservationService reservationService, TicketGeneration ticketGeneration)
+        public UserProfileController(
+            UserService userService,
+            ReservationService reservationService,
+            TicketGeneration ticketGeneration,
+            EmailService emailService) // Ініціалізація сервісу email
         {
             _userService = userService;
             _reservationService = reservationService;
-            _ticketGeneration = ticketGeneration; // Ініціалізація сервісу квитків
+            _ticketGeneration = ticketGeneration;
+            _emailService = emailService;
         }
 
         // GET: UserProfile
@@ -124,7 +131,6 @@ namespace MVC_Cinema_app.Controllers
                 return NotFound();
             }
 
-
             var reservation = await _reservationService.GetAsync(reservationId);
             if (reservation == null)
             {
@@ -132,6 +138,13 @@ namespace MVC_Cinema_app.Controllers
             }
 
             await _reservationService.ConfirmReservationAsync(reservation);
+
+            // Після підтвердження бронювання — генеруємо квиток
+            var ticketBytes = _ticketGeneration.GenerateTicket(reservation);
+
+            // Відправка квитка користувачу на email
+            string emailBody = $"Дякуємо за покупку! Ваш квиток на {reservation.Session.MovieName} вже доступний.";
+            await _emailService.SendTicketEmailAsync(user.Email, "Ваш електронний квиток", emailBody, ticketBytes);
 
             return RedirectToAction(nameof(Index));
         }
@@ -145,17 +158,14 @@ namespace MVC_Cinema_app.Controllers
         [HttpGet]
         public async Task<IActionResult> GenerateTicket(int reservationId)
         {
-            // Отримання даних бронювання
             var reservation = await _reservationService.GetAsync(reservationId);
             if (reservation == null)
             {
                 return NotFound();
             }
 
-            // Генерація PDF-квитка через сервіс TicketGeneration
             var ticketBytes = _ticketGeneration.GenerateTicket(reservation);
 
-            // Повернення PDF-файлу користувачеві
             return File(ticketBytes, "application/pdf", $"Ticket_{reservation.Session.Date}_{reservation.Session.Time}.pdf");
         }
 

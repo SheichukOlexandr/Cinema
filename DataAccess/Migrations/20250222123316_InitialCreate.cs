@@ -322,7 +322,12 @@ namespace DataAccess.Migrations
                     { 12, "https://media.themoviedb.org/t/p/w1000_and_h563_face/jYEW5xZkZk2WTrdbMGAPFuBqbDc.jpg", "Тімоті Шаламе, Зендея", "Епічна науково-фантастична сага про боротьбу за виживання.", "Дені Вільньов", 155, 4, 13, "https://uaserial.com/images/serials/66/662c218bd4504886698257.webp", 8.0999999999999996, new DateOnly(2021, 10, 22), 1, "Дюна", "https://youtu.be/Ljzu52GMytk" },
                     { 13, "https://media.themoviedb.org/t/p/w1000_and_h563_face/v8VIkb8XwmM9KilPHLvyNZpEEur.jpg", "Марк Гемілл, Харрісон Форд", "Перший епізод культової космічної саги.", "Джордж Лукас", 121, 8, 10, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/rEpXNtqdiNul8sJa3sUQRIYdVDU.jpg", 8.5999999999999996, new DateOnly(1977, 5, 25), 1, "Зоряні війни: Епізод IV - Нова надія", "https://youtu.be/XsS1yE2f-hE" },
                     { 14, "https://media.themoviedb.org/t/p/w1000_and_h563_face/tlm8UkiQsitc8rSuIAscQDCnP8d.jpg", "Кіану Рівз, Лоренс Фішберн", "Класика наукової фантастики про боротьбу зі штучним інтелектом.", "Лана Вачовскі, Ліллі Вачовскі", 136, 1, 16, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/58748AndVH1DitlTbcbLpKHuSS2.jpg", 8.6999999999999993, new DateOnly(1999, 3, 31), 1, "Матриця", "https://youtu.be/d0XTFAMmhrE" },
-                    { 15, "https://media.themoviedb.org/t/p/w1000_and_h563_face/x2RS3uTcsJJ9IfjNPcgDmukoEcQ.jpg", "Елайджа Вуд, Вігго Мортенсен", "Перша частина епічної трилогії за мотивами творів Толкіна.", "Пітер Джексон", 178, 1, 12, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/yrEZeHgn2Y3F3G4w6qeI22LrZzQ.jpg", 8.8000000000000007, new DateOnly(2001, 12, 19), 1, "Володар перснів: Хранителі Персня", "https://youtu.be/CbYmZOV3G-Q" }
+                    { 15, "https://media.themoviedb.org/t/p/w1000_and_h563_face/x2RS3uTcsJJ9IfjNPcgDmukoEcQ.jpg", "Елайджа Вуд, Вігго Мортенсен", "Перша частина епічної трилогії за мотивами творів Толкіна.", "Пітер Джексон", 178, 1, 12, "https://image.tmdb.org/t/p/w600_and_h900_bestv2/yrEZeHgn2Y3F3G4w6qeI22LrZzQ.jpg", 8.8000000000000007, new DateOnly(2001, 12, 19), 1, "Володар перснів: Хранителі Персня", "https://youtu.be/CbYmZOV3G-Q" },
+                    { 16, "https://image.tmdb.org/t/p/original/9nhjGaFLKtddDPtPaX5EmKqsWdH.jpg", "Майлз Теллер , Аня Тейлор", "З дна ущелини показується зло", "Скотт Деріксон", 129, 1, 16, "https://image.tmdb.org/t/p/original/hIiapyCB7FPTjq3Kar2Bcp2Iu7p.jpg", 7.7999999999999998, new DateOnly(2025, 2, 14), 1, "Ущелина", "https://youtu.be/rUSdnuOLebE" },
+                    { 17, "https://image.tmdb.org/t/p/original/rOMLLMGgDgGG6XeT3P8sUdUb8nl.jpg", "Ліам Нісон, Віра Фарміга", "Агент безпеки намагається врятувати пасажирів рейсу від таємного терориста.", "Джон Мур", 122, 6, 16, "https://image.tmdb.org/t/p/original/33EP1IfG3Np8j8BWSaKpqX9c24I.jpg", 7.5, new DateOnly(2025, 6, 10), 1, "Небезпечний рейс", "https://youtu.be/mLVUgkLT47k" },
+                    { 18, "https://image.tmdb.org/t/p/original/u7AZ5CdT2af8buRjmYCPXNyJssd.jpg", "Джек Блек, Бенедикт Камбербетч", "Група веселих панд рятує світ від злого лиходія.", "Том МакГрат", 95, 3, 6, "https://image.tmdb.org/t/p/original/wtj5JFzYdI4fAJIfM7OkL38ddmp.jpg", 7.9000000000000004, new DateOnly(2025, 8, 2), 1, "Панда патруль", "https://youtu.be/DBqHt6iNKxg" },
+                    { 19, "https://image.tmdb.org/t/p/original/1ulX4rDlS97lbDi929PUrEi507V.jpg", "Аарон Тейлор-Джонсон, Рассел Кроу", "Легендарний мисливець на супергероїв виходить на полювання.", "Дж. С. Чандор", 132, 1, 18, "https://image.tmdb.org/t/p/original/tzWswZ7gL6A8Znw0dFGjnBdsUXW.jpg", 8.0999999999999996, new DateOnly(2025, 10, 15), 1, "Крейвен-мисливець", "https://youtu.be/fjyKbnjlBkQ" },
+                    { 20, "https://image.tmdb.org/t/p/original/vZG7PrX9HmdgL5qfZRjhJsFYEIA.jpg", "Том Харді, Вуді Гаррельсон", "Веном стикається з найнебезпечнішим ворогом у фінальній битві.", "Енді Серкіс", 140, 4, 16, "https://image.tmdb.org/t/p/original/88pz7b8x2ZZ6UuG2LXrEzqP6HCh.jpg", 8.1999999999999993, new DateOnly(2025, 12, 20), 1, "Веном: Останній танець", "https://youtu.be/JkG12Q-AlaI" }
                 });
 
             migrationBuilder.InsertData(
@@ -364,7 +369,12 @@ namespace DataAccess.Migrations
                     { 12, 12, 310.00m },
                     { 13, 13, 320.00m },
                     { 14, 14, 330.00m },
-                    { 15, 15, 340.00m }
+                    { 15, 15, 340.00m },
+                    { 16, 16, 350.00m },
+                    { 17, 17, 360.00m },
+                    { 18, 18, 370.00m },
+                    { 19, 19, 380.00m },
+                    { 20, 20, 390.00m }
                 });
 
             migrationBuilder.InsertData(
@@ -416,7 +426,22 @@ namespace DataAccess.Migrations
                     { 142, new DateOnly(2025, 3, 17), 14, 1, new TimeOnly(16, 0, 0) },
                     { 150, new DateOnly(2025, 3, 16), 15, 1, new TimeOnly(10, 0, 0) },
                     { 151, new DateOnly(2025, 3, 17), 15, 2, new TimeOnly(13, 0, 0) },
-                    { 152, new DateOnly(2025, 3, 18), 15, 1, new TimeOnly(16, 0, 0) }
+                    { 152, new DateOnly(2025, 3, 18), 15, 1, new TimeOnly(16, 0, 0) },
+                    { 160, new DateOnly(2025, 3, 17), 16, 1, new TimeOnly(10, 0, 0) },
+                    { 161, new DateOnly(2025, 3, 18), 16, 2, new TimeOnly(13, 0, 0) },
+                    { 162, new DateOnly(2025, 3, 19), 16, 1, new TimeOnly(16, 0, 0) },
+                    { 170, new DateOnly(2025, 3, 18), 17, 1, new TimeOnly(10, 0, 0) },
+                    { 171, new DateOnly(2025, 3, 19), 17, 2, new TimeOnly(13, 0, 0) },
+                    { 172, new DateOnly(2025, 3, 20), 17, 1, new TimeOnly(16, 0, 0) },
+                    { 180, new DateOnly(2025, 3, 19), 18, 1, new TimeOnly(10, 0, 0) },
+                    { 181, new DateOnly(2025, 3, 20), 18, 2, new TimeOnly(13, 0, 0) },
+                    { 182, new DateOnly(2025, 3, 21), 18, 1, new TimeOnly(16, 0, 0) },
+                    { 190, new DateOnly(2025, 3, 20), 19, 1, new TimeOnly(10, 0, 0) },
+                    { 191, new DateOnly(2025, 3, 21), 19, 2, new TimeOnly(13, 0, 0) },
+                    { 192, new DateOnly(2025, 3, 22), 19, 1, new TimeOnly(16, 0, 0) },
+                    { 200, new DateOnly(2025, 3, 21), 20, 1, new TimeOnly(10, 0, 0) },
+                    { 201, new DateOnly(2025, 3, 22), 20, 2, new TimeOnly(13, 0, 0) },
+                    { 202, new DateOnly(2025, 3, 23), 20, 1, new TimeOnly(16, 0, 0) }
                 });
 
             migrationBuilder.CreateIndex(

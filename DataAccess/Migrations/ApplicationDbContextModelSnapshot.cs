@@ -412,6 +412,91 @@ namespace DataAccess.Migrations
                             StatusId = 1,
                             Title = "Володар перснів: Хранителі Персня",
                             TrailerURL = "https://youtu.be/CbYmZOV3G-Q"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            BannerURL = "https://image.tmdb.org/t/p/original/9nhjGaFLKtddDPtPaX5EmKqsWdH.jpg",
+                            Cast = "Майлз Теллер , Аня Тейлор",
+                            Description = "З дна ущелини показується зло",
+                            Director = "Скотт Деріксон",
+                            Duration = 129,
+                            GenreId = 1,
+                            MinAge = 16,
+                            PosterURL = "https://image.tmdb.org/t/p/original/hIiapyCB7FPTjq3Kar2Bcp2Iu7p.jpg",
+                            Rating = 7.7999999999999998,
+                            ReleaseDate = new DateOnly(2025, 2, 14),
+                            StatusId = 1,
+                            Title = "Ущелина",
+                            TrailerURL = "https://youtu.be/rUSdnuOLebE"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            BannerURL = "https://image.tmdb.org/t/p/original/rOMLLMGgDgGG6XeT3P8sUdUb8nl.jpg",
+                            Cast = "Ліам Нісон, Віра Фарміга",
+                            Description = "Агент безпеки намагається врятувати пасажирів рейсу від таємного терориста.",
+                            Director = "Джон Мур",
+                            Duration = 122,
+                            GenreId = 6,
+                            MinAge = 16,
+                            PosterURL = "https://image.tmdb.org/t/p/original/33EP1IfG3Np8j8BWSaKpqX9c24I.jpg",
+                            Rating = 7.5,
+                            ReleaseDate = new DateOnly(2025, 6, 10),
+                            StatusId = 1,
+                            Title = "Небезпечний рейс",
+                            TrailerURL = "https://youtu.be/mLVUgkLT47k"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            BannerURL = "https://image.tmdb.org/t/p/original/u7AZ5CdT2af8buRjmYCPXNyJssd.jpg",
+                            Cast = "Джек Блек, Бенедикт Камбербетч",
+                            Description = "Група веселих панд рятує світ від злого лиходія.",
+                            Director = "Том МакГрат",
+                            Duration = 95,
+                            GenreId = 3,
+                            MinAge = 6,
+                            PosterURL = "https://image.tmdb.org/t/p/original/wtj5JFzYdI4fAJIfM7OkL38ddmp.jpg",
+                            Rating = 7.9000000000000004,
+                            ReleaseDate = new DateOnly(2025, 8, 2),
+                            StatusId = 1,
+                            Title = "Панда патруль",
+                            TrailerURL = "https://youtu.be/DBqHt6iNKxg"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            BannerURL = "https://image.tmdb.org/t/p/original/1ulX4rDlS97lbDi929PUrEi507V.jpg",
+                            Cast = "Аарон Тейлор-Джонсон, Рассел Кроу",
+                            Description = "Легендарний мисливець на супергероїв виходить на полювання.",
+                            Director = "Дж. С. Чандор",
+                            Duration = 132,
+                            GenreId = 1,
+                            MinAge = 18,
+                            PosterURL = "https://image.tmdb.org/t/p/original/tzWswZ7gL6A8Znw0dFGjnBdsUXW.jpg",
+                            Rating = 8.0999999999999996,
+                            ReleaseDate = new DateOnly(2025, 10, 15),
+                            StatusId = 1,
+                            Title = "Крейвен-мисливець",
+                            TrailerURL = "https://youtu.be/fjyKbnjlBkQ"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            BannerURL = "https://image.tmdb.org/t/p/original/vZG7PrX9HmdgL5qfZRjhJsFYEIA.jpg",
+                            Cast = "Том Харді, Вуді Гаррельсон",
+                            Description = "Веном стикається з найнебезпечнішим ворогом у фінальній битві.",
+                            Director = "Енді Серкіс",
+                            Duration = 140,
+                            GenreId = 4,
+                            MinAge = 16,
+                            PosterURL = "https://image.tmdb.org/t/p/original/88pz7b8x2ZZ6UuG2LXrEzqP6HCh.jpg",
+                            Rating = 8.1999999999999993,
+                            ReleaseDate = new DateOnly(2025, 12, 20),
+                            StatusId = 1,
+                            Title = "Веном: Останній танець",
+                            TrailerURL = "https://youtu.be/JkG12Q-AlaI"
                         });
                 });
 
@@ -525,6 +610,36 @@ namespace DataAccess.Migrations
                             Id = 15,
                             MovieId = 15,
                             Price = 340.00m
+                        },
+                        new
+                        {
+                            Id = 16,
+                            MovieId = 16,
+                            Price = 350.00m
+                        },
+                        new
+                        {
+                            Id = 17,
+                            MovieId = 17,
+                            Price = 360.00m
+                        },
+                        new
+                        {
+                            Id = 18,
+                            MovieId = 18,
+                            Price = 370.00m
+                        },
+                        new
+                        {
+                            Id = 19,
+                            MovieId = 19,
+                            Price = 380.00m
+                        },
+                        new
+                        {
+                            Id = 20,
+                            MovieId = 20,
+                            Price = 390.00m
                         });
                 });
 
@@ -1108,6 +1223,126 @@ namespace DataAccess.Migrations
                             Id = 152,
                             Date = new DateOnly(2025, 3, 18),
                             MoviePriceId = 15,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 160,
+                            Date = new DateOnly(2025, 3, 17),
+                            MoviePriceId = 16,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 161,
+                            Date = new DateOnly(2025, 3, 18),
+                            MoviePriceId = 16,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 162,
+                            Date = new DateOnly(2025, 3, 19),
+                            MoviePriceId = 16,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 170,
+                            Date = new DateOnly(2025, 3, 18),
+                            MoviePriceId = 17,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 171,
+                            Date = new DateOnly(2025, 3, 19),
+                            MoviePriceId = 17,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 172,
+                            Date = new DateOnly(2025, 3, 20),
+                            MoviePriceId = 17,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 180,
+                            Date = new DateOnly(2025, 3, 19),
+                            MoviePriceId = 18,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 181,
+                            Date = new DateOnly(2025, 3, 20),
+                            MoviePriceId = 18,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 182,
+                            Date = new DateOnly(2025, 3, 21),
+                            MoviePriceId = 18,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 190,
+                            Date = new DateOnly(2025, 3, 20),
+                            MoviePriceId = 19,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 191,
+                            Date = new DateOnly(2025, 3, 21),
+                            MoviePriceId = 19,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 192,
+                            Date = new DateOnly(2025, 3, 22),
+                            MoviePriceId = 19,
+                            RoomId = 1,
+                            Time = new TimeOnly(16, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 200,
+                            Date = new DateOnly(2025, 3, 21),
+                            MoviePriceId = 20,
+                            RoomId = 1,
+                            Time = new TimeOnly(10, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 201,
+                            Date = new DateOnly(2025, 3, 22),
+                            MoviePriceId = 20,
+                            RoomId = 2,
+                            Time = new TimeOnly(13, 0, 0)
+                        },
+                        new
+                        {
+                            Id = 202,
+                            Date = new DateOnly(2025, 3, 23),
+                            MoviePriceId = 20,
                             RoomId = 1,
                             Time = new TimeOnly(16, 0, 0)
                         });

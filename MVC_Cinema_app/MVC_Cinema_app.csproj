@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="MailKit" Version="4.10.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.TagHelpers" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.3.0" />
